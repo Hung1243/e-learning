@@ -72,11 +72,11 @@ const ViewCourse = () => {
                   className="rounded-t-lg object-cover w-full h-full transition ease-in-out delay-150 cursor-pointer hover:scale-125 duration-300"
                 />
                 <div className="categ flex gap-4 absolute top-0 m-3">
-                  <span className="text-[14px] bg-blue-700 p-1 px-3 text-white rounded-[5px] shadow-md">
-                    Finance
-                  </span>
+                  {/* <span className="text-[14px] bg-blue-700 p-1 px-3 text-white rounded-[5px] shadow-md">
+                    {item.danhMucKhoaHoc.maDanhMucKhoahoc}
+                  </span> */}
                   <span className="text-[14px] bg-pink-700 p-1 px-3 text-white rounded-[5px] shadow-md">
-                    Lifestyle
+                    {item.danhMucKhoaHoc.tenDanhMucKhoaHoc}
                   </span>
                 </div>
               </div>
@@ -91,9 +91,10 @@ const ViewCourse = () => {
                     <span className="text-[14px] ml-2"> 4.50(1k+)</span>
                   </div>
                 </div>
-                <h3 className="text-black my-4 font-medium h-10">
+                <h3 className="text-black mt-4 font-medium h-8">
                   {item.tenKhoaHoc}
                 </h3>
+                <p className="mb-4 line-clamp-1">{item.moTa}</p>
                 <div className="user flex items-center">
                   <img
                     className="rounded-full w-[50px]"
@@ -111,7 +112,7 @@ const ViewCourse = () => {
                 className="flex items-center justify-between border-t border-gray-200 p-3"
               >
                 <span className="text-sm text-primary">400,000</span>
-                <NavLink className="text-[14px] ml-2 flex items-center">
+                <NavLink to={`/course/${item.maKhoaHoc}`} className="text-[14px] ml-2 flex items-center">
                   Know Details <HiOutlineArrowNarrowRight />
                 </NavLink>
               </div>

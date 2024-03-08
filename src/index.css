@@ -16,3 +16,249 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+/*********************************
+ Course
+*********************************/
+
+.course_title
+{
+	font-size: 36px;
+	font-weight: 700;
+	color: #384158;
+}
+
+.course_info
+{
+	width: 100%;
+	height: 92px;
+	margin-top: 68px;
+	background: #f2f4f5;
+}
+.course_info_item
+{
+	width: 33.33333333%;
+	padding-left: 30px;
+}
+.course_info_item:not(:last-child)::after
+{
+	display: block;
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 1px;
+	height: 100%;
+	background: #d9dbdc;
+	content: '';
+}
+.course_info_title
+{
+	font-family: 'Roboto Slab', serif;
+	font-size: 18px;
+	font-weight: 700;
+	color: #384158;
+}
+.course_info_text
+{
+	margin-top: 8px;
+}
+.course_info_text a
+{
+	font-size: 14px;
+	color: #384158;
+	-webkit-transition: all 200ms ease;
+	-moz-transition: all 200ms ease;
+	-ms-transition: all 200ms ease;
+	-o-transition: all 200ms ease;
+	transition: all 200ms ease;
+}
+.course_info_text a:hover
+{
+	color: #14bdee;
+}
+.rating_r
+{
+	margin-top: 7px;
+}
+
+
+.course_image
+{
+	margin-top: 21px;
+	width: 100%;
+}
+.course_image img
+{
+	max-width: 100%;
+}
+
+
+/*********************************
+ Sidebar
+*********************************/
+
+.sidebar
+{
+	width: 100%;
+	padding-left: 40px;
+	padding-top: 120px;
+}
+.sidebar_section:not(:last-child)
+{
+	margin-bottom: 60px;
+}
+.sidebar_section_title
+{
+	font-family: 'Roboto Slab', serif;
+	font-size: 24px;
+	font-weight: 700;
+	color: #384158;
+	line-height: 0.75;
+}
+.sidebar_feature
+{
+	margin-top: 33px;
+}
+.course_price
+{
+	font-family: 'Roboto Slab', serif;
+	font-size: 24px;
+	font-weight: 400;
+	color: #14bdee;
+}
+.feature_list
+{
+	margin-top: 16px;
+}
+.feature:not(:last-child)
+{
+	margin-bottom: 21px;
+}
+.feature_title
+{
+	padding-left: 31px;
+}
+
+.sidebar_teacher
+{
+	margin-top: 40px;
+}
+.teacher_image
+{
+	width: 102px;
+	height: 102px;
+}
+.teacher_image img
+{
+	max-width: 100%;
+}
+.teacher_title
+{
+	padding-left: 35px;
+}
+.teacher_position
+{
+	font-size: 14px;
+	color: #76777a;
+	margin-top: 4px;
+}
+.teacher_name a
+{
+	font-family: 'Roboto Slab', serif;
+	font-size: 24px;
+	font-weight: 700;
+	color: #384158;
+	-webkit-transition: all 200ms ease;
+	-moz-transition: all 200ms ease;
+	-ms-transition: all 200ms ease;
+	-o-transition: all 200ms ease;
+	transition: all 200ms ease;
+}
+.teacher_name a:hover
+{
+	color: #14bdee;
+}
+.teacher_meta_container
+{
+	margin-top: 27px;
+}
+.teacher_meta:not(:last-child)
+{
+	margin-bottom: 9px;
+}
+.teacher_meta_title,
+.teacher_meta_text span
+{
+	font-size: 14px;
+	font-weight: 400;
+	color: #76777a;
+}
+.teacher_meta_text span
+{
+	margin-right: 4px;
+}
+.teacher_meta_text i
+{
+	color: #14bdee;
+}
+.teacher_info
+{
+	margin-top: 17px;
+}
+.teacher_info p
+{
+	line-height: 2;
+}
+.sidebar_latest
+{
+	margin-top: 31px;
+}
+.latest:not(:last-child)
+{
+	margin-bottom: 20px;
+}
+.latest_image div
+{
+	width: 90px;
+	height: 74px;
+	border-radius: 3px;
+	overflow: hidden;
+}
+.latest_image div img
+{
+	max-width: 100%;
+}
+.latest_content
+{
+	padding-left: 21px;
+	margin-top: -4px;
+}
+.latest_title a
+{
+	font-family: 'Roboto Slab', serif;
+	font-size: 16px;
+	font-weight: 700;
+	color: #383749;
+	line-height: 1.625;
+	-webkit-transition: all 200ms ease;
+	-moz-transition: all 200ms ease;
+	-ms-transition: all 200ms ease;
+	-o-transition: all 200ms ease;
+	transition: all 200ms ease;
+}
+.latest_title a:hover
+{
+	color: #14bdee;
+}
+.latest_price
+{
+	font-family: 'Roboto Slab', serif;
+	font-size: 14px;
+	font-weight: 700;
+	color: #14bdee;
+	line-height: 0.75;
+	margin-top: 16px;
+}
+
+

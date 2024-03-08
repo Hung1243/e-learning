@@ -1,7 +1,91 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import SideBar from "../../components/ViewCourseDetails/SideBar";
+import api from "../../config/axios";
+import CourseDetailsTab from "../../components/ViewCourseDetails/CourseDetailsTab";
+import { NavLink, useParams } from "react-router-dom";
+import axios from "axios";
+
+
+
 
 const ViewCourseDetail = () => {
-  return <div>ViewCourseDetail</div>;
+  const [courseDetail, setCourseDetail] = useState({});
+  const params = useParams();
+
+  const token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJCb290Y2FtcCA1NyIsIkhldEhhblN0cmluZyI6IjI5LzA2LzIwMjQiLCJIZXRIYW5UaW1lIjoiMTcxOTYxOTIwMDAwMCIsIm5iZiI6MTY4ODkyMjAwMCwiZXhwIjoxNzE5NzY2ODAwfQ.9MKEqdjyd8nN84l6J6hg-XfkLpmaY_aBPozV_TXxusM";
+
+  const fetchCourseDetail = async () => {
+    try {
+      const res = await api.get(`https://elearningnew.cybersoft.edu.vn/api/QuanLyKhoaHoc/LayThongTinKhoaHoc?maKhoaHoc=${params.maKhoaHoc}`, {
+        headers: {
+          TokenCybersoft: token,
+        },
+      });
+      setCourseDetail(res.data);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  }
+
+  useEffect(() => {
+    fetchCourseDetail()
+  }, [params.maKhoaHoc, token])
+
+  return (
+    <div className="course container">
+      <div className="container">
+        <div className="row">
+          {/* <!-- Course --> */}
+          <div className="col-lg-8">
+            <div className="course_container">
+              <div className="course_title">{courseDetail.tenKhoaHoc}</div>
+              <div className="course_info d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start">
+                {/* <!-- Course Info Item --> */}
+                <div className="course_info_item">
+                  <div className="course_info_title">Teacher:</div>
+                  <div className="course_info_text">
+                    <NavLink to="#">{courseDetail.nguoiTao?.hoTen}</NavLink>
+                  </div>
+                </div>
+
+                {/* <!-- Course Info Item --> */}
+                <div className="course_info_item">
+                  <div className="course_info_title">Reviews:</div>
+                  <div className="rating_r rating_r_4">
+                    <i className="fa fa-star"></i>
+                    <i className="fa fa-star"></i>
+                    <i className="fa fa-star"></i>
+                    <i className="fa fa-star"></i>
+                    <i className="fa fa-star-half-alt"></i>
+                  </div>
+                </div>
+
+                {/* <!-- Course Info Item --> */}
+                <div className="course_info_item">
+                  <div className="course_info_title">Categories:</div>
+                  <div className="course_info_text">
+                    <NavLink href="#">Languages</NavLink>
+                  </div>
+                </div>
+              </div>
+
+              {/* <!-- Course Image --> */}
+              <div className="course_image">
+                <img src="images/course_image.jpg" alt="..." />
+              </div>
+
+              <CourseDetailsTab />
+
+            </div>
+          </div>
+
+          <SideBar />
+
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default ViewCourseDetail;
