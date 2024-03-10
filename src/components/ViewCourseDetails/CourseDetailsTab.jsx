@@ -1,51 +1,56 @@
-import { Collapse } from 'antd';
+import { Collapse, Rate } from 'antd';
 import React from "react";
+
 
 const items = [
     {
         key: '1',
-        label: <p> <i class="fa fa-bookmark"></i> MỤC 1: GIỚI THIỆU </p>,
+        label: <p> <i className="fa fa-bookmark"></i> MỤC 1: GIỚI THIỆU </p>,
         children: <div>
             <ul>
-                <li> <i class="fa fa-file-alt"></i> Các khái niệm về React Component
+                <li> <i className="fa fa-file-alt"></i> Các khái niệm về React Component
                 </li>
-                <li><i class="fa fa-file-alt"></i> Thiết lập môi trường cho Windows </li>
-                <li><i class="fa fa-file-alt"></i> Tạo ứng dụng React - React-Scripts </li>
-                <li><i class="fa fa-file-alt"></i> Ghi chú nhanh về dấu ngoặc kép cho string interpolation
+                <li><i className="fa fa-file-alt"></i> Thiết lập môi trường cho Windows </li>
+                <li><i className="fa fa-file-alt"></i> Tạo ứng dụng React - React-Scripts </li>
+                <li><i className="fa fa-file-alt"></i> Ghi chú nhanh về dấu ngoặc kép cho string interpolation
                 </li>
             </ul>
         </div>,
     },
     {
         key: '2',
-        label: <p> <i class="fa fa-bookmark"></i> MỤC 2: KIẾN THỨC CĂN BẢN </p>,
+        label: <p> <i className="fa fa-bookmark"></i> MỤC 2: KIẾN THỨC CĂN BẢN </p>,
         children: <ul>
-            <li> <i class="fa fa-file-alt"></i> Trang chủ và thành phần thư mục
+            <li> <i className="fa fa-file-alt"></i> Trang chủ và thành phần thư mục
             </li>
-            <li><i class="fa fa-file-alt"></i> Hướng dẫn khóa học + Liên kết Github
+            <li><i className="fa fa-file-alt"></i> Hướng dẫn khóa học + Liên kết Github
             </li>
-            <li><i class="fa fa-file-alt"></i> Tạo ứng dụng React - React-Scripts Trang chủ thương mại điện tử + thiết lập SASS
+            <li><i className="fa fa-file-alt"></i> Tạo ứng dụng React - React-Scripts Trang chủ thương mại điện tử + thiết lập SASS
             </li>
-            <li><i class="fa fa-file-alt"></i> Tệp CSS và SCSS
+            <li><i className="fa fa-file-alt"></i> Tệp CSS và SCSS
             </li>
-            <li><i class="fa fa-file-alt"></i> React 17: Cập nhật các gói + Phiên bản React mới nhất
+            <li><i className="fa fa-file-alt"></i> React 17: Cập nhật các gói + Phiên bản React mới nhất
             </li>
         </ul>,
     },
     {
         key: '3',
-        label: <p> <i class="fa fa-bookmark"></i> MỤC 3: KIẾN THỨC CHUYÊN SÂU</p>,
-        children: <p>123444</p>,
+        label: <p> <i className="fa fa-bookmark"></i> MỤC 3: KIẾN THỨC CHUYÊN SÂU</p>,
+        children: <ul>
+            <li><i className="fa fa-file-alt"></i> connect() and mapStateToProps</li>
+            <li><i className="fa fa-file-alt"></i> Trạng thái thư mục vào Redux</li>
+            <li><i className="fa fa-file-alt"></i> Thành phần Tổng quan về Bộ sưu tập</li>
+        </ul>,
     },
 ];
 const CourseDetailsTab = () => {
 
     return (
         <div>
-            <ul class="nav nav-tabs" id="myTab" role="tablist">
-                <li class="nav-item" role="presentation">
+            <ul className="nav nav-tabs" id="myTab" role="tablist">
+                <li className="nav-item" role="presentation">
                     <button
-                        class="nav-link active"
+                        className="nav-link active"
                         id="home-tab"
                         data-bs-toggle="tab"
                         data-bs-target="#home-tab-pane"
@@ -57,9 +62,9 @@ const CourseDetailsTab = () => {
                         MÔ TẢ
                     </button>
                 </li>
-                <li class="nav-item" role="presentation">
+                <li className="nav-item" role="presentation">
                     <button
-                        class="nav-link"
+                        className="nav-link"
                         id="profile-tab"
                         data-bs-toggle="tab"
                         data-bs-target="#profile-tab-pane"
@@ -71,9 +76,9 @@ const CourseDetailsTab = () => {
                         NHỮNG GÌ BẠN SẼ HỌC
                     </button>
                 </li>
-                <li class="nav-item" role="presentation">
+                <li className="nav-item" role="presentation">
                     <button
-                        class="nav-link"
+                        className="nav-link"
                         id="contact-tab"
                         data-bs-toggle="tab"
                         data-bs-target="#contact-tab-pane"
@@ -85,9 +90,9 @@ const CourseDetailsTab = () => {
                         CHƯƠNG TRÌNH GIẢNG DẠY
                     </button>
                 </li>
-                <li class="nav-item" role="presentation">
+                <li className="nav-item" role="presentation">
                     <button
-                        class="nav-link"
+                        className="nav-link"
                         id="review-tab"
                         data-bs-toggle="tab"
                         data-bs-target="#review-tab-pane"
@@ -100,9 +105,9 @@ const CourseDetailsTab = () => {
                     </button>
                 </li>
             </ul>
-            <div class="tab-content" id="myTabContent">
+            <div className="tab-content" id="myTabContent">
                 <div
-                    class="tab-pane fade show active"
+                    className="tab-pane fade show active"
                     id="home-tab-pane"
                     role="tabpanel"
                     aria-labelledby="home-tab"
@@ -113,7 +118,7 @@ const CourseDetailsTab = () => {
 
                 </div>
                 <div
-                    class="tab-pane fade"
+                    className="tab-pane fade"
                     id="profile-tab-pane"
                     role="tabpanel"
                     aria-labelledby="profile-tab"
@@ -133,7 +138,7 @@ const CourseDetailsTab = () => {
                     </li>
                 </div>
                 <div
-                    class="tab-pane fade"
+                    className="tab-pane fade"
                     id="contact-tab-pane"
                     role="tabpanel"
                     aria-labelledby="contact-tab"
@@ -142,13 +147,100 @@ const CourseDetailsTab = () => {
                     <Collapse accordion items={items} />
                 </div>
                 <div
-                    class="tab-pane fade"
+                    className="tab-pane fade"
                     id="review-tab-pane"
                     role="tabpanel"
                     aria-labelledby="review-tab"
                     tabindex="0"
                 >
-                    ...
+                    <div >
+
+                        <div className="review_rating_container row">
+                            <div className="review_rating col-lg-4 col-md-12">
+                                <h3>COURSE REVIEWS</h3>
+                                <div className="review_rating_num">4.5</div>
+                                <div className="review_rating_stars">
+                                    <Rate />
+                                </div>
+                                <div className="review_rating_text">(28 Ratings)</div>
+                            </div>
+                            <div className="review_rating_bars col-lg-8 col-md-12">
+                                <ul>
+                                    <li><span>5 Star</span><div className="bg-secondary review_rating_bar"><div style={{ width: '90%', height: '30px' }} className='bg-danger'></div></div></li>
+                                    <li><span>4 Star</span><div className="review_rating_bar"><div style={{ width: '75%' }}></div></div></li>
+                                    <li><span>3 Star</span><div className="review_rating_bar"><div style={{ width: '32%' }}></div></div></li>
+                                    <li><span>2 Star</span><div className="review_rating_bar"><div style={{ width: '10%' }}></div></div></li>
+                                    <li><span>1 Star</span><div className="review_rating_bar"><div style={{ width: '3%' }}></div></div></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <Rate defaultValue={4.5} />
+                        <div className="feedeback">
+                            <h6>Your Feedback</h6>
+                            <textarea name="feedback" className="form-control" cols="10" rows="10"></textarea>
+                            <div className="mt-10 text-right">
+                                <button href="#" className=" btn btn-dark text-right rounded text-white">Submit</button>
+                            </div>
+                        </div>
+                        <div className="comments-area mb-30">
+                            <div className="comment-list">
+                                <div className="single-comment single-reviews justify-content-between d-flex">
+                                    <div className="user justify-content-between d-flex">
+                                        <div className="thumb">
+                                            <img src="https://i.pravatar.cc/50" alt="" srcset="" />
+                                        </div>
+                                        <div className="desc">
+                                            <h5><a href="#">Emilly Blunt</a>
+                                                <Rate disabled defaultValue={2} />
+                                            </h5>
+                                            <p className="comment">
+                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+                                                eiusmod tempor incididunt ut labore et dolore.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="comment-list">
+                                <div className="single-comment single-reviews justify-content-between d-flex">
+                                    <div className="user justify-content-between d-flex">
+                                        <div className="thumb">
+                                            <img src="https://i.pravatar.cc/50" alt="" srcset="" />
+                                        </div>
+                                        <div className="desc">
+                                            <h5><a href="#">Elsie Cunningham</a>
+                                                <Rate disabled defaultValue={2} />
+                                            </h5>
+                                            <p className="comment">
+                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+                                                eiusmod tempor incididunt ut labore et dolore.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="comment-list">
+                                <div className="single-comment single-reviews justify-content-between d-flex">
+                                    <div className="user justify-content-between d-flex">
+                                        <div className="thumb">
+                                            <img src="https://i.pravatar.cc/50" alt="" srcset="" />
+                                        </div>
+                                        <div className="desc">
+                                            <h5><a href="#">Maria Luna</a>
+                                                <Rate disabled defaultValue={2} />
+                                            </h5>
+                                            <p className="comment">
+                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+                                                eiusmod tempor incididunt ut labore et dolore.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
 
                 </div>
             </div>

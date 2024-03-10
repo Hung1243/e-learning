@@ -30,7 +30,7 @@ const ViewCourseDetail = () => {
 
   useEffect(() => {
     fetchCourseDetail()
-  }, [params.maKhoaHoc, token])
+  }, [])
 
   return (
     <div className="course container">
