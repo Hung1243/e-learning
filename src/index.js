@@ -9,7 +9,7 @@ import Register from "./pages/Register";
 import UserManagement from "./pages/admin/UserManagement";
 import CourseManagement from "./pages/admin/CourseManagement";
 import HomeTemplate from "./homeTemplate/HomeTemplate";
-import Home from "./pages/user/Home";
+import Home from "./pages/user/home/Home";
 import ViewCourse from "./pages/user/ViewCourse";
 import ViewCourseDetail from "./pages/user/ViewCourseDetail";
 import MyProfile from "./pages/user/MyProfile";

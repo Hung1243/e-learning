@@ -1,43 +1,33 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import Head from "./Head";
+import "./header.css";
 
 const Header = () => {
   const [click, setClick] = useState(false);
 
   return (
     <>
-      <section className="head">
-        <div className="container flexSB">
-          <div className="logo">
-            <h1>ACADEMIA</h1>
-            <span>ONLINE EDUCATION & LEARNING</span>
-          </div>
-
-          <div className="social">
-            <i className="fab fa-facebook-f icon"></i>
-            <i className="fab fa-instagram icon"></i>
-            <i className="fab fa-twitter icon"></i>
-            <i className="fab fa-youtube icon"></i>
-          </div>
-        </div>
-      </section>
-
+      <Head />
       <header>
-        <nav className="flexSB">
+        <nav className="flexB">
           <ul
-            className={click ? "mobile-nav" : "flexSB fs-5"}
+            className={click ? "mobile-nav" : "flexSB "}
             onClick={() => setClick(false)}
           >
             <li>
               <Link to="/">Home</Link>
             </li>
             <li>
-              <Link to="/course">All Courses</Link>
+              <Link to="/courses">All Courses</Link>
             </li>
             <li>
-              <Link to="/my-profile">My Profile</Link>
+              <Link to="/about">About</Link>
             </li>
-            {/* <li>
+            <li>
+              <Link to="/team">Team</Link>
+            </li>
+            <li>
               <Link to="/pricing">Pricing</Link>
             </li>
             <li>
@@ -45,7 +35,7 @@ const Header = () => {
             </li>
             <li>
               <Link to="/contact">Contact</Link>
-            </li> */}
+            </li>
           </ul>
           <div className="start">
             <div className="button">GET CERTIFICATE</div>

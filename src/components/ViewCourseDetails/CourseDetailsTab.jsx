@@ -5,41 +5,46 @@ import React from "react";
 const items = [
     {
         key: '1',
-        label: <p> <i className="fa fa-bookmark"></i> MỤC 1: GIỚI THIỆU </p>,
+        label: <p> <i className="fa fa-bookmark"></i> SECTION 1: INTRODUCTION </p>,
         children: <div>
             <ul>
-                <li> <i className="fa fa-file-alt"></i> Các khái niệm về React Component
+                <li> <i className="fa fa-file-alt"></i> Concepts of React Components
                 </li>
-                <li><i className="fa fa-file-alt"></i> Thiết lập môi trường cho Windows </li>
-                <li><i className="fa fa-file-alt"></i> Tạo ứng dụng React - React-Scripts </li>
-                <li><i className="fa fa-file-alt"></i> Ghi chú nhanh về dấu ngoặc kép cho string interpolation
+                <li><i className="fa fa-file-alt"></i> Set up the environment for Windows
+                </li>
+                <li><i className="fa fa-file-alt"></i> Create React app - React-Scripts
+                </li>
+                <li><i className="fa fa-file-alt"></i> A quick note about quotes for string interpolation
+
                 </li>
             </ul>
         </div>,
     },
     {
         key: '2',
-        label: <p> <i className="fa fa-bookmark"></i> MỤC 2: KIẾN THỨC CĂN BẢN </p>,
+        label: <p> <i className="fa fa-bookmark"></i> SECTION 2: BASIC KNOWLEDGE </p>,
         children: <ul>
-            <li> <i className="fa fa-file-alt"></i> Trang chủ và thành phần thư mục
+            <li> <i className="fa fa-file-alt"></i>Home page and directory component
+
             </li>
-            <li><i className="fa fa-file-alt"></i> Hướng dẫn khóa học + Liên kết Github
+            <li><i className="fa fa-file-alt"></i> Course Guide + Github Link
             </li>
-            <li><i className="fa fa-file-alt"></i> Tạo ứng dụng React - React-Scripts Trang chủ thương mại điện tử + thiết lập SASS
+            <li><i className="fa fa-file-alt"></i> Create a React app - React-Scripts E-commerce homepage + SASS setup
             </li>
-            <li><i className="fa fa-file-alt"></i> Tệp CSS và SCSS
+            <li><i className="fa fa-file-alt"></i> CSS and SCSS files
             </li>
-            <li><i className="fa fa-file-alt"></i> React 17: Cập nhật các gói + Phiên bản React mới nhất
+            <li><i className="fa fa-file-alt"></i> React 17: Updated packages + Latest React version
+
             </li>
         </ul>,
     },
     {
         key: '3',
-        label: <p> <i className="fa fa-bookmark"></i> MỤC 3: KIẾN THỨC CHUYÊN SÂU</p>,
+        label: <p> <i className="fa fa-bookmark"></i> SECTION 3: SPECIALIZED KNOWLEDGE</p>,
         children: <ul>
             <li><i className="fa fa-file-alt"></i> connect() and mapStateToProps</li>
-            <li><i className="fa fa-file-alt"></i> Trạng thái thư mục vào Redux</li>
-            <li><i className="fa fa-file-alt"></i> Thành phần Tổng quan về Bộ sưu tập</li>
+            <li><i className="fa fa-file-alt"></i> Directory state into Redux</li>
+            <li><i className="fa fa-file-alt"></i> Components Collection Overview</li>
         </ul>,
     },
 ];
@@ -59,7 +64,7 @@ const CourseDetailsTab = () => {
                         aria-controls="home-tab-pane"
                         aria-selected="true"
                     >
-                        MÔ TẢ
+                        DESCRIPTION
                     </button>
                 </li>
                 <li className="nav-item" role="presentation">
@@ -73,7 +78,7 @@ const CourseDetailsTab = () => {
                         aria-controls="profile-tab-pane"
                         aria-selected="false"
                     >
-                        NHỮNG GÌ BẠN SẼ HỌC
+                        WHAT WILL YOU LEARN
                     </button>
                 </li>
                 <li className="nav-item" role="presentation">
@@ -87,7 +92,7 @@ const CourseDetailsTab = () => {
                         aria-controls="contact-tab-pane"
                         aria-selected="false"
                     >
-                        CHƯƠNG TRÌNH GIẢNG DẠY
+                        CURRICULUM
                     </button>
                 </li>
                 <li className="nav-item" role="presentation">
@@ -101,7 +106,7 @@ const CourseDetailsTab = () => {
                         aria-controls="review-tab-pane"
                         aria-selected="false"
                     >
-                        ĐÁNH GIÁ TỪ HỌC VIÊN
+                        REVIEWS
                     </button>
                 </li>
             </ul>
@@ -113,8 +118,7 @@ const CourseDetailsTab = () => {
                     aria-labelledby="home-tab"
                     tabindex="0"
                 >
-                    React.js là thư viện JavaScript phổ biến nhất mà bạn có thể sử dụng và tìm hiểu ngày nay để xây dựng giao diện người dùng hiện đại, phản ứng cho web.Khóa học này dạy bạn về React chuyên sâu, từ cơ bản, từng bước đi sâu vào tất cả các kiến ​​thức cơ bản cốt lõi, khám phá rất nhiều ví dụ và cũng giới thiệu cho bạn các khái niệm nâng cao.Bạn sẽ nhận được tất cả lý thuyết, hàng tấn ví dụ và bản trình diễn, bài tập và bài tập cũng như vô số kiến ​​thức quan trọng bị hầu hết các nguồn khác bỏ qua - sau cùng, có một lý do tại sao khóa học này lại rất lớn! Và trong trường hợp bạn thậm chí không biết tại sao bạn lại muốn học React và bạn chỉ ở đây vì một số quảng cáo hoặc "thuật toán" - đừng lo lắng: ReactJS là một công nghệ quan trọng với tư cách là một nhà phát triển web và trong khóa học này, tôi sẽ cũng giải thích TẠI SAO điều đó lại quan trọng!
-
+                    React.js is the most popular JavaScript library you can use and learn today to build modern, responsive user interfaces for the web. This course teaches you React in-depth, from the basics, Step by step dives into all the core basics, explores lots of examples, and also introduces you to advanced concepts. You'll get all the theory, tons of examples, and a primer. demonstrations, exercises and exercises as well as loads of important knowledge overlooked by most other sources - after all, there's a reason why this course is so great! And in case you don't even know why you want to learn React and you're just here for some ads or "algorithms" - don't worry: ReactJS is an important technology as a developer. web development and in this course I'll also explain WHY it's important!
 
                 </div>
                 <div

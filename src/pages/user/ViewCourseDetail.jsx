@@ -16,21 +16,25 @@ const ViewCourseDetail = () => {
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJCb290Y2FtcCA1NyIsIkhldEhhblN0cmluZyI6IjI5LzA2LzIwMjQiLCJIZXRIYW5UaW1lIjoiMTcxOTYxOTIwMDAwMCIsIm5iZiI6MTY4ODkyMjAwMCwiZXhwIjoxNzE5NzY2ODAwfQ.9MKEqdjyd8nN84l6J6hg-XfkLpmaY_aBPozV_TXxusM";
 
   const fetchCourseDetail = async () => {
+    console.log("maKhoaHoc:", params.maKhoaHoc);
     try {
-      const res = await api.get(`https://elearningnew.cybersoft.edu.vn/api/QuanLyKhoaHoc/LayThongTinKhoaHoc?maKhoaHoc=${params.maKhoaHoc}`, {
+      const res = await axios.get(`https://elearningnew.cybersoft.edu.vn/api/QuanLyKhoaHoc/LayThongTinKhoaHoc?maKhoaHoc=${params.maKhoaHoc}`, {
         headers: {
           TokenCybersoft: token,
         },
       });
-      setCourseDetail(res.data);
+
+      setCourseDetail(res.data.content);
     } catch (error) {
       console.error('Error:', error);
     }
   }
 
+
+
   useEffect(() => {
     fetchCourseDetail()
-  }, [])
+  }, [params.maKhoaHoc])
 
   return (
     <div className="course container">

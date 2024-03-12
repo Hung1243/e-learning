@@ -10,7 +10,7 @@ const ViewCourse = () => {
   const [arrCourse, setArrCourse] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
-  const itemsPerPage = 6;
+  const itemsPerPage = 8;
 
   const getCourseApi = async (page = 1) => {
     try {
@@ -125,6 +125,7 @@ const ViewCourse = () => {
             pageSize={itemsPerPage}
             total={totalItems}
             onChange={handlePageChange}
+
           />
         </div>
       </div>
