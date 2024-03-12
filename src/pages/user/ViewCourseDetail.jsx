@@ -43,7 +43,7 @@ const ViewCourseDetail = () => {
           {/* <!-- Course --> */}
           <div className="col-lg-8">
             <div className="course_container">
-              <div className="course_title">{courseDetail.tenKhoaHoc}</div>
+              <div className="course_title">LẬP TRÌNH NODEJS</div>
               <div className="course_info d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start">
                 {/* <!-- Course Info Item --> */}
                 <div className="course_info_item">
@@ -76,7 +76,7 @@ const ViewCourseDetail = () => {
 
               {/* <!-- Course Image --> */}
               <div className="course_image">
-                <img src="images/course_image.jpg" alt="..." />
+                <img src="https://elearningnew.cybersoft.edu.vn/hinhanh/lap-trinh-nodejs.png" alt="..." />
               </div>
 
               <CourseDetailsTab />

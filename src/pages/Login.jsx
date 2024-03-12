@@ -20,24 +20,24 @@ const Login = () => {
     setIsActive(!isActive);
   };
 
-  // const handleLogin = async (values) => {
-  //   try {
-  //     const response = await api.post("/authentication/login", values);
-  //     localStorage.setItem("token", response.data.token);
-  //     console.log(response.data);
-  //     if (response.data.role === "STUDENT") {
-  //       navigate("/");
-  //     } else if (response.data.role === "TEACHER") {
-  //       navigate("/dashboard/teacher");
-  //     } else {
-  //       navigate("/dashboard/admin");
-  //     }
-  //     dispatch(login(response.data));
-  //   } catch (e) {
-  //     console.log(e);
-  //     toast.error(e.response.data);
-  //   }
-  // };
+  const handleLogin = async (values) => {
+    try {
+      const response = await api.post("/authentication/login", values);
+      localStorage.setItem("token", response.data.token);
+      console.log(response.data);
+      if (response.data.role === "STUDENT") {
+        navigate("/");
+      } else if (response.data.role === "TEACHER") {
+        navigate("/dashboard/teacher");
+      } else {
+        navigate("/dashboard/admin");
+      }
+      dispatch(login(response.data));
+    } catch (e) {
+      console.log(e);
+      toast.error(e.response.data);
+    }
+  };
 
   // const handleLoginGoogle = async () => {
   //   const auth = getAuth();
@@ -98,6 +98,7 @@ const Login = () => {
             <LoginForm
               handleSwitchClick={handleSwitchClick}
               isActive={isActive}
+              handleLogin={handleLogin}
             />
 
             <RegisterForm handleSwitchClick={handleSwitchClick} isActive={isActive} />

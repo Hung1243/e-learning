@@ -1,3 +1,4 @@
+import { Button } from 'antd'
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 
@@ -7,11 +8,11 @@ const LoginForm = ({ handleSwitchClick, isActive }) => {
         <div className={`login form-piece ${isActive ? 'switched' : ''}`}>
             <form className="login-form" >
                 <div className="form-group">
-                    <label htmlFor="loginemail">Email Address</label>
+                    <label htmlFor="name">Username</label>
                     <input
-                        type="email"
-                        name="loginemail"
-                        id="loginemail"
+                        type='text'
+                        name="name"
+                        id="name"
                         required
                     />
                 </div>
@@ -27,7 +28,9 @@ const LoginForm = ({ handleSwitchClick, isActive }) => {
                 </div>
 
                 <div className="CTA">
-                    <input type="submit" value="Login" />
+                    <Button type="primary" htmlType="submit">
+                        Submit
+                    </Button>
                     <NavLink href="#" className="switch" onClick={handleSwitchClick}>
                         I'm New
                     </NavLink>
