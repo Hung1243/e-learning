@@ -44,7 +44,7 @@ const ViewCourseDetail = () => {
                 <div className="course_info_item">
                   <div className="course_info_title">Teacher:</div>
                   <div className="course_info_text">
-                    <NavLink to="#"></NavLink>
+                    <NavLink to="#">DuyNguyen</NavLink>
                   </div>
                 </div>
 
@@ -71,7 +71,7 @@ const ViewCourseDetail = () => {
 
               {/* <!-- Course Image --> */}
               <div className="course_image">
-                <img src={courseDetail.hinhAnh} alt="..." />
+                <img src='https://elearningnew.cybersoft.edu.vn/hinhanh/lap-trinh-nodejs.png' alt="..." />
               </div>
 
               <CourseDetailsTab />
