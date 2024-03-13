@@ -1,55 +1,94 @@
-import { Collapse, Rate } from 'antd';
+import { Collapse, Rate } from "antd";
 import React from "react";
-
 
 const items = [
     {
-        key: '1',
-        label: <p> <i className="fa fa-bookmark"></i> SECTION 1: INTRODUCTION </p>,
-        children: <div>
+        key: "1",
+        label: (
+            <p className="fw-bold">
+                {" "}
+                <i className="fa fa-bookmark"></i> SECTION 1: INTRODUCTION{" "}
+            </p>
+        ),
+        children: (
+            <div>
+                <ul>
+                    <li>
+                        {" "}
+                        <i className="fa fa-file-alt me-2"></i> Concepts of React Components
+                    </li>
+                    <li>
+                        <i className="fa fa-file-alt me-2"></i> Set up the environment for
+                        Windows{" "}
+                    </li>
+                    <li>
+                        <i className="fa fa-file-alt me-2"></i> Create React applications -
+                        React-Scripts{" "}
+                    </li>
+                    <li>
+                        <i className="fa fa-file-alt me-2"></i>A quick note about quotes for
+                        string interpolation
+                    </li>
+                </ul>
+            </div>
+        ),
+    },
+    {
+        key: "2",
+        label: (
+            <p className="fw-bold">
+                {" "}
+                <i className="fa fa-bookmark"></i> SECTION 2: BASIC KNOWLEDGE{" "}
+            </p>
+        ),
+        children: (
             <ul>
-                <li> <i className="fa fa-file-alt"></i> Concepts of React Components
+                <li>
+                    {" "}
+                    <i className="fa fa-file-alt me-2"></i> Home page and directory
+                    component
                 </li>
-                <li><i className="fa fa-file-alt"></i> Set up the environment for Windows
+                <li>
+                    <i className="fa fa-file-alt me-2"></i> Course Guide + Github Link
                 </li>
-                <li><i className="fa fa-file-alt"></i> Create React app - React-Scripts
+                <li>
+                    <i className="fa fa-file-alt me-2"></i> Create a React app -
+                    React-Scripts E-commerce homepage + SASS setup
                 </li>
-                <li><i className="fa fa-file-alt"></i> A quick note about quotes for string interpolation
-
+                <li>
+                    <i className="fa fa-file-alt me-2"></i> CSS and SCSS files
+                </li>
+                <li>
+                    <i className="fa fa-file-alt me-2"></i> React 17: Updated packages +
+                    Latest React version
                 </li>
             </ul>
-        </div>,
+        ),
     },
     {
-        key: '2',
-        label: <p> <i className="fa fa-bookmark"></i> SECTION 2: BASIC KNOWLEDGE </p>,
-        children: <ul>
-            <li> <i className="fa fa-file-alt"></i>Home page and directory component
-
-            </li>
-            <li><i className="fa fa-file-alt"></i> Course Guide + Github Link
-            </li>
-            <li><i className="fa fa-file-alt"></i> Create a React app - React-Scripts E-commerce homepage + SASS setup
-            </li>
-            <li><i className="fa fa-file-alt"></i> CSS and SCSS files
-            </li>
-            <li><i className="fa fa-file-alt"></i> React 17: Updated packages + Latest React version
-
-            </li>
-        </ul>,
-    },
-    {
-        key: '3',
-        label: <p> <i className="fa fa-bookmark"></i> SECTION 3: SPECIALIZED KNOWLEDGE</p>,
-        children: <ul>
-            <li><i className="fa fa-file-alt"></i> connect() and mapStateToProps</li>
-            <li><i className="fa fa-file-alt"></i> Directory state into Redux</li>
-            <li><i className="fa fa-file-alt"></i> Components Collection Overview</li>
-        </ul>,
+        key: "3",
+        label: (
+            <p className="fw-bold">
+                {" "}
+                <i className="fa fa-bookmark"></i> SECTION 3: SPECIALIZED KNOWLEDGE
+            </p>
+        ),
+        children: (
+            <ul>
+                <li>
+                    <i className="fa fa-file-alt me-2"></i> Connect() and mapStateToProps
+                </li>
+                <li>
+                    <i className="fa fa-file-alt me-2"></i> Directory state into Redux
+                </li>
+                <li>
+                    <i className="fa fa-file-alt me-2"></i> Components Collection Overview
+                </li>
+            </ul>
+        ),
     },
 ];
 const CourseDetailsTab = () => {
-
     return (
         <div>
             <ul className="nav nav-tabs" id="myTab" role="tablist">
@@ -64,7 +103,7 @@ const CourseDetailsTab = () => {
                         aria-controls="home-tab-pane"
                         aria-selected="true"
                     >
-                        DESCRIPTION
+                        DESCRIBLE
                     </button>
                 </li>
                 <li className="nav-item" role="presentation">
@@ -78,7 +117,7 @@ const CourseDetailsTab = () => {
                         aria-controls="profile-tab-pane"
                         aria-selected="false"
                     >
-                        WHAT WILL YOU LEARN
+                        WHAT YOU WILL LEARN
                     </button>
                 </li>
                 <li className="nav-item" role="presentation">
@@ -92,7 +131,7 @@ const CourseDetailsTab = () => {
                         aria-controls="contact-tab-pane"
                         aria-selected="false"
                     >
-                        CURRICULUM
+                        EDUCATION PROGRAM
                     </button>
                 </li>
                 <li className="nav-item" role="presentation">
@@ -106,39 +145,61 @@ const CourseDetailsTab = () => {
                         aria-controls="review-tab-pane"
                         aria-selected="false"
                     >
-                        REVIEWS
+                        REVIEWS FROM STUDENTS
                     </button>
                 </li>
             </ul>
             <div className="tab-content" id="myTabContent">
                 <div
-                    className="tab-pane fade show active"
+                    className="tab-pane fade show active fst-italic"
                     id="home-tab-pane"
                     role="tabpanel"
                     aria-labelledby="home-tab"
                     tabindex="0"
                 >
-                    React.js is the most popular JavaScript library you can use and learn today to build modern, responsive user interfaces for the web. This course teaches you React in-depth, from the basics, Step by step dives into all the core basics, explores lots of examples, and also introduces you to advanced concepts. You'll get all the theory, tons of examples, and a primer. demonstrations, exercises and exercises as well as loads of important knowledge overlooked by most other sources - after all, there's a reason why this course is so great! And in case you don't even know why you want to learn React and you're just here for some ads or "algorithms" - don't worry: ReactJS is an important technology as a developer. web development and in this course I'll also explain WHY it's important!
-
+                    React.js is the most popular JavaScript library you can use and learn
+                    today to build modern, responsive user interfaces for the web. This
+                    course teaches you React in-depth, from the basics, Step by step dives
+                    into all the core basics, explores lots of examples, and also
+                    introduces you to advanced concepts. You'll get all the theory, tons
+                    of examples, and a primer. demonstrations, exercises and exercises as
+                    well as loads of important knowledge overlooked by most other sources
+                    - after all, there's a reason why this course is so great! And in case
+                    you don't even know why you want to learn React and you're just here
+                    for some ads or "algorithms" - don't worry: ReactJS is an important
+                    technology as a developer. web development and in this course I'll
+                    also explain WHY it's important!!
                 </div>
                 <div
-                    className="tab-pane fade"
+                    className="tab-pane fade fst-italic"
                     id="profile-tab-pane"
                     role="tabpanel"
                     aria-labelledby="profile-tab"
                     tabindex="0"
                 >
-                    <li>Xây dựng các ứng dụng web mạnh mẽ, nhanh chóng, thân thiện với người dùng và phản ứng nhanh</li>
-                    <li>Đăng ký công việc được trả lương cao hoặc làm freelancer trong một trong những lĩnh vực được yêu cầu nhiều nhất mà bạn có thể tìm thấy trong web dev ngay bây giờ</li>
-                    <li>Cung cấp trải nghiệm người dùng tuyệt vời bằng cách tận dụng sức mạnh của JavaScript một cách dễ dàng
-                        Tìm hiểu tất cả về React Hooks và React Components</li>
-                    <li>Thông thạo chuỗi công cụ hỗ trợ React, bao gồm cú pháp Javascript NPM, Webpack, Babel và ES6 / ES2015
+                    <li>
+                        Build powerful, fast, user-friendly, and responsive web applications
                     </li>
-                    <li> Nhận ra sức mạnh của việc xây dựng các thành phần có thể kết hợp
+                    <li>
+                        Apply for high paying jobs or work as a freelancer in one of the
+                        most in-demand fields you can find in web dev right now
                     </li>
-                    <li> Hãy là kỹ sư giải thích cách hoạt động của Redux cho mọi người, bởi vì bạn biết rất rõ các nguyên tắc cơ bản
+                    <li>
+                        Provide great user experience by leveraging the power of JavaScript
+                        with ease Learn all about React Hooks and React Components
                     </li>
-                    <li>Nắm vững các khái niệm cơ bản đằng sau việc cấu trúc các ứng dụng Redux
+                    <li>
+                        Proficient in the React power toolchain, including Javascript NPM,
+                        Webpack, Babel, and ES6/ES2015 syntax
+                    </li>
+                    <li> Realize the power of building composable components</li>
+                    <li>
+                        {" "}
+                        Be the engineer who explains how Redux works to everyone, because
+                        you know the fundamentals very well
+                    </li>
+                    <li>
+                        Master the basic concepts behind structuring Redux applications
                     </li>
                 </div>
                 <div
@@ -157,8 +218,7 @@ const CourseDetailsTab = () => {
                     aria-labelledby="review-tab"
                     tabindex="0"
                 >
-                    <div >
-
+                    <div>
                         <div className="review_rating_container row">
                             <div className="review_rating col-lg-4 col-md-12">
                                 <h3>COURSE REVIEWS</h3>
@@ -170,82 +230,162 @@ const CourseDetailsTab = () => {
                             </div>
                             <div className="review_rating_bars col-lg-8 col-md-12">
                                 <ul>
-                                    <li><span>5 Star</span><div className="bg-secondary review_rating_bar"><div style={{ width: '90%', height: '30px' }} className='bg-danger'></div></div></li>
-                                    <li><span>4 Star</span><div className="review_rating_bar"><div style={{ width: '75%' }}></div></div></li>
-                                    <li><span>3 Star</span><div className="review_rating_bar"><div style={{ width: '32%' }}></div></div></li>
-                                    <li><span>2 Star</span><div className="review_rating_bar"><div style={{ width: '10%' }}></div></div></li>
-                                    <li><span>1 Star</span><div className="review_rating_bar"><div style={{ width: '3%' }}></div></div></li>
+                                    <li>
+                                        <span>5 Star</span>
+                                        <div className=".bg-secondary-subtle review_rating_bar">
+                                            <div
+                                                style={{ width: "90%", height: "30px" }}
+                                                className="bg-success"
+                                            ></div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span>4 Star</span>
+                                        <div className=".bg-secondary-subtle review_rating_bar">
+                                            <div
+                                                style={{ width: "75%", height: "30px" }}
+                                                className="bg-success"
+                                            ></div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span>3 Star</span>
+                                        <div className=".bg-secondary-subtle review_rating_bar">
+                                            <div
+                                                style={{ width: "32%", height: "30px" }}
+                                                className="bg-success"
+                                            ></div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span>2 Star</span>
+                                        <div className=".bg-secondary-subtle review_rating_bar">
+                                            <div
+                                                style={{ width: "10%", height: "30px" }}
+                                                className="bg-success"
+                                            ></div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span>1 Star</span>
+                                        <div className=".bg-secondary-subtle review_rating_bar">
+                                            <div
+                                                style={{ width: "3%", height: "30px" }}
+                                                className="bg-success"
+                                            ></div>
+                                        </div>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
                         <Rate defaultValue={4.5} />
                         <div className="feedeback">
                             <h6>Your Feedback</h6>
-                            <textarea name="feedback" className="form-control" cols="10" rows="10"></textarea>
+                            <textarea
+                                name="feedback"
+                                className="form-control"
+                                cols="10"
+                                rows="10"
+                            ></textarea>
                             <div className="mt-10 text-right">
-                                <button href="#" className=" btn btn-dark text-right rounded text-white">Submit</button>
+                                <button
+                                    href="#"
+                                    className=" btn btn-dark text-right rounded text-white"
+                                >
+                                    Submit
+                                </button>
                             </div>
                         </div>
                         <div className="comments-area mb-30">
-                            <div className="comment-list">
-                                <div className="single-comment single-reviews justify-content-between d-flex">
-                                    <div className="user justify-content-between d-flex">
+                            <div className="comment-list ">
+                                <div className="single-comment single-reviews justify-content-between d-flex ">
+                                    <div className="user justify-content-between d-flex shadow  mt-5 mb-2 bg-body-gray rounded p-4">
                                         <div className="thumb">
-                                            <img src="https://i.pravatar.cc/50" alt="" srcset="" />
+                                            <img
+                                                className="me-2"
+                                                src="https://i.pravatar.cc/50"
+                                                alt=""
+                                                srcset=""
+                                            />
                                         </div>
-                                        <div className="desc">
-                                            <h5><a href="#">Emilly Blunt</a>
-                                                <Rate disabled defaultValue={2} />
+                                        <div className="desc ">
+                                            <h5>
+                                                <a href="#">Emilly Blunt</a>
+                                                <Rate
+                                                    style={{ marginLeft: "50px" }}
+                                                    disabled
+                                                    defaultValue={4}
+                                                />
                                             </h5>
                                             <p className="comment">
-                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                                                eiusmod tempor incididunt ut labore et dolore.
+                                                Lorem ipsum dolor sit amet, consectetur adipisicing
+                                                elit, sed do eiusmod tempor incididunt ut labore et
+                                                dolore.
                                             </p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div className="comment-list">
+                            <div className="comment-list ">
                                 <div className="single-comment single-reviews justify-content-between d-flex">
-                                    <div className="user justify-content-between d-flex">
+                                    <div className="user justify-content-between d-flex shadow  mt-5 mb-2 bg-body-gray rounded p-4">
                                         <div className="thumb">
-                                            <img src="https://i.pravatar.cc/50" alt="" srcset="" />
+                                            <img
+                                                className="me-2"
+                                                src="https://i.pravatar.cc/50"
+                                                alt=""
+                                                srcset=""
+                                            />
                                         </div>
                                         <div className="desc">
-                                            <h5><a href="#">Elsie Cunningham</a>
-                                                <Rate disabled defaultValue={2} />
+                                            <h5>
+                                                <a href="#">Elsie Cunningham</a>
+                                                <Rate
+                                                    style={{ marginLeft: "50px" }}
+                                                    disabled
+                                                    defaultValue={4}
+                                                />
                                             </h5>
                                             <p className="comment">
-                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                                                eiusmod tempor incididunt ut labore et dolore.
+                                                Lorem ipsum dolor sit amet, consectetur adipisicing
+                                                elit, sed do eiusmod tempor incididunt ut labore et
+                                                dolore.
                                             </p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div className="comment-list">
-                                <div className="single-comment single-reviews justify-content-between d-flex">
+                            <div className="comment-list ">
+                                <div className="single-comment single-reviews justify-content-between d-flex shadow  mt-5 mb-3 bg-body-gray rounded p-4">
                                     <div className="user justify-content-between d-flex">
                                         <div className="thumb">
-                                            <img src="https://i.pravatar.cc/50" alt="" srcset="" />
+                                            <img
+                                                className="me-2"
+                                                src="https://i.pravatar.cc/50"
+                                                alt=""
+                                                srcset=""
+                                            />
                                         </div>
                                         <div className="desc">
-                                            <h5><a href="#">Maria Luna</a>
-                                                <Rate disabled defaultValue={2} />
+                                            <h5>
+                                                <a href="#">Maria Luna</a>
+                                                <Rate
+                                                    style={{ marginLeft: "50px" }}
+                                                    disabled
+                                                    defaultValue={5}
+                                                />
                                             </h5>
                                             <p className="comment">
-                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                                                eiusmod tempor incididunt ut labore et dolore.
+                                                Lorem ipsum dolor sit amet, consectetur adipisicing
+                                                elit, sed do eiusmod tempor incididunt ut labore et
+                                                dolore.
                                             </p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                     </div>
-
-
                 </div>
             </div>
         </div>

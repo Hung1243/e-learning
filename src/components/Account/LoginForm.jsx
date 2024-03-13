@@ -1,12 +1,19 @@
 import { Button } from 'antd'
+import Input from 'antd/es/input/Input'
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 
-const LoginForm = ({ handleSwitchClick, isActive }) => {
+const LoginForm = ({ handleSwitchClick, isActive, handleLogin }) => {
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        const formData = new FormData(event.target);
+        const values = Object.fromEntries(formData.entries());
+        handleLogin(values);
+    };
 
     return (
         <div className={`login form-piece ${isActive ? 'switched' : ''}`}>
-            <form className="login-form" >
+            <form className="login-form" onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label htmlFor="name">Username</label>
                     <input
@@ -28,9 +35,11 @@ const LoginForm = ({ handleSwitchClick, isActive }) => {
                 </div>
 
                 <div className="CTA">
-                    <Button type="primary" htmlType="submit">
+                    {/* <Button type="primary" htmlType="submit">
                         Submit
-                    </Button>
+                    </Button> */}
+
+                    <input type="submit" value="Login Now" id="submit" />
                     <NavLink href="#" className="switch" onClick={handleSwitchClick}>
                         I'm New
                     </NavLink>

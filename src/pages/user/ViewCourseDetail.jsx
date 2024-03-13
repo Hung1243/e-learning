@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from "react";
 import SideBar from "../../components/ViewCourseDetails/SideBar";
-import api from "../../config/axios";
 import CourseDetailsTab from "../../components/ViewCourseDetails/CourseDetailsTab";
 import { NavLink, useParams } from "react-router-dom";
-import axios from "axios";
-
-
-
+import axios from "axios"; // Import axios if you prefer using it
 
 const ViewCourseDetail = () => {
   const [courseDetail, setCourseDetail] = useState({});
@@ -28,13 +24,12 @@ const ViewCourseDetail = () => {
     } catch (error) {
       console.error('Error:', error);
     }
-  }
-
-
+  };
 
   useEffect(() => {
-    fetchCourseDetail()
-  }, [params.maKhoaHoc])
+    fetchCourseDetail();
+  }, [params.maKhoaHoc]); // Watch for changes in params.maKhoaHoc
+
 
   return (
     <div className="course container">
@@ -49,7 +44,7 @@ const ViewCourseDetail = () => {
                 <div className="course_info_item">
                   <div className="course_info_title">Teacher:</div>
                   <div className="course_info_text">
-                    <NavLink to="#">{courseDetail.nguoiTao?.hoTen}</NavLink>
+                    <NavLink to="#"></NavLink>
                   </div>
                 </div>
 
@@ -69,14 +64,14 @@ const ViewCourseDetail = () => {
                 <div className="course_info_item">
                   <div className="course_info_title">Categories:</div>
                   <div className="course_info_text">
-                    <NavLink href="#">Languages</NavLink>
+                    <NavLink href="#">LẬP TRÌNH BACKEND</NavLink>
                   </div>
                 </div>
               </div>
 
               {/* <!-- Course Image --> */}
               <div className="course_image">
-                <img src="https://elearningnew.cybersoft.edu.vn/hinhanh/lap-trinh-nodejs.png" alt="..." />
+                <img src={courseDetail.hinhAnh} alt="..." />
               </div>
 
               <CourseDetailsTab />

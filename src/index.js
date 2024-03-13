@@ -16,6 +16,10 @@ import MyProfile from "./pages/user/MyProfile";
 import EnrollManagement from "./pages/admin/EnrollManagement";
 import { ToastContainer } from "react-toastify";
 import { persistor, store } from "./redux/store.jsx";
+import { createBrowserHistory } from "history";
+export const history = createBrowserHistory();
+
+
 
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

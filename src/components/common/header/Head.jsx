@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 
 const Head = () => {
   return (
@@ -6,7 +7,7 @@ const Head = () => {
       <section className="head">
         <div className="container flexSB">
           <div className="logo">
-            <h1>ACADEMIA</h1>
+            <NavLink to={'/'}>ACADEMIA</NavLink>
             <span>ONLINE EDUCATION & LEARNING</span>
           </div>
 

@@ -1,252 +1,255 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-import LoginForm from "../components/Account/LoginForm";
-import RegisterForm from "../components/Account/RegisterForm";
-import { toast } from "react-toastify";
-import { useDispatch } from "react-redux";
-import { login } from "../redux/feature/accountSlice";
-// import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-// import { provider } from "../config/firebase";
-import { useNavigate } from "react-router-dom";
-import api from "../config/axios";
-
 
 const Login = () => {
   const [isActive, setIsActive] = useState(false);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const handleSwitchClick = () => {
     setIsActive(!isActive);
   };
 
-  const handleLogin = async (values) => {
-    try {
-      const response = await api.post("/authentication/login", values);
-      localStorage.setItem("token", response.data.token);
-      console.log(response.data);
-      if (response.data.role === "STUDENT") {
-        navigate("/");
-      } else if (response.data.role === "TEACHER") {
-        navigate("/dashboard/teacher");
-      } else {
-        navigate("/dashboard/admin");
-      }
-      dispatch(login(response.data));
-    } catch (e) {
-      console.log(e);
-      toast.error(e.response.data);
-    }
-  };
+  return <div className="container">
+    <section id="formHolder">
+      <div className="row w-75 mx-auto">
+        {/* <!-- Brand Box --> */}
+        <div className="col-sm-6 brand">
+          <NavLink to="/" className="logo">
+            AH <span>.</span>
+          </NavLink>
 
-  // const handleLoginGoogle = async () => {
-  //   const auth = getAuth();
-  //   signInWithPopup(auth, provider)
-  //     .then(async (result) => {
-  //       console.log(result.user.accessToken);
-  //       const response = await api.post("/authentication/loginGoogle", {
-  //         token: result.user.accessToken,
-  //       });
-  //       localStorage.setItem("token", response.data.token);
-  //       console.log(response.data);
-  //       if (response.data.role === "TEACHER") {
-  //         navigate("/dashboard/teacher");
-  //       } else if (response.data.role === "STUDENT") {
-  //         navigate("/");
-  //       } else {
-  //         navigate("/dashboard/admin");
-  //       }
-  //       dispatch(login(response.data));
-  //     })
-  //     .catch((error) => {
-  //       // Handle Errors here.
-  //       const errorCode = error.code;
-  //       const errorMessage = error.message;
-  //       // The email of the user's account used.
-  //       const email = error.customData.email;
-  //       // The AuthCredential type that was used.
-  //       const credential = GoogleAuthProvider.credentialFromError(error);
-  //       // ...
-  //     });
-  // };
-
-  return (
-    <div className="container">
-      <section id="formHolder">
-        <div className="row w-75 mx-auto">
-          {/* <!-- Brand Box --> */}
-          <div className="col-sm-6 brand">
-            <NavLink href="#" className="logo">
-              MR <span>.</span>
-            </NavLink>
-
-            <div className="heading">
-              <h2>CYBERSOFT</h2>
-              <p>Your Right Choice</p>
-            </div>
-
-            <div className="success-msg">
-              <p>Great! You are one of our members now</p>
-              <NavLink href="#" className="profile">
-                Your Profile
-              </NavLink>
-            </div>
+          <div className="heading">
+            <h2 className=" fs-1">E-LEARNING</h2>
+            <p>Your Right Choice</p>
           </div>
 
-          {/* <!-- Form Box --> */}
-          <div className="col-sm-6 form">
-            <LoginForm
-              handleSwitchClick={handleSwitchClick}
-              isActive={isActive}
-              handleLogin={handleLogin}
-            />
-
-            <RegisterForm handleSwitchClick={handleSwitchClick} isActive={isActive} />
+          <div className="success-msg">
+            <p>Great! You are one of our members now</p>
+            <NavLink href="#" className="profile">
+              Your Profile
+            </NavLink>
           </div>
         </div>
-      </section>
-    </div>
-  );
+
+        {/* <!-- Form Box --> */}
+        <div className="col-sm-6 form">
+          {/* <!-- Login Form --> */}
+          <div className={`login form-piece ${isActive ? 'switched' : ''}`}>
+            <form className="login-form">
+              <div className="form-group">
+                <label htmlFor="loginuser">Username</label>
+                <input
+                  type="email"
+                  name="loginuser"
+                  id="loginuser"
+                  required
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="loginPassword">Password</label>
+                <input
+                  type="password"
+                  name="loginPassword"
+                  id="loginPassword"
+                  required
+                />
+              </div>
+
+              <div className="CTA">
+                <input type="submit" value="Login" />
+                <NavLink href="#" className="switch" onClick={handleSwitchClick}>
+                  I'm New
+                </NavLink>
+              </div>
+            </form>
+          </div>
+          {/* <!-- End Login Form --> */}
+
+          {/* <!-- Signup Form --> */}
+          <div className={`signup form-piece ${isActive ? '' : 'switched'}`}>
+            <form className="signup-form">
+              <div className="form-group">
+                <label htmlFor="name">Full Name</label>
+                <input type="text" name="username" id="name" className="name" />
+                <span className="error"></span>
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="email">Email Address</label>
+                <input
+                  type="email"
+                  name="emailAdress"
+                  id="email"
+                  className="email"
+                />
+                <span className="error"></span>
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="phone">
+                  Phone Number - <small>Optional</small>
+                </label>
+                <input type="text" name="phone" id="phone" />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="password">Password</label>
+                <input
+                  type="password"
+                  name="password"
+                  id="password"
+                  className="pass"
+                />
+                <span className="error"></span>
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="passwordCon">Confirm Password</label>
+                <input
+                  type="password"
+                  name="passwordCon"
+                  id="passwordCon"
+                  className="passConfirm"
+                />
+                <span className="error"></span>
+              </div>
+
+              <div className="CTA">
+                <input type="submit" value="Signup Now" id="submit" />
+                <NavLink href="#" className="switch" onClick={handleSwitchClick}>
+                  I have an account
+                </NavLink>
+              </div>
+            </form>
+          </div>
+          {/* <!-- End Signup Form --> */}
+        </div>
+      </div>
+    </section>
+  </div>
 };
 
 export default Login;
 
 
 
-// import React, { useEffect, useState } from "react";
+
+// import React, { useState } from "react";
 // import { NavLink } from "react-router-dom";
+// import LoginForm from "../components/Account/LoginForm";
+// import RegisterForm from "../components/Account/RegisterForm";
+// import { toast } from "react-toastify";
+// import { useDispatch } from "react-redux";
+// import { login } from "../redux/feature/accountSlice";
+// // import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+// // import { provider } from "../config/firebase";
+// import { useNavigate } from "react-router-dom";
+// import api from "../config/axios";
 
 
 // const Login = () => {
 //   const [isActive, setIsActive] = useState(false);
+//   const dispatch = useDispatch();
+//   const navigate = useNavigate();
 
 //   const handleSwitchClick = () => {
 //     setIsActive(!isActive);
 //   };
 
+//   const handleLogin = async (values) => {
+//     try {
+//       const response = await api.post("/authentication/login", values);
+//       localStorage.setItem("token", response.data.token);
+//       console.log(response.data);
+//       if (response.data.role === "STUDENT") {
+//         navigate("/");
+//       } else if (response.data.role === "TEACHER") {
+//         navigate("/dashboard/teacher");
+//       } else {
+//         navigate("/dashboard/admin");
+//       }
+//       dispatch(login(response.data));
+//     } catch (e) {
+//       console.log(e);
+//       toast.error(e.response.data);
+//     }
+//   };
 
-//   return <div className="container">
-//     <section id="formHolder">
-//       <div className="row w-75 mx-auto">
-//         {/* <!-- Brand Box --> */}
-//         <div className="col-sm-6 brand">
-//           <NavLink href="#" className="logo">
-//             MR <span>.</span>
-//           </NavLink>
 
-//           <div className="heading">
-//             <h2>CYBERSOFT</h2>
-//             <p>Your Right Choice</p>
-//           </div>
+//   // const handleLoginGoogle = async () => {
+//   //   const auth = getAuth();
+//   //   signInWithPopup(auth, provider)
+//   //     .then(async (result) => {
+//   //       console.log(result.user.accessToken);
+//   //       const response = await api.post("/authentication/loginGoogle", {
+//   //         token: result.user.accessToken,
+//   //       });
+//   //       localStorage.setItem("token", response.data.token);
+//   //       console.log(response.data);
+//   //       if (response.data.role === "TEACHER") {
+//   //         navigate("/dashboard/teacher");
+//   //       } else if (response.data.role === "STUDENT") {
+//   //         navigate("/");
+//   //       } else {
+//   //         navigate("/dashboard/admin");
+//   //       }
+//   //       dispatch(login(response.data));
+//   //     })
+//   //     .catch((error) => {
+//   //       // Handle Errors here.
+//   //       const errorCode = error.code;
+//   //       const errorMessage = error.message;
+//   //       // The email of the user's account used.
+//   //       const email = error.customData.email;
+//   //       // The AuthCredential type that was used.
+//   //       const credential = GoogleAuthProvider.credentialFromError(error);
+//   //       // ...
+//   //     });
+//   // };
 
-//           <div className="success-msg">
-//             <p>Great! You are one of our members now</p>
-//             <NavLink href="#" className="profile">
-//               Your Profile
+//   return (
+//     <div className="container">
+//       <section id="formHolder">
+//         <div className="row w-75 mx-auto">
+//           {/* <!-- Brand Box --> */}
+//           <div className="col-sm-6 brand">
+//             <NavLink href="#" className="logo">
+//               MR <span>.</span>
 //             </NavLink>
+
+//             <div className="heading">
+//               <h2>CYBERSOFT</h2>
+//               <p>Your Right Choice</p>
+//             </div>
+
+//             <div className="success-msg">
+//               <p>Great! You are one of our members now</p>
+//               <NavLink href="#" className="profile">
+//                 Your Profile
+//               </NavLink>
+//             </div>
+//           </div>
+
+//           {/* <!-- Form Box --> */}
+//           <div className="col-sm-6 form">
+//             <LoginForm
+//               handleSwitchClick={handleSwitchClick}
+//               isActive={isActive}
+//               handleLogin={handleLogin}
+//             />
+
+//             <RegisterForm handleSwitchClick={handleSwitchClick} isActive={isActive} />
 //           </div>
 //         </div>
-
-//         {/* <!-- Form Box --> */}
-//         <div className="col-sm-6 form">
-//           {/* <!-- Login Form --> */}
-//           <div className={`login form-piece ${isActive ? 'switched' : ''}`}>
-//             <form className="login-form" action="#" method="post">
-//               <div className="form-group">
-//                 <label htmlFor="loginemail">Email Address</label>
-//                 <input
-//                   type="email"
-//                   name="loginemail"
-//                   id="loginemail"
-//                   required
-//                 />
-//               </div>
-
-//               <div className="form-group">
-//                 <label htmlFor="loginPassword">Password</label>
-//                 <input
-//                   type="password"
-//                   name="loginPassword"
-//                   id="loginPassword"
-//                   required
-//                 />
-//               </div>
-
-//               <div className="CTA">
-//                 <input type="submit" value="Login" />
-//                 <NavLink href="#" className="switch" onClick={handleSwitchClick}>
-//                   I'm New
-//                 </NavLink>
-//               </div>
-//             </form>
-//           </div>
-//           {/* <!-- End Login Form --> */}
-
-//           {/* <!-- Signup Form --> */}
-//           <div className={`signup form-piece ${isActive ? '' : 'switched'}`}>
-//             <form className="signup-form" action="#" method="post">
-//               <div className="form-group">
-//                 <label htmlFor="name">Full Name</label>
-//                 <input type="text" name="username" id="name" className="name" />
-//                 <span className="error"></span>
-//               </div>
-
-//               <div className="form-group">
-//                 <label htmlFor="email">Email Address</label>
-//                 <input
-//                   type="email"
-//                   name="emailAdress"
-//                   id="email"
-//                   className="email"
-//                 />
-//                 <span className="error"></span>
-//               </div>
-
-//               <div className="form-group">
-//                 <label htmlFor="phone">
-//                   Phone Number - <small>Optional</small>
-//                 </label>
-//                 <input type="text" name="phone" id="phone" />
-//               </div>
-
-//               <div className="form-group">
-//                 <label htmlFor="password">Password</label>
-//                 <input
-//                   type="password"
-//                   name="password"
-//                   id="password"
-//                   className="pass"
-//                 />
-//                 <span className="error"></span>
-//               </div>
-
-//               <div className="form-group">
-//                 <label htmlFor="passwordCon">Confirm Password</label>
-//                 <input
-//                   type="password"
-//                   name="passwordCon"
-//                   id="passwordCon"
-//                   className="passConfirm"
-//                 />
-//                 <span className="error"></span>
-//               </div>
-
-//               <div className="CTA">
-//                 <input type="submit" value="Signup Now" id="submit" />
-//                 <NavLink href="#" className="switch" onClick={handleSwitchClick}>
-//                   I have an account
-//                 </NavLink>
-//               </div>
-//             </form>
-//           </div>
-//           {/* <!-- End Signup Form --> */}
-//         </div>
-//       </div>
-//     </section>
-//   </div>
+//       </section>
+//     </div>
+//   );
 // };
 
 // export default Login;
+
+
+
 
 
 // import React from "react";
