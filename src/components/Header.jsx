@@ -34,9 +34,9 @@ const Header = () => {
             <li>
               <Link to="/course">All Courses</Link>
             </li>
-            <li>
+            {/* <li>
               <Link to="/my-profile">My Profile</Link>
-            </li>
+            </li> */}
             <li>
               <Link to="/about">About Us</Link>
             </li>
@@ -44,7 +44,7 @@ const Header = () => {
               <Link to="/journal">Journal</Link>
             </li>
             <li>
-              <Link to="/login">Login</Link>
+              <Link to="/login">Account</Link>
             </li>
           </ul>
           <div className="start">

@@ -39,13 +39,13 @@ const ViewCourseDetail = () => {
           <div className="col-lg-8">
             {courseDetail && (
               <div className="course_container">
-                <div className="course_title">LẬP TRÌNH NODEJS {courseDetail.tenKhoaHoc}</div>
+                <div className="course_title">LẬP TRÌNH NODEJS </div>
                 <div className="course_info d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start">
                   {/* <!-- Course Info Item --> */}
                   <div className="course_info_item">
                     <div className="course_info_title">Teacher:</div>
                     <div className="course_info_text">
-                      <NavLink to="#">DuyNguyen {courseDetail.nguoiTao?.hoTen}</NavLink>
+                      <NavLink to="#">DuyNguyen </NavLink>
                     </div>
                   </div>
 
@@ -73,7 +73,7 @@ const ViewCourseDetail = () => {
                 {/* <!-- Course Image --> */}
                 <div className="course_image">
                   <img src='https://elearningnew.cybersoft.edu.vn/hinhanh/lap-trinh-nodejs.png' alt="..." />
-                  <img src={courseDetail.hinhAnh} alt="" />
+                  {/* <img src={courseDetail.hinhAnh} alt="" /> */}
                 </div>
 
                 <CourseDetailsTab />

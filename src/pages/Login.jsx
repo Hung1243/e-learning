@@ -65,7 +65,6 @@ const Login = () => {
                 <input
                   type="text"
                   name="taiKhoan"
-                  id="loginuser"
                   required
                 />
               </div>
@@ -75,16 +74,19 @@ const Login = () => {
                 <input
                   type="password"
                   name="matKhau"
-                  id="loginPassword"
                   required
                 />
               </div>
 
               <div className="CTA">
                 <input type="submit" value="Login" />
+
                 <NavLink href="#" className="switch" onClick={handleSwitchClick}>
                   I'm New
                 </NavLink>
+
+                <NavLink to={'/my-profile'}> Submit</NavLink>
+
               </div>
             </form>
           </div>
@@ -95,7 +97,7 @@ const Login = () => {
             <form className="signup-form" onSubmit={frmLogin.handleSubmit}>
               <div className="form-group">
                 <label htmlFor="name">Full Name</label>
-                <input type="text" name="username" id="name" className="name" />
+                <input type="text" name="username" className="name" />
                 <span className="error"></span>
               </div>
 
@@ -104,7 +106,6 @@ const Login = () => {
                 <input
                   type="email"
                   name="emailAdress"
-                  id="email"
                   className="email"
                 />
                 <span className="error"></span>
@@ -114,7 +115,7 @@ const Login = () => {
                 <label htmlFor="phone">
                   Phone Number - <small>Optional</small>
                 </label>
-                <input type="text" name="phone" id="phone" />
+                <input type="text" name="phone" />
               </div>
 
               <div className="form-group">
@@ -122,7 +123,6 @@ const Login = () => {
                 <input
                   type="password"
                   name="password"
-                  id="password"
                   className="pass"
                 />
                 <span className="error"></span>
@@ -133,7 +133,6 @@ const Login = () => {
                 <input
                   type="password"
                   name="passwordCon"
-                  id="passwordCon"
                   className="passConfirm"
                 />
                 <span className="error"></span>

@@ -1,6 +1,7 @@
 import React from "react";
 import "./Hero.css";
 import Heading from "../../../../components/common/heading/Heading";
+import { NavLink } from "react-router-dom";
 
 const Hero = () => {
   return (
@@ -21,7 +22,8 @@ const Hero = () => {
                 GET STARTED NOW <i className="fa fa-long-arrow-alt-right"></i>
               </button>
               <button>
-                VIEW COURSE <i className="fa fa-long-arrow-alt-right"></i>
+                <NavLink to={'/course'}> VIEW COURSE</NavLink>
+                <i className="fa fa-long-arrow-alt-right"></i>
               </button>
             </div>
           </div>

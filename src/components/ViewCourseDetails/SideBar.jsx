@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 
 const SideBar = () => {
     return (
@@ -64,6 +65,15 @@ const SideBar = () => {
                             </div>
                         </div>
                     </div>
+
+                </div>
+                <div className="sidebar_section shadow p-3 mb-5 bg-body-gray rounded mt-4 p-4">
+                    <div
+                        className="sidebar_section_title fw-bolder fs-5 text-bg-dark p-3 rounded"
+                        style={{ color: "#FFF" }}
+                    >
+                        <NavLink to={'/login'}>  ENROLL  NOW </NavLink>
+                    </div>
                 </div>
 
                 {/* <!-- Feature --> */}
@@ -84,7 +94,7 @@ const SideBar = () => {
                                     className="teacher_name fw-bolder "
                                     style={{ textTransform: "uppercase" }}
                                 >
-                                    <a href="#">Jacke Masito</a>
+                                    <NavLink to={'#'}>Jacke Masito</NavLink>
                                 </div>
                                 <div className="teacher_position fst-italic">
                                     Marketing & Management
