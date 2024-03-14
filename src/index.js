@@ -13,6 +13,7 @@ import Home from "./pages/user/home/Home";
 import ViewCourse from "./pages/user/ViewCourse";
 import ViewCourseDetail from "./pages/user/ViewCourseDetail";
 import MyProfile from "./pages/user/MyProfile";
+import Blog from "./components/BlogPost/Blog.jsx";
 import EnrollManagement from "./pages/admin/EnrollManagement";
 import { ToastContainer } from "react-toastify";
 import { persistor, store } from "./redux/store.jsx";
@@ -45,6 +46,7 @@ root.render(
             
               <Route path="my-profile" element={<MyProfile />}></Route>
               <Route path="about" element={<About />}></Route>
+              <Route path="journal" element={<Blog />}></Route>
 
            
           </Route>

@@ -807,6 +807,39 @@ section#formHolder {
   footer p a:hover, footer p a:focus:hover {
 	color: #f95959;
   }
+  .newletter {
+	background-color: #1eb2a6;
+	padding: 50px 0;
+	color: #fff;
+  }
+  .newletter .right,
+  .newletter .left {
+	padding-right: 50px;
+  }
+  .newletter h1 {
+	color: #fff;
+	font-size: 30px;
+	font-weight: 500;
+	margin-bottom: 15px;
+  }
+  .newletter .right {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+  }
+  .newletter input {
+	width: 100%;
+	padding: 20px;
+	border: none;
+	outline: none;
+	height: 30px;
+	color: black;
+  }
+  .newletter i {
+	padding: 12px;
+	color: #1eb2a6;
+	background-color: #fff;
+  }
   
   @media (max-width: 768px) {
 	.container {
