@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import SideBar from "../../components/ViewCourseDetails/SideBar";
 import CourseDetailsTab from "../../components/ViewCourseDetails/CourseDetailsTab";
 import { NavLink, useParams } from "react-router-dom";
-import axios from "axios"; // Import axios if you prefer using it
+import axios from "axios";
 
 const ViewCourseDetail = () => {
   const [courseDetail, setCourseDetail] = useState({});
@@ -28,7 +28,7 @@ const ViewCourseDetail = () => {
 
   useEffect(() => {
     fetchCourseDetail();
-  }, [params.maKhoaHoc]); // Watch for changes in params.maKhoaHoc
+  }, [params.maKhoaHoc]);
 
 
   return (
@@ -44,7 +44,7 @@ const ViewCourseDetail = () => {
                 <div className="course_info_item">
                   <div className="course_info_title">Teacher:</div>
                   <div className="course_info_text">
-                    <NavLink to="#">DuyNguyen</NavLink>
+                    <NavLink to="#">DuyNguyen {courseDetail.nguoiTao?.hoTen}</NavLink>
                   </div>
                 </div>
 
@@ -72,6 +72,7 @@ const ViewCourseDetail = () => {
               {/* <!-- Course Image --> */}
               <div className="course_image">
                 <img src='https://elearningnew.cybersoft.edu.vn/hinhanh/lap-trinh-nodejs.png' alt="..." />
+                <img src={courseDetail.hinhAnh} alt="" />
               </div>
 
               <CourseDetailsTab />

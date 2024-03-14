@@ -38,7 +38,7 @@ const Login = () => {
               <div className="form-group">
                 <label htmlFor="loginuser">Username</label>
                 <input
-                  type="email"
+                  type="text"
                   name="loginuser"
                   id="loginuser"
                   required

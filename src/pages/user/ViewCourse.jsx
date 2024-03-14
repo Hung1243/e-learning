@@ -129,6 +129,7 @@ const ViewCourse = () => {
           />
         </div>
       </div>
+
     </section>
   );
 };

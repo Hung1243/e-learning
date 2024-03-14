@@ -330,6 +330,9 @@ footer .last i {
 /*********************************
  Course
 *********************************/
+.courses button {
+	margin: 0;
+}
 
 .course_title
 {

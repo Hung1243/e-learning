@@ -39,7 +39,7 @@ root.render(
             <Route index element={<Home />}></Route>
             <Route path="course">
               <Route path="" element={<ViewCourse />}></Route>
-              <Route path=":id" element={<ViewCourseDetail />}></Route>
+              <Route path=":maKhoaHoc" element={<ViewCourseDetail />}></Route>
             </Route>
             
               <Route path="my-profile" element={<MyProfile />}></Route>
