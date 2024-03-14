@@ -16,7 +16,7 @@ import MyProfile from "./pages/user/MyProfile";
 import EnrollManagement from "./pages/admin/EnrollManagement";
 import { ToastContainer } from "react-toastify";
 import { persistor, store } from "./redux/store.jsx";
-
+import DashBoard from "./components/DashBoard/DashBoard.jsx";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -26,7 +26,7 @@ root.render(
         <Routes>
           <Route path="login" element={<Login />}></Route>
           <Route path="register" element={<Register />}></Route>
-          <Route path="dashboard">
+          <Route path="dashboard" element={<DashBoard />}>
             <Route path="manage-user" element={<UserManagement />}></Route>
             <Route path="manage-course" element={<CourseManagement />}></Route>
             <Route path="manage-enroll" element={<EnrollManagement />}></Route>
