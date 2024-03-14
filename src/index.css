@@ -726,7 +726,7 @@ section#formHolder {
 	font-weight: 400;
 	text-transform: uppercase;
 	font-family: "Montserrat", sans-serif;
-	transform: translateY(40px);
+	transform: translateY(11px);
 	transition: all 0.4s;
 	cursor: text;
 	z-index: -1;

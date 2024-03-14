@@ -1,11 +1,36 @@
-import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { useFormik } from "formik";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { NavLink, useNavigate } from "react-router-dom";
+import { loginApiAction } from "../redux/Reducers/UserReducer";
+import { updateOnOkayAction } from "../redux/Reducers/LogReducer";
 
 const Login = () => {
   const [isActive, setIsActive] = useState(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const handleSwitchClick = () => {
+  const frmLogin = useFormik({
+    initialValues: {
+      taiKhoan: "",
+      matKhau: "",
+    },
+    onSubmit: async (values) => {
+      await dispatch(loginApiAction(values));
+      navigate("/");
+    },
+  });
+
+  useEffect(() => {
+    const action = updateOnOkayAction(frmLogin.handleSubmit);
+    dispatch(action);
+  }, []);
+
+
+  const handleSwitchClick = (e) => {
+    e.preventDefault(); // Prevent default behavior
     setIsActive(!isActive);
+
   };
 
   return <div className="container">
@@ -36,20 +61,20 @@ const Login = () => {
           <div className={`login form-piece ${isActive ? 'switched' : ''}`}>
             <form className="login-form">
               <div className="form-group">
-                <label htmlFor="loginuser">Username</label>
+                <label>Username</label>
                 <input
                   type="text"
-                  name="loginuser"
+                  name="taiKhoan"
                   id="loginuser"
                   required
                 />
               </div>
 
               <div className="form-group">
-                <label htmlFor="loginPassword">Password</label>
+                <label >Password</label>
                 <input
                   type="password"
-                  name="loginPassword"
+                  name="matKhau"
                   id="loginPassword"
                   required
                 />
@@ -67,7 +92,7 @@ const Login = () => {
 
           {/* <!-- Signup Form --> */}
           <div className={`signup form-piece ${isActive ? '' : 'switched'}`}>
-            <form className="signup-form">
+            <form className="signup-form" onSubmit={frmLogin.handleSubmit}>
               <div className="form-group">
                 <label htmlFor="name">Full Name</label>
                 <input type="text" name="username" id="name" className="name" />
