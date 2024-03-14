@@ -8,6 +8,7 @@ import {
 } from "mdb-react-ui-kit";
 import ProfileTab from "../../components/MyProfile Tabs/ProfileTab";
 import CourseTab from "../../components/MyProfile Tabs/CourseTab";
+import ProfileTabHeader from "../../components/MyProfile Tabs/ProfileTabHeader";
 
 const MyProfile = () => {
   const [fillActive, setFillActive] = useState("tab1");
@@ -21,7 +22,8 @@ const MyProfile = () => {
   };
   return (
     <div>
-      <h1>MyProfile</h1>
+      <ProfileTabHeader />
+
       <div className="main-body">
         <nav aria-label="breadcrumb" className="main-breadcrumb">
           <ol className="breadcrumb">

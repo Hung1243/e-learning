@@ -17,6 +17,7 @@ import EnrollManagement from "./pages/admin/EnrollManagement";
 import { ToastContainer } from "react-toastify";
 import { persistor, store } from "./redux/store.jsx";
 import { createBrowserHistory } from "history";
+import About from "./components/AboutUs/About.jsx";
 export const history = createBrowserHistory();
 
 
@@ -43,6 +44,8 @@ root.render(
             </Route>
             
               <Route path="my-profile" element={<MyProfile />}></Route>
+              <Route path="about" element={<About />}></Route>
+
            
           </Route>
         </Routes>

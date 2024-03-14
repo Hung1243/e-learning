@@ -37,15 +37,15 @@ const Header = () => {
             <li>
               <Link to="/my-profile">My Profile</Link>
             </li>
-            {/* <li>
-              <Link to="/pricing">Pricing</Link>
+            <li>
+              <Link to="/about">About Us</Link>
             </li>
             <li>
               <Link to="/journal">Journal</Link>
             </li>
             <li>
-              <Link to="/contact">Contact</Link>
-            </li> */}
+              <Link to="/login">Login</Link>
+            </li>
           </ul>
           <div className="start">
             <div className="button">GET CERTIFICATE</div>
