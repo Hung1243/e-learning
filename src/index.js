@@ -13,16 +13,13 @@ import Home from "./pages/user/home/Home";
 import ViewCourse from "./pages/user/ViewCourse";
 import ViewCourseDetail from "./pages/user/ViewCourseDetail";
 import MyProfile from "./pages/user/MyProfile";
-import Blog from "./components/BlogPost/Blog.jsx";
+// import Blog from "./components/BlogPost/Blog.jsx";
 import EnrollManagement from "./pages/admin/EnrollManagement";
 import { ToastContainer } from "react-toastify";
 import { persistor, store } from "./redux/store.jsx";
 import { createBrowserHistory } from "history";
-import About from "./components/AboutUs/About.jsx";
+// import About from "./components/AboutUs/About.jsx";
 export const history = createBrowserHistory();
-
-
-
 import DashBoard from "./components/DashBoard/DashBoard.jsx";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
