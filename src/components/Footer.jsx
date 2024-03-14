@@ -3,9 +3,21 @@ import React from "react";
 const Footer = () => {
   return (
     <>
+      <section className='newletter'>
+        <div className='row'>
+          <div className='left col-sm-12 col-lg-6'>
+            <h1>Newsletter - Stay tune and get the latest update</h1>
+            <span>Far far away, behind the word mountains</span>
+          </div>
+          <div className='right col-sm-12 col-lg-6 '>
+            <input type="text" placeholder="Enter email address" />
+            <i className="fa fa-paper-plane"></i>
+          </div>
+        </div>
+      </section>
       <footer>
-        <div className="container padding">
-          <div className="box logo">
+        <div className="pt-5 pb-3 row">
+          <div className="box logo col-sm-12 col-lg-3">
             <h1>E-LEARNING</h1>
             <span>ONLINE EDUCATION & LEARNING</span>
             <p>
@@ -17,7 +29,7 @@ const Footer = () => {
             <i className="fab fa-twitter icon"></i>
             <i className="fab fa-instagram icon"></i>
           </div>
-          <div className="box link">
+          <div className="box link col-sm-12 col-lg-3">
             <h3>Explore</h3>
             <ul>
               <li>About Us</li>
@@ -27,7 +39,7 @@ const Footer = () => {
               <li>Contact us</li>
             </ul>
           </div>
-          <div className="box link">
+          <div className="box link col-sm-12 col-lg-3 ">
             <h3>Quick Links</h3>
             <ul>
               <li>Contact Us</li>
@@ -38,7 +50,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          <div className="box last">
+          <div className="box last col-sm-12 col-lg-3 ">
             <h3>Have a Questions?</h3>
             <ul>
               <li>

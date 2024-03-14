@@ -45,8 +45,7 @@ a {
 li {
   list-style-type: none;
 }
-/* .row {
-/* .row {
+.row1 {
   width: 50%;
 }
 button {
@@ -60,7 +59,7 @@ button {
   cursor: pointer;
   box-shadow: 0 24px 36px -11px rgb(0 0 0 / 9%);
   transition: 0.5s;
-} */
+}
 button i {
   margin-left: 20px;
 }
@@ -150,7 +149,7 @@ p {
   grid-gap: 10px;
 }
 .padding {
-  padding: 80px 0;
+  padding: 140px 0;
 }
 .shadow {
   box-shadow: 0 5px 25px -2px rgb(0 0 0 / 6%);
@@ -160,7 +159,7 @@ p {
   .grid2,
   .grid3,
   .grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(1, 1fr);
   }
   .back {
     background-position: center;
@@ -331,6 +330,9 @@ footer .last i {
 /*********************************
  Course
 *********************************/
+.courses button {
+	margin: 0;
+}
 
 .course_title
 {
@@ -724,7 +726,7 @@ section#formHolder {
 	font-weight: 400;
 	text-transform: uppercase;
 	font-family: "Montserrat", sans-serif;
-	transform: translateY(40px);
+	transform: translateY(11px);
 	transition: all 0.4s;
 	cursor: text;
 	z-index: -1;
@@ -804,6 +806,39 @@ section#formHolder {
   }
   footer p a:hover, footer p a:focus:hover {
 	color: #f95959;
+  }
+  .newletter {
+	background-color: #1eb2a6;
+	padding: 50px 0;
+	color: #fff;
+  }
+  .newletter .right,
+  .newletter .left {
+	padding-right: 50px;
+  }
+  .newletter h1 {
+	color: #fff;
+	font-size: 30px;
+	font-weight: 500;
+	margin-bottom: 15px;
+  }
+  .newletter .right {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+  }
+  .newletter input {
+	width: 100%;
+	padding: 20px;
+	border: none;
+	outline: none;
+	height: 30px;
+	color: black;
+  }
+  .newletter i {
+	padding: 12px;
+	color: #1eb2a6;
+	background-color: #fff;
   }
   
   @media (max-width: 768px) {

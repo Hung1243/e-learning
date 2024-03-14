@@ -13,9 +13,16 @@ import Home from "./pages/user/home/Home";
 import ViewCourse from "./pages/user/ViewCourse";
 import ViewCourseDetail from "./pages/user/ViewCourseDetail";
 import MyProfile from "./pages/user/MyProfile";
+import Blog from "./components/BlogPost/Blog.jsx";
 import EnrollManagement from "./pages/admin/EnrollManagement";
 import { ToastContainer } from "react-toastify";
 import { persistor, store } from "./redux/store.jsx";
+import { createBrowserHistory } from "history";
+import About from "./components/AboutUs/About.jsx";
+export const history = createBrowserHistory();
+
+
+
 import DashBoard from "./components/DashBoard/DashBoard.jsx";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -35,9 +42,11 @@ root.render(
             <Route index element={<Home />}></Route>
             <Route path="course">
               <Route path="" element={<ViewCourse />}></Route>
-              <Route path=":id" element={<ViewCourseDetail />}></Route>
+              <Route path=":maKhoaHoc" element={<ViewCourseDetail />}></Route>
             </Route>
-            <Route path="my-profile" element={<MyProfile />}></Route>
+            <Route path="my-profile">
+              <Route path=":id" element={<MyProfile />}></Route>
+            </Route>
           </Route>
         </Routes>
       </BrowserRouter>

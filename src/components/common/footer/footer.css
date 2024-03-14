@@ -5,7 +5,7 @@
 }
 .newletter .right,
 .newletter .left {
-  padding-right: 50px;
+  padding: 0 50px;
 }
 .newletter h1 {
   color: #fff;

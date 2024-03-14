@@ -8,6 +8,7 @@ import {
 } from "mdb-react-ui-kit";
 import ProfileTab from "../../components/MyProfile Tabs/ProfileTab";
 import CourseTab from "../../components/MyProfile Tabs/CourseTab";
+import ProfileTabHeader from "../../components/MyProfile Tabs/ProfileTabHeader";
 
 const MyProfile = () => {
   const [fillActive, setFillActive] = useState("tab1");
@@ -21,10 +22,11 @@ const MyProfile = () => {
   };
   return (
     <div>
-      <h1>MyProfile</h1>
-      <div className="main-body">
+      <ProfileTabHeader />
+
+      <div className="main-body pt-lg-5" >
         <nav aria-label="breadcrumb" className="main-breadcrumb">
-          <ol className="breadcrumb">
+          {/* <ol className="breadcrumb">
             <li className="breadcrumb-item">
               <a href="index.html">Home</a>
             </li>
@@ -34,7 +36,7 @@ const MyProfile = () => {
             <li className="breadcrumb-item active" aria-current="page">
               User Profile
             </li>
-          </ol>
+          </ol> */}
         </nav>
         <div className="row gutters-sm">
           <div className="col-md-4 mb-3">
@@ -48,7 +50,7 @@ const MyProfile = () => {
                     width="150"
                   ></img>
                   <div className="mt-3">
-                    <h4>John Doe</h4>
+                    <h4>Ang</h4>
                     <p className="text-secondary mb-1">Full Stack Developer</p>
                     <p className="text-muted font-size-sm">
                       Bay Area, San Francisco, CA
@@ -182,7 +184,7 @@ const MyProfile = () => {
                   onClick={() => handleFillClick("tab1")}
                   active={fillActive === "tab1"}
                 >
-                  Thông Tin Cá Nhân
+                  PERSONAL INFORMATION
                 </MDBTabsLink>
               </MDBTabsItem>
               <MDBTabsItem>
@@ -190,7 +192,7 @@ const MyProfile = () => {
                   onClick={() => handleFillClick("tab2")}
                   active={fillActive === "tab2"}
                 >
-                  Khóa Học
+                  MY COURSES
                 </MDBTabsLink>
               </MDBTabsItem>
             </MDBTabs>

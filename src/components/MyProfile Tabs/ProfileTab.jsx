@@ -7,19 +7,19 @@ const ProfileTab = () => {
                 <div className="card-body">
                     <div className="row">
                         <div className="col-lg-6 col-sm-12">
-                            <h6 className="mb-3">Họ Và Tên</h6>
+                            <h6 className="mb-3">Name: <span>Ang</span></h6>
                             <hr />
-                            <h6 className="mb-3 mt-3">Email</h6>
+                            <h6 className="mb-3 mt-3">Email: <span>Ang@gmail.com</span></h6>
                             <hr />
-                            <h6 className="mb-2 mt-3">Điện Thoại</h6>
+                            <h6 className="mb-2 mt-3">Phone: <span>7979</span></h6>
                             <hr />
                         </div>
                         <div className="col-lg-6 col-sm-12">
-                            <h6 className="mb-3 mt-3 ">Tài Khoản</h6>
+                            <h6 className="mb-3 ">Account: <span>Ang</span></h6>
                             <hr />
-                            <h6 className="mb-3 mt-3">Nhóm</h6>
+                            <h6 className="mb-3 mt-3">Group: <span>GP01</span></h6>
                             <hr />
-                            <h6 className="mb-2 mt-3">Đối Tượng</h6>
+                            <h6 className="mb-2 mt-3">Position: <span>HV</span></h6>
                             <hr />
                         </div>
                     </div>
@@ -32,7 +32,7 @@ const ProfileTab = () => {
                         <div className="card-body">
                             <h6 className="d-flex align-items-center mb-3">
                                 <i className="material-icons text-info mr-2 text-uppercase fw-bold">
-                                    Kĩ năng của tôi
+                                    ACHIEVED SKILLS
                                 </i>
                             </h6>
                             <small>HTML</small>

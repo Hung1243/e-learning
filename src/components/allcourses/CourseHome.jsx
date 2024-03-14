@@ -1,16 +1,13 @@
-import React from "react"
-import Back from "../common/back/Back"
-import CoursesCard from "./CoursesCard"
-import OnlineCourses from "./OnlineCourses"
+
+import React from "react";
+import Back from "../common/back/Back";
 
 const CourseHome = () => {
   return (
     <>
-      <Back title='Explore Courses' />
-      <CoursesCard />
-      <OnlineCourses />
+      <Back title="Explore Courses" />
     </>
-  )
-}
+  );
+};
 
-export default CourseHome
+export default CourseHome;

@@ -5,6 +5,7 @@ import OnlineCourses from "../../../components/allcourses/OnlineCourses";
 
 import { Space } from "antd";
 import Heading from "../../../components/common/heading/Heading";
+import { NavLink } from "react-router-dom";
 
 const HAbout = ({ coursesData }) => {
   const [validCourses, setValidCourses] = useState(coursesData);
@@ -17,7 +18,7 @@ const HAbout = ({ coursesData }) => {
 
   return (
     <>
-      <section className="homeAbout">
+      <section className="homeAbout pt-4">
         <OnlineCourses coursesData={coursesData} />
         <div className="container">
           <Heading
@@ -45,7 +46,7 @@ const HAbout = ({ coursesData }) => {
                         />
                       </div>
                       <div className="text">
-                        <h1>{val.tenKhoaHoc}</h1>
+                        <h1 className=" line-clamp-2" style={{ minHeight: '90px' }}> <NavLink to={`/course/${val.maKhoaHoc}`} >{val.tenKhoaHoc}</NavLink></h1>
                         <div className="rate">
                           <i className="fa fa-star"></i>
                           <i className="fa fa-star"></i>
@@ -71,7 +72,7 @@ const HAbout = ({ coursesData }) => {
                       </div>
                     </div>
 
-                    <button className="outline-btn">ENROLL NOW !</button>
+                    <button className="outline-btn"> <NavLink to={'/login'}> ENROLL NOW ! </NavLink></button>
                   </div>
                 );
               })}
