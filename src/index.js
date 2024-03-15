@@ -18,9 +18,9 @@ import EnrollManagement from "./pages/admin/EnrollManagement";
 import { ToastContainer } from "react-toastify";
 import { persistor, store } from "./redux/store.jsx";
 import { createBrowserHistory } from "history";
+import DashBoard from "./components/DashBoard/DashBoard.jsx";
 // import About from "./components/AboutUs/About.jsx";
 export const history = createBrowserHistory();
-import DashBoard from "./components/DashBoard/DashBoard.jsx";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
