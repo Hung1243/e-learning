@@ -2,215 +2,285 @@ import React, { useEffect, useState } from "react";
 import {
   Button,
   Col,
+  Flex,
   Form,
   Input,
   Modal,
+  Popconfirm,
   Row,
   Select,
-  Space,
   Table,
-  Tag,
+  Upload,
 } from "antd";
+import { useForm } from "antd/es/form/Form";
 import api from "../../config/axios";
 import { toast } from "react-toastify";
-import { useForm } from "antd/es/form/Form";
+import { PlusOutlined } from "@ant-design/icons";
+const onChange = (value) => {
+  console.log(`selected ${value}`);
+};
+const onSearch = (value) => {
+  console.log("search:", value);
+};
 const columns = [
-  {
-    title: "STT",
-    dataIndex: "index",
-    key: "index",
-    render: (text) => <a>{text}</a>,
-  },
+
   {
     title: "Tài khoản",
     dataIndex: "taiKhoan",
-    key: "taiKhoan",
+    fixed: "left",
   },
   {
-    title: "Mật khẩu",
-    dataIndex: "matKhau",
-    key: "matKhau",
+    title: "Email",
+    dataIndex: "email",
   },
   {
-    title: "Họ và tên",
+    title: "Tên",
     dataIndex: "hoTen",
-    key: "hoTen",
+    fixed: "left",
   },
   {
-    title: "SĐT",
+    title: "Số điện thoại",
     dataIndex: "soDt",
-    key: "soDt",
   },
   {
-    title: "Role",
+    title: "Vai trò",
     dataIndex: "tenLoaiNguoiDung",
-    key: "tenLoaiNguoiDung",
   },
-
   {
-    title: "Action",
-    key: "action",
-    render: (_, record) => (
-      <Space size="middle">
-        <a>Ghi danh</a>
-        <a>Hủy</a>
-      </Space>
+    title: " Edit",
+    fixed: "right",
+    render: () => (
+      <Button type="primary" danger>
+        Sửa
+      </Button>
+    ),
+  },
+  {
+    title: "Delete",
+    render: () => (
+      // <Popconfirm
+      //   title="Are you sure you want to delete this account?"
+      //   onConfirm={() => handleDelete(record.id)}
+      //   onCancel={() => console.log("Cancel")}
+      // >
+      <Button type="primary" danger>
+        Xóa
+      </Button>
+      // </Popconfirm>
     ),
   },
 ];
 
 const UserManagement = () => {
-  const [listUser, setListUser] = useState([]);
   const [open, setOpen] = useState(false);
-  const form = useForm();
-  const [formData, setFormData] = useState({});
-  const getListUserApi = async () => {
+  const [listAccount, setListAccount] = useState([]);
+  const getAccount = async () => {
     const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJCb290Y2FtcCA1NyIsIkhldEhhblN0cmluZyI6IjI5LzA2LzIwMjQiLCJIZXRIYW5UaW1lIjoiMTcxOTYxOTIwMDAwMCIsIm5iZiI6MTY4ODkyMjAwMCwiZXhwIjoxNzE5NzY2ODAwfQ.9MKEqdjyd8nN84l6J6hg-XfkLpmaY_aBPozV_TXxusM"; // Thay 'YOUR_CYBERSOFT_TOKEN' bằng token của bạn
-    const res = await api.get("/QuanLyNguoiDung/TimKiemNguoiDung", {
-      params: {
-        MaNhom: "GP01",
-      },
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJCb290Y2FtcCA1NyIsIkhldEhhblN0cmluZyI6IjI5LzA2LzIwMjQiLCJIZXRIYW5UaW1lIjoiMTcxOTYxOTIwMDAwMCIsIm5iZiI6MTY4ODkyMjAwMCwiZXhwIjoxNzE5NzY2ODAwfQ.9MKEqdjyd8nN84l6J6hg-XfkLpmaY_aBPozV_TXxusM";
+
+    const res = await api.get("QuanLyNguoiDung/TimKiemNguoiDung?MaNhom=GP01", {
       headers: {
         TokenCybersoft: token,
       },
     });
-    setListUser(res.data);
-    console.log(res.data);
+    setListAccount(res.data);
   };
-
   useEffect(() => {
-    getListUserApi();
+    getAccount();
   }, []);
-
-  const createUser = async (values) => {
-    try {
-      const accessToken =
-        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiMTIzNCIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IkdWIiwibmJmIjoxNzEwMzUxMTE1LCJleHAiOjE3MTAzNTQ3MTV9.JwQt3TPo6JES00cB6kcM86RRJJ7cjRXjllUo7ZZHL4E";
-      const cyberSoftToken =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJCb290Y2FtcCA1NyIsIkhldEhhblN0cmluZyI6IjI5LzA2LzIwMjQiLCJIZXRIYW5UaW1lIjoiMTcxOTYxOTIwMDAwMCIsIm5iZiI6MTY4ODkyMjAwMCwiZXhwIjoxNzE5NzY2ODAwfQ.9MKEqdjyd8nN84l6J6hg-XfkLpmaY_aBPozV_TXxus";
-
-      const response = await api.post(
-        "/QuanLyNguoiDung/ThemNguoiDung",
-        {
-          ...formData,
-        },
-        {
-          headers: {
-            Authorization: accessToken,
-            TokenCybersoft: cyberSoftToken,
-          },
-        }
-      );
-      if (response.status === 200) {
-        toast.success("Tạo người dùng thành công");
-      }
-      return response;
-    } catch (error) {
-      console.error(error);
-      toast.error("Tạo người dùng thất bại");
-    }
+  const data = listAccount?.map((item) => {
+    return {
+      key: item.id,
+      email: item.email,
+      // avatar: item.avatar,
+      taiKhoan: item.taiKhoan,
+      hoTen: item.hoTen,
+      soDt: item.soDt,
+      tenLoaiNguoiDung: item.tenLoaiNguoiDung,
+    };
+  });
+  const [form] = useForm();
+  const createAccount = async (values) => {
+    const res = await api.post("/authentication/register", values);
+    form.resetFields();
+    setOpen(false);
+    toast.success("Đã thêm thành công");
+    getAccount();
   };
+  const filterOption = (input, option) =>
+    (option?.label ?? "").toLowerCase().includes(input.toLowerCase());
 
-  const data = listUser.map((user, index) => ({
-    ...user,
-    key: index,
-  }));
-
+  const getBase64 = (file) =>
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
+    });
+  const [previewOpen, setPreviewOpen] = useState(false);
+  const [previewImage, setPreviewImage] = useState("");
+  const [previewTitle, setPreviewTitle] = useState("");
+  const [fileList, setFileList] = useState([]);
+  const handleCancel = () => setPreviewOpen(false);
+  const handlePreview = async (file) => {
+    if (!file.url && !file.preview) {
+      file.preview = await getBase64(file.originFileObj);
+    }
+    setPreviewImage(file.url || file.preview);
+    setPreviewOpen(true);
+    setPreviewTitle(
+      file.name || file.url.substring(file.url.lastIndexOf("/") + 1)
+    );
+  };
+  const handleChange = ({ fileList: newFileList }) => setFileList(newFileList);
+  const uploadButton = (
+    <button
+      style={{
+        border: 0,
+        background: "none",
+      }}
+      type="button"
+    >
+      <PlusOutlined />
+      <div
+        style={{
+          marginTop: 8,
+        }}
+      >
+        Upload
+      </div>
+    </button>
+  );
   return (
-    <div>
-      <Space>
-        {" "}
-        <Button
-          onClick={() => {
-            setOpen(true);
-          }}
-        >
+    <>
+      <Flex gap="small" wrap="wrap">
+        <Button type="primary" onClick={() => setOpen(true)} className="mb-3">
           + Thêm
         </Button>
-      </Space>
-      <Table pagination={{ pageSize: 7 }} columns={columns} dataSource={data} />
+      </Flex>
+      <Table
+        columns={columns}
+        dataSource={data}
+        scroll={{
+          x: 1300,
+        }}
+        pagination={{
+          pageSize: 6,
+        }}
+        bordered
+      />
       <Modal
-        title="Tạo mới người dùng"
+        title="Thêm người dùng"
         centered
-        visible={open}
-        onOk={createUser}
+        open={open}
+        onOk={() => form.submit()}
         onCancel={() => setOpen(false)}
         width={1000}
       >
-        <Form
-          onValuesChange={(changedValues, allValues) => {
-            setFormData(allValues);
-          }}
-        >
+        <Form form={form} labelCol={{ span: 24 }} onFinish={createAccount}>
           <Row gutter={24}>
             <Col span={12}>
               <Form.Item
+                name="username"
                 label="Tài khoản"
-                fieldKey="taiKhoan" // Thay name bằng fieldKey
-                rules={[{ required: true, message: "Vui lòng nhập tài khoản" }]}
+                rules={[{ required: true, message: "Không được để trống" }]}
               >
                 <Input />
               </Form.Item>
+            </Col>{" "}
+            <Col span={12}>
+              {" "}
               <Form.Item
+                name="password"
                 label="Mật khẩu"
-                fieldKey="matKhau" // Thay name bằng fieldKey
-                rules={[{ required: true, message: "Vui lòng nhập mật khẩu" }]}
+                rules={[{ required: true, message: "Không được để trống" }]}
               >
-                <Input.Password />
+                <Input />
               </Form.Item>
+            </Col>
+            <Col span={12}>
+              {" "}
               <Form.Item
-                label="Họ và tên"
-                fieldKey="hoTen" // Thay name bằng fieldKey
-                rules={[{ required: true, message: "Vui lòng nhập họ và tên" }]}
+                name="email"
+                label="Email"
+                rules={[{ required: true, message: "Không được để trống" }]}
               >
                 <Input />
               </Form.Item>
             </Col>
             <Col span={12}>
               <Form.Item
+                name="avatar"
+                label="Ảnh đại diện"
+                rules={[{ required: true, message: "Không được để trống" }]}
+              >
+                <Upload
+                  action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
+                  listType="picture-card"
+                  fileList={fileList}
+                  onPreview={handlePreview}
+                  onChange={handleChange}
+                  maxCount={1}
+                >
+                  {fileList.length >= 8 ? null : uploadButton}
+                </Upload>
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              {" "}
+              <Form.Item
+                name="fullName"
+                label="Họ và tên"
+                rules={[{ required: true, message: "Không được để trống" }]}
+              >
+                <Input />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              {" "}
+              <Form.Item
+                name="phone"
                 label="Số điện thoại"
-                fieldKey="soDT" // Thay name bằng fieldKey
-                rules={[
-                  { required: true, message: "Vui lòng nhập số điện thoại" },
-                ]}
+                rules={[{ required: true, message: "Không được để trống" }]}
               >
                 <Input />
               </Form.Item>
+            </Col>
+            <Col span={12}>
+              {" "}
               <Form.Item
-                label="Mã loại người dùng"
-                fieldKey="maLoaiNguoiDung" // Thay name bằng fieldKey
-                rules={[
-                  {
-                    required: true,
-                    message: "Vui lòng chọn mã loại người dùng",
-                  },
-                ]}
+                name="role"
+                label="Giáo vụ"
+                rules={[{ required: true, message: "Không được để trống" }]}
               >
-                <Select>
-                  <Select.Option value="HV">HV</Select.Option>
-                  <Select.Option value="GV">GV</Select.Option>
-                </Select>
-              </Form.Item>
-              <Form.Item
-                label="Mã nhóm"
-                fieldKey="maNhom" // Thay name bằng fieldKey
-                rules={[{ required: true, message: "Vui lòng nhập mã nhóm" }]}
-              >
-                <Input />
-              </Form.Item>
-              <Form.Item
-                label="Email"
-                fieldKey="email" // Thay name bằng fieldKey
-                rules={[{ required: true, message: "Vui lòng nhập email" }]}
-              >
-                <Input />
+                <Select
+                  showSearch
+                  placeholder="Select a person"
+                  optionFilterProp="children"
+                  onChange={onChange}
+                  onSearch={onSearch}
+                  filterOption={filterOption}
+                  options={[
+                    {
+                      value: "ADMIN",
+                      label: "ADMIN",
+                    },
+                    {
+                      value: "TEACHER",
+                      label: "TEACHER",
+                    },
+                    {
+                      value: "STUDENT",
+                      label: "STUDENT",
+                    },
+                  ]}
+                />
               </Form.Item>
             </Col>
           </Row>
         </Form>
       </Modal>
-    </div>
+    </>
   );
 };
 
