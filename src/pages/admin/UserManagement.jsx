@@ -15,7 +15,7 @@ import {
 import { useForm } from "antd/es/form/Form";
 import api from "../../config/axios";
 import { toast } from "react-toastify";
-import { PlusOutlined } from "@ant-design/icons";
+// import { PlusOutlined } from "@ant-design/icons";
 const onChange = (value) => {
   console.log(`selected ${value}`);
 };
@@ -23,7 +23,6 @@ const onSearch = (value) => {
   console.log("search:", value);
 };
 const columns = [
-
   {
     title: "Tài khoản",
     dataIndex: "taiKhoan",
@@ -101,7 +100,16 @@ const UserManagement = () => {
   });
   const [form] = useForm();
   const createAccount = async (values) => {
-    const res = await api.post("/authentication/register", values);
+    const accessToken = localStorage.getItem("AccessToken");
+
+    const headers = {
+      TokenCybersoft:
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJCb290Y2FtcCA1NyIsIkhldEhhblN0cmluZyI6IjI5LzA2LzIwMjQiLCJIZXRIYW5UaW1lIjoiMTcxOTYxOTIwMDAwMCIsIm5iZiI6MTY4ODkyMjAwMCwiZXhwIjoxNzE5NzY2ODAwfQ.9MKEqdjyd8nN84l6J6hg-XfkLpmaY_aBPozV_TXxusM",
+      Authorization: "Bearer " + accessToken,
+    };
+    const res = await api.post("QuanLyNguoiDung/ThemNguoiDung", values, {
+      headers: headers,
+    });
     form.resetFields();
     setOpen(false);
     toast.success("Đã thêm thành công");
@@ -110,51 +118,14 @@ const UserManagement = () => {
   const filterOption = (input, option) =>
     (option?.label ?? "").toLowerCase().includes(input.toLowerCase());
 
-  const getBase64 = (file) =>
-    new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = (error) => reject(error);
-    });
-  const [previewOpen, setPreviewOpen] = useState(false);
-  const [previewImage, setPreviewImage] = useState("");
-  const [previewTitle, setPreviewTitle] = useState("");
-  const [fileList, setFileList] = useState([]);
-  const handleCancel = () => setPreviewOpen(false);
-  const handlePreview = async (file) => {
-    if (!file.url && !file.preview) {
-      file.preview = await getBase64(file.originFileObj);
-    }
-    setPreviewImage(file.url || file.preview);
-    setPreviewOpen(true);
-    setPreviewTitle(
-      file.name || file.url.substring(file.url.lastIndexOf("/") + 1)
-    );
-  };
-  const handleChange = ({ fileList: newFileList }) => setFileList(newFileList);
-  const uploadButton = (
-    <button
-      style={{
-        border: 0,
-        background: "none",
-      }}
-      type="button"
-    >
-      <PlusOutlined />
-      <div
-        style={{
-          marginTop: 8,
-        }}
-      >
-        Upload
-      </div>
-    </button>
-  );
   return (
-    <>
+    <div className="p-0">
       <Flex gap="small" wrap="wrap">
-        <Button type="primary" onClick={() => setOpen(true)} className="mb-3">
+        <Button
+          type="primary"
+          onClick={() => setOpen(true)}
+          className="bg bg-primary mb-3"
+        >
           + Thêm
         </Button>
       </Flex>
@@ -162,10 +133,10 @@ const UserManagement = () => {
         columns={columns}
         dataSource={data}
         scroll={{
-          x: 1300,
+          x: 1200,
         }}
         pagination={{
-          pageSize: 6,
+          pageSize: 4,
         }}
         bordered
       />
@@ -181,7 +152,7 @@ const UserManagement = () => {
           <Row gutter={24}>
             <Col span={12}>
               <Form.Item
-                name="username"
+                name="taiKhoan"
                 label="Tài khoản"
                 rules={[{ required: true, message: "Không được để trống" }]}
               >
@@ -191,7 +162,7 @@ const UserManagement = () => {
             <Col span={12}>
               {" "}
               <Form.Item
-                name="password"
+                name="matKhau"
                 label="Mật khẩu"
                 rules={[{ required: true, message: "Không được để trống" }]}
               >
@@ -209,27 +180,9 @@ const UserManagement = () => {
               </Form.Item>
             </Col>
             <Col span={12}>
-              <Form.Item
-                name="avatar"
-                label="Ảnh đại diện"
-                rules={[{ required: true, message: "Không được để trống" }]}
-              >
-                <Upload
-                  action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
-                  listType="picture-card"
-                  fileList={fileList}
-                  onPreview={handlePreview}
-                  onChange={handleChange}
-                  maxCount={1}
-                >
-                  {fileList.length >= 8 ? null : uploadButton}
-                </Upload>
-              </Form.Item>
-            </Col>
-            <Col span={12}>
               {" "}
               <Form.Item
-                name="fullName"
+                name="hoTen"
                 label="Họ và tên"
                 rules={[{ required: true, message: "Không được để trống" }]}
               >
@@ -239,7 +192,17 @@ const UserManagement = () => {
             <Col span={12}>
               {" "}
               <Form.Item
-                name="phone"
+                name="maNhom"
+                label="Mã nhóm"
+                rules={[{ required: true, message: "Không được để trống" }]}
+              >
+                <Input />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              {" "}
+              <Form.Item
+                name="soDT"
                 label="Số điện thoại"
                 rules={[{ required: true, message: "Không được để trống" }]}
               >
@@ -249,29 +212,25 @@ const UserManagement = () => {
             <Col span={12}>
               {" "}
               <Form.Item
-                name="role"
+                name="maLoaiNguoiDung"
                 label="Giáo vụ"
                 rules={[{ required: true, message: "Không được để trống" }]}
               >
                 <Select
                   showSearch
-                  placeholder="Select a person"
+                  placeholder="Select a role"
                   optionFilterProp="children"
                   onChange={onChange}
                   onSearch={onSearch}
                   filterOption={filterOption}
                   options={[
                     {
-                      value: "ADMIN",
-                      label: "ADMIN",
+                      value: "HV",
+                      label: "Học viên",
                     },
                     {
-                      value: "TEACHER",
-                      label: "TEACHER",
-                    },
-                    {
-                      value: "STUDENT",
-                      label: "STUDENT",
+                      value: "GV",
+                      label: "Giáo viên",
                     },
                   ]}
                 />
@@ -280,7 +239,7 @@ const UserManagement = () => {
           </Row>
         </Form>
       </Modal>
-    </>
+    </div>
   );
 };
 

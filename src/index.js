@@ -15,10 +15,10 @@ import ViewCourseDetail from "./pages/user/ViewCourseDetail";
 import MyProfile from "./pages/user/MyProfile";
 // import Blog from "./components/BlogPost/Blog.jsx";
 import EnrollManagement from "./pages/admin/EnrollManagement";
-import { ToastContainer } from "react-toastify";
 import { persistor, store } from "./redux/store.jsx";
 import { createBrowserHistory } from "history";
 import DashBoard from "./components/DashBoard/DashBoard.jsx";
+import { ToastContainer } from "react-toastify";
 // import About from "./components/AboutUs/About.jsx";
 export const history = createBrowserHistory();
 
@@ -46,8 +46,8 @@ root.render(
             </Route>
           </Route>
         </Routes>
+        <ToastContainer />
       </BrowserRouter>
-      <ToastContainer />
     </PersistGate>
   </Provider>
 );
