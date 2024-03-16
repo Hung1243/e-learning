@@ -19,7 +19,9 @@ import { persistor, store } from "./redux/store.jsx";
 import { createBrowserHistory } from "history";
 import DashBoard from "./components/DashBoard/DashBoard.jsx";
 import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 // import About from "./components/AboutUs/About.jsx";
+
 export const history = createBrowserHistory();
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

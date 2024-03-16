@@ -9,7 +9,7 @@ const initialState = {
 };
 
 const LogReducer = createSlice({
-    name: 'LogReducer', // Ensure this is a string
+    name: 'LogReducer',
     initialState,
     reducers: {
         handleDrawerAction: (state, action) => {
