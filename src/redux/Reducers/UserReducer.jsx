@@ -38,7 +38,7 @@ const UserReducer = createSlice({
     },
 });
 
-export const { loginAction, logoutSuccess } = UserReducer.actions;
+export const { loginAction, logoutSuccess, getProfileAction } = UserReducer.actions;
 
 export default UserReducer.reducer;
 
@@ -46,12 +46,11 @@ export default UserReducer.reducer;
 export const loginApiAction = (userLogin) => {
     return async (dispatch) => {
         try {
-            // Call the sign-in API endpoint
+
             const res = await http.post("/QuanLyNguoiDung/DangNhap", userLogin);
-            // Assuming the response contains the necessary user data and token
             localStorage.setItem(TOKEN, res.data.accessToken);
             localStorage.setItem(USER_LOGIN, JSON.stringify(res.data));
-            dispatch(loginAction(res.data)); // Pass the entire response
+            dispatch(loginAction(res.data));
         } catch (err) {
             history.push("/login");
             alert("Invalid username or password!");
@@ -62,17 +61,14 @@ export const loginApiAction = (userLogin) => {
 
 // getprofileapi
 
-// export const getProfileApiAction = () => {
-//   return async (dispatch) => {
-//     try {
-//       const res = await http.post("/Users/getProfile");
+export const getProfileApiAction = () => {
+    return async (dispatch) => {
+        try {
+            const res = await http.post("/QuanLyNguoiDung/ThongTinTaiKhoan");
 
-//       // Thêm dispatch cho fetchOrderHistorySuccess để lưu lịch sử đơn hàng vào Redux store
-//       dispatch(fetchOrderHistorySuccess(res.data.content.ordersHistory));
 
-//       // Thay đổi để lưu thông tin người dùng vào Redux store
-//       const action = getProfileAction(res.data.content);
-//       dispatch(action);
-//     } catch (err) {}
-//   };
-// };
+            const action = getProfileAction(res.data.content);
+            dispatch(action);
+        } catch (err) { }
+    };
+};

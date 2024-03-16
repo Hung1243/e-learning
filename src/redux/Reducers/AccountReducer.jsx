@@ -9,7 +9,7 @@ const initialState = {
 };
 
 const AccountReducer = createSlice({
-    name: "DrawerReducer",
+    name: "AccountReducer",
     initialState,
     reducers: {
         handleDrawerAction: (state, action) => {

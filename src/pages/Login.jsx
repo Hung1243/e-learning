@@ -1,9 +1,10 @@
-import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import { loginApiAction } from "../redux/Reducers/UserReducer";
 import { updateOnOkayAction } from "../redux/Reducers/LogReducer";
+import { useFormik } from "formik";
+import * as Yup from 'yup';
 
 const Login = () => {
   const [isActive, setIsActive] = useState(false);
@@ -15,16 +16,58 @@ const Login = () => {
       taiKhoan: "",
       matKhau: "",
     },
+    validationSchema: Yup.object({
+      taiKhoan: Yup.string().required("Username is required"),
+      matKhau: Yup.string().required("Password is required"),
+    }),
     onSubmit: async (values) => {
-      await dispatch(loginApiAction(values));
-      navigate("/");
+      try {
+        await dispatch(loginApiAction(values));
+        navigate("/");
+      } catch (error) {
+        console.error("Login failed:", error);
+        // Handle login error here, e.g., display error message to the user
+      }
     },
   });
 
   useEffect(() => {
     const action = updateOnOkayAction(frmLogin.handleSubmit);
     dispatch(action);
-  }, []);
+  }, [dispatch, frmLogin.handleSubmit]);
+
+  //------------------ End login------------
+
+
+  // const frmRegis = useFormik({
+  //   initialValues: {
+  //     email: "",
+  //     password: "",
+  //     name: "",
+  //     gender: true,
+  //     phone: "",
+  //   },
+  //   onSubmit: async (values) => {
+  //     try {
+  //       const res = await http.post(
+  //         "https://elearningnew.cybersoft.edu.vn/api/QuanLyNguoiDung/DangKy",
+  //         values
+  //       );
+
+  //       console.log("Registration successful:", res.data);
+
+  //       const action = updateOnOkayAction();
+  //       dispatch(action);
+
+  //       // Hiển thị thông báo và chuyển hướng đến trang đăng nhập
+  //       alert("Bạn đã đăng ký thành công!");
+  //       navigate("/login");
+  //     } catch (error) {
+  //       console.error("Registration failed:", error);
+  //     }
+  //   },
+  // });
+
 
 
   const handleSwitchClick = (e) => {
@@ -36,56 +79,57 @@ const Login = () => {
   return <div className="container">
     <section id="formHolder">
       <div className="row w-75 mx-auto">
-        {/* <!-- Brand Box --> */}
         <div className="col-sm-6 brand">
           <NavLink to="/" className="logo">
             AH <span>.</span>
           </NavLink>
-
           <div className="heading">
             <h2 className=" fs-1">E-LEARNING</h2>
             <p>Your Right Choice</p>
           </div>
-
           <div className="success-msg">
             <p>Great! You are one of our members now</p>
-            <NavLink href="#" className="profile">
+            <NavLink to="#" className="profile">
               Your Profile
             </NavLink>
           </div>
         </div>
-
-        {/* <!-- Form Box --> */}
         <div className="col-sm-6 form">
-          {/* <!-- Login Form --> */}
           <div className={`login form-piece ${isActive ? 'switched' : ''}`}>
-            <form className="login-form">
+            <form className="login-form" onSubmit={frmLogin.handleSubmit}>
               <div className="form-group">
                 <label>Username</label>
                 <input
                   type="text"
                   name="taiKhoan"
-                  required
+                  value={frmLogin.values.taiKhoan}
+                  onChange={frmLogin.handleChange}
+                  onBlur={frmLogin.handleBlur}
                 />
+                {frmLogin.touched.taiKhoan && frmLogin.errors.taiKhoan ? (
+                  <div className="error">{frmLogin.errors.taiKhoan}</div>
+                ) : null}
               </div>
-
               <div className="form-group">
-                <label >Password</label>
+                <label>Password</label>
                 <input
                   type="password"
                   name="matKhau"
-                  required
+                  value={frmLogin.values.matKhau}
+                  onChange={frmLogin.handleChange}
+                  onBlur={frmLogin.handleBlur}
                 />
+                {frmLogin.touched.matKhau && frmLogin.errors.matKhau ? (
+                  <div className="error">{frmLogin.errors.matKhau}</div>
+                ) : null}
               </div>
-
               <div className="CTA">
                 <input type="submit" value="Login" />
-
-                <NavLink href="#" className="switch" onClick={handleSwitchClick}>
+                <NavLink to="#" className="switch" onClick={handleSwitchClick}>
                   I'm New
                 </NavLink>
 
-                <NavLink to={'/my-profile'}> Submit</NavLink>
+
 
               </div>
             </form>
@@ -94,7 +138,7 @@ const Login = () => {
 
           {/* <!-- Signup Form --> */}
           <div className={`signup form-piece ${isActive ? '' : 'switched'}`}>
-            <form className="signup-form" onSubmit={frmLogin.handleSubmit}>
+            <form className="signup-form" >
               <div className="form-group">
                 <label htmlFor="name">Full Name</label>
                 <input type="text" name="username" className="name" />

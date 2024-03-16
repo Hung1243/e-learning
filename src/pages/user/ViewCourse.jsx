@@ -115,7 +115,7 @@ const ViewCourse = () => {
                   className="flex items-center justify-between border-t border-gray-200 p-3"
                 >
                   <span className="text-sm text-primary">400,000</span>
-                  <NavLink to={`/course/:${item.maKhoaHoc}`} className="text-[14px] ml-2 flex items-center">
+                  <NavLink to={`/course/${item.maKhoaHoc}`} className="text-[14px] ml-2 flex items-center">
                     Know Details <HiOutlineArrowNarrowRight />
                   </NavLink>
                 </div>
