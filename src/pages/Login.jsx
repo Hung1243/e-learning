@@ -1,40 +1,67 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
-import { loginApiAction } from "../redux/Reducers/UserReducer";
-import { updateOnOkayAction } from "../redux/Reducers/LogReducer";
-import { useFormik } from "formik";
-import * as Yup from 'yup';
+import { toast } from "react-toastify";
+import api from "../config/axios";
+import { login } from "../redux/Reducers/UserReducer";
+
+// import { loginApiAction } from "../redux/Reducers/UserReducer";
+// import { updateOnOkayAction } from "../redux/Reducers/LogReducer";
+// import http from "../config/axios";
+
+
 
 const Login = () => {
   const [isActive, setIsActive] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const frmLogin = useFormik({
-    initialValues: {
-      taiKhoan: "",
-      matKhau: "",
-    },
-    validationSchema: Yup.object({
-      taiKhoan: Yup.string().required("Username is required"),
-      matKhau: Yup.string().required("Password is required"),
-    }),
-    onSubmit: async (values) => {
-      try {
-        await dispatch(loginApiAction(values));
-        navigate("/");
-      } catch (error) {
-        console.error("Login failed:", error);
-        // Handle login error here, e.g., display error message to the user
+  const onFinish = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const values = Object.fromEntries(formData.entries());
+    try {
+      const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJCb290Y2FtcCA1NyIsIkhldEhhblN0cmluZyI6IjI5LzA2LzIwMjQiLCJIZXRIYW5UaW1lIjoiMTcxOTYxOTIwMDAwMCIsIm5iZiI6MTY4ODkyMjAwMCwiZXhwIjoxNzE5NzY2ODAwfQ.9MKEqdjyd8nN84l6J6hg-XfkLpmaY_aBPozV_TXxusM";
+      const response = await api.post("QuanLyNguoiDung/DangNhap", values, {
+        headers: {
+          TokenCybersoft: token,
+        },
+      });
+      localStorage.setItem("AccessToken", response.data.accessToken);
+      if (response.data.maLoaiNguoiDung === "HV") {
+        navigate("/my-profile");
+      } else {
+        navigate("/dashboard");
       }
-    },
-  });
+      dispatch(login(response.data));
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response ? error.response.data : "Error occurred");
+    }
+  };
 
-  useEffect(() => {
-    const action = updateOnOkayAction(frmLogin.handleSubmit);
-    dispatch(action);
-  }, [dispatch, frmLogin.handleSubmit]);
+  const handleSwitchClick = () => {
+    setIsActive(!isActive);
+  };
+
+
+
+  //----------------login----------
+  // const frmLogin = useFormik({
+  //   initialValues: {
+  //     taiKhoan: "",
+  //     matKhau: "",
+  //   },
+  //   onSubmit: async (values) => {
+  //     await dispatch(loginApiAction(values));
+  //     navigate("/");
+  //   },
+  // });
+
+  // useEffect(() => {
+  //   const action = updateOnOkayAction(frmLogin.handleSubmit);
+  //   dispatch(action);
+  // }, []);
 
   //------------------ End login------------
 
@@ -70,62 +97,58 @@ const Login = () => {
 
 
 
-  const handleSwitchClick = (e) => {
-    e.preventDefault(); // Prevent default behavior
-    setIsActive(!isActive);
-
-  };
-
   return <div className="container">
     <section id="formHolder">
       <div className="row w-75 mx-auto">
+        {/* <!-- Brand Box --> */}
         <div className="col-sm-6 brand">
           <NavLink to="/" className="logo">
             AH <span>.</span>
           </NavLink>
+
           <div className="heading">
             <h2 className=" fs-1">E-LEARNING</h2>
             <p>Your Right Choice</p>
           </div>
+
           <div className="success-msg">
             <p>Great! You are one of our members now</p>
-            <NavLink to="#" className="profile">
+            <NavLink href="#" className="profile">
               Your Profile
             </NavLink>
           </div>
         </div>
+
+        {/* <!-- Form Box --> */}
         <div className="col-sm-6 form">
+          {/* <!-- Login Form --> */}
           <div className={`login form-piece ${isActive ? 'switched' : ''}`}>
-            <form className="login-form" onSubmit={frmLogin.handleSubmit}>
+            <form className="login-form" onSubmit={onFinish}>
               <div className="form-group">
                 <label>Username</label>
                 <input
                   type="text"
                   name="taiKhoan"
-                  value={frmLogin.values.taiKhoan}
-                  onChange={frmLogin.handleChange}
-                  onBlur={frmLogin.handleBlur}
+                  required
+
                 />
-                {frmLogin.touched.taiKhoan && frmLogin.errors.taiKhoan ? (
-                  <div className="error">{frmLogin.errors.taiKhoan}</div>
-                ) : null}
               </div>
+
               <div className="form-group">
-                <label>Password</label>
+                <label >Password</label>
                 <input
                   type="password"
                   name="matKhau"
-                  value={frmLogin.values.matKhau}
-                  onChange={frmLogin.handleChange}
-                  onBlur={frmLogin.handleBlur}
+                  required
+
                 />
-                {frmLogin.touched.matKhau && frmLogin.errors.matKhau ? (
-                  <div className="error">{frmLogin.errors.matKhau}</div>
-                ) : null}
               </div>
+
               <div className="CTA">
                 <input type="submit" value="Login" />
-                <NavLink to="#" className="switch" onClick={handleSwitchClick}>
+
+
+                <NavLink href="#" className="switch" onClick={handleSwitchClick}>
                   I'm New
                 </NavLink>
 
