@@ -43,9 +43,7 @@ root.render(
               <Route path="" element={<ViewCourse />}></Route>
               <Route path=":maKhoaHoc" element={<ViewCourseDetail />}></Route>
             </Route>
-            <Route path="my-profile">
-              <Route path=":id" element={<MyProfile />}></Route>
-            </Route>
+            <Route path="my-profile" element={<MyProfile />}></Route>
           </Route>
         </Routes>
         <ToastContainer />
