@@ -1,9 +1,15 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { logout } from "../redux/Reducers/UserReducer";
 
 const Header = () => {
   const [click, setClick] = useState(false);
-
+  const userInfo = useSelector(state => state.user);
+  const dispatch = useDispatch();
+  const onLogout = () => {
+    dispatch(logout())
+  }
   return (
     <>
       <section className="head">
@@ -44,7 +50,8 @@ const Header = () => {
               <Link to="/journal">Journal</Link>
             </li>
             <li>
-              <Link to="/login">Account</Link>
+              {userInfo.taiKhoan != null ? <>{userInfo.taiKhoan} <button className="btn-logout" onClick={onLogout}>Logout</button></>  : <Link to="/login">Account</Link>}
+              
             </li>
           </ul>
           <div className="start">

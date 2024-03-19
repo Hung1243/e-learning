@@ -5,7 +5,7 @@ import { NavLink, useParams } from "react-router-dom";
 import axios from "axios";
 
 const ViewCourseDetail = () => {
-  const [courseDetail, setCourseDetail] = useState({});
+  const [courseDetail, setCourseDetail] = useState([]);
   const params = useParams();
 
   const token =
@@ -15,7 +15,7 @@ const ViewCourseDetail = () => {
     console.log("maKhoaHoc:", params.maKhoaHoc);
     try {
       const res = await axios.get(
-        `https://elearningnew.cybersoft.edu.vn/api/QuanLyKhoaHoc/LayThongTinKhoaHoc?maKhoaHoc=${params.maKhoaHoc}`,
+        `QuanLyKhoaHoc/LayThongTinKhoaHoc?maKhoaHoc=${params.maKhoaHoc}`,
         {
           headers: {
             TokenCybersoft: token,
@@ -33,11 +33,9 @@ const ViewCourseDetail = () => {
     }
   };
 
-
   useEffect(() => {
     fetchCourseDetail();
   }, [params.maKhoaHoc]);
-
 
   return (
     <div className="course container">
@@ -79,7 +77,10 @@ const ViewCourseDetail = () => {
 
               {/* <!-- Course Image --> */}
               <div className="course_image">
-                <img src='https://elearningnew.cybersoft.edu.vn/hinhanh/lap-trinh-nodejs.png' alt="..." />
+                <img
+                  src="https://elearningnew.cybersoft.edu.vn/hinhanh/lap-trinh-nodejs.png"
+                  alt="..."
+                />
                 <img src={courseDetail.hinhAnh} alt="" />
               </div>
 

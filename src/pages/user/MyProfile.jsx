@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   MDBTabs,
   MDBTabsItem,
@@ -9,10 +9,12 @@ import {
 import ProfileTab from "../../components/MyProfile Tabs/ProfileTab";
 import CourseTab from "../../components/MyProfile Tabs/CourseTab";
 import ProfileTabHeader from "../../components/MyProfile Tabs/ProfileTabHeader";
+import { useSelector } from 'react-redux';
+
 
 const MyProfile = () => {
   const [fillActive, setFillActive] = useState("tab1");
-
+  const userInfo = useSelector(state => state.user);
   const handleFillClick = (value) => {
     if (value === fillActive) {
       return;
@@ -50,7 +52,7 @@ const MyProfile = () => {
                     width="150"
                   ></img>
                   <div className="mt-3">
-                    <h4>Ang</h4>
+                    <h4>{userInfo.taiKhoan}</h4>
                     <p className="text-secondary mb-1">Full Stack Developer</p>
                     <p className="text-muted font-size-sm">
                       Bay Area, San Francisco, CA
@@ -199,7 +201,7 @@ const MyProfile = () => {
 
             <MDBTabsContent>
               <MDBTabsPane open={fillActive === "tab1"}>
-                <ProfileTab />
+                <ProfileTab user={userInfo} />
               </MDBTabsPane>
               <MDBTabsPane open={fillActive === "tab2"}>
                 <CourseTab />

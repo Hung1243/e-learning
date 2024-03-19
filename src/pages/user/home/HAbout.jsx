@@ -29,7 +29,7 @@ const HAbout = ({ coursesData }) => {
           <div className="coursesCard">
             {/* copy code form  coursesCard */}
             <div className="grid2">
-              {coursesData.slice(65, 71).map((val) => {
+              {coursesData.slice(60, 66).map((val) => {
                 return (
                   <div className="items" key={val.id}>
                     <div className="content flex">
@@ -46,7 +46,15 @@ const HAbout = ({ coursesData }) => {
                         />
                       </div>
                       <div className="text">
-                        <h1 className=" line-clamp-2" style={{ minHeight: '90px' }}> <NavLink to={`/course/${val.maKhoaHoc}`} >{val.tenKhoaHoc}</NavLink></h1>
+                        <h1
+                          className=" line-clamp-2"
+                          style={{ minHeight: "90px" }}
+                        >
+                          {" "}
+                          <NavLink to={`/course/${val.maKhoaHoc}`}>
+                            {val.tenKhoaHoc}
+                          </NavLink>
+                        </h1>
                         <div className="rate">
                           <i className="fa fa-star"></i>
                           <i className="fa fa-star"></i>
@@ -72,7 +80,10 @@ const HAbout = ({ coursesData }) => {
                       </div>
                     </div>
 
-                    <button className="outline-btn"> <NavLink to={'/login'}> ENROLL NOW ! </NavLink></button>
+                    <button className="outline-btn">
+                      {" "}
+                      <NavLink to={"/login"}> ENROLL NOW ! </NavLink>
+                    </button>
                   </div>
                 );
               })}

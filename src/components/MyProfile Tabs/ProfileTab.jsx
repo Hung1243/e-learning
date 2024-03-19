@@ -1,25 +1,25 @@
 import React from "react";
 
-const ProfileTab = () => {
+const ProfileTab = ({user}) => {
     return (
         <>
             <div className="card mb-3">
                 <div className="card-body">
                     <div className="row">
                         <div className="col-lg-6 col-sm-12">
-                            <h6 className="mb-3">Name: <span>Ang</span></h6>
+                            <h6 className="mb-3">Name: <span>{user.hoTen}</span></h6>
                             <hr />
-                            <h6 className="mb-3 mt-3">Email: <span>Ang@gmail.com</span></h6>
+                            <h6 className="mb-3 mt-3">Email: <span>{user.email}</span></h6>
                             <hr />
-                            <h6 className="mb-2 mt-3">Phone: <span>7979</span></h6>
+                            <h6 className="mb-2 mt-3">Phone: <span>{user.soDT}</span></h6>
                             <hr />
                         </div>
                         <div className="col-lg-6 col-sm-12">
-                            <h6 className="mb-3 ">Account: <span>Ang</span></h6>
+                            <h6 className="mb-3 ">Account: <span>{user.taiKhoan}</span></h6>
                             <hr />
-                            <h6 className="mb-3 mt-3">Group: <span>GP01</span></h6>
+                            <h6 className="mb-3 mt-3">Group: <span>{user.maNhom}</span></h6>
                             <hr />
-                            <h6 className="mb-2 mt-3">Position: <span>HV</span></h6>
+                            <h6 className="mb-2 mt-3">Position: <span>{user.maLoaiNguoiDung}</span></h6>
                             <hr />
                         </div>
                     </div>

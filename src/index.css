@@ -190,6 +190,11 @@ header .nav {
 }
 header li {
   margin-right: 40px;
+  display: flex;
+  color: white;
+  align-items: center;
+  gap: 12px;
+  font-weight: 500;
 }
 header ul {
   padding: 30px 20px;
@@ -895,4 +900,10 @@ section#formHolder {
 	  width: 100vw;
 	  margin-left: 0;
 	}
+}
+
+header li .btn-logout{	
+	padding: 8px;
+	margin: unset;
+
 }

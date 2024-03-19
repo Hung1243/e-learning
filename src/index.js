@@ -15,14 +15,14 @@ import ViewCourseDetail from "./pages/user/ViewCourseDetail";
 import MyProfile from "./pages/user/MyProfile";
 import Blog from "./components/BlogPost/Blog.jsx";
 import EnrollManagement from "./pages/admin/EnrollManagement";
-import { ToastContainer } from "react-toastify";
 import { persistor, store } from "./redux/store.jsx";
 import { createBrowserHistory } from "history";
+import DashBoard from "./components/DashBoard/DashBoard.jsx";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import About from "./components/AboutUs/About.jsx";
+
 export const history = createBrowserHistory();
-
-
-
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -32,7 +32,7 @@ root.render(
         <Routes>
           <Route path="login" element={<Login />}></Route>
           <Route path="register" element={<Register />}></Route>
-          <Route path="dashboard">
+          <Route path="dashboard" element={<DashBoard />}>
             <Route path="manage-user" element={<UserManagement />}></Route>
             <Route path="manage-course" element={<CourseManagement />}></Route>
             <Route path="manage-enroll" element={<EnrollManagement />}></Route>
@@ -43,16 +43,13 @@ root.render(
               <Route path="" element={<ViewCourse />}></Route>
               <Route path=":maKhoaHoc" element={<ViewCourseDetail />}></Route>
             </Route>
-            
-              <Route path="my-profile" element={<MyProfile />}></Route>
-              <Route path="about" element={<About />}></Route>
+            <Route path="my-profile" element={<MyProfile />}></Route>
+            <Route path="about" element={<About />}></Route>
               <Route path="journal" element={<Blog />}></Route>
-
-           
           </Route>
         </Routes>
+        <ToastContainer />
       </BrowserRouter>
-      <ToastContainer />
     </PersistGate>
   </Provider>
 );

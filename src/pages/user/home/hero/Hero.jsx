@@ -8,7 +8,7 @@ const Hero = () => {
     <>
       <section className="hero">
         <div className="container">
-          <div className="row">
+          <div className="row w-50">
             <Heading
               subtitle="WELCOME TO ACADEMIA"
               title="Best Online Education Expertise"
