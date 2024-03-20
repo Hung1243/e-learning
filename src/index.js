@@ -46,7 +46,7 @@ root.render(
             </Route>
             <Route path="my-profile" element={<MyProfile />}></Route>
             <Route path="about" element={<About />}></Route>
-            <Route path="journal" element={<Blog />}></Route>
+            {/* <Route path="journal" element={<Blog />}></Route> */}
           </Route>
         </Routes>
         <ToastContainer />

@@ -1,4 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import {
+  Button,
+  Col,
+  Flex,
+  Form,
+  Input,
+  Modal,
+  Popconfirm,
+  Row,
+  Select,
+  Table,
+  Upload,
+} from "antd";
+import { useForm } from "antd/es/form/Form";
+import api from "../../config/axios";
+import { toast } from "react-toastify";
+// import { PlusOutlined } from "@ant-design/icons";
+const onChange = (value) => {
+  console.log(`selected ${value}`);
+};
+const onSearch = (value) => {
+  console.log("search:", value);
+};
 
 const UserManagement = () => {
   const [open, setOpen] = useState(false);
