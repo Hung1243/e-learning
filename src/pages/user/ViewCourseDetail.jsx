@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import SideBar from "../../components/ViewCourseDetails/SideBar";
 import CourseDetailsTab from "../../components/ViewCourseDetails/CourseDetailsTab";
 import { NavLink, useParams } from "react-router-dom";
-import axios from "axios";
+// import axios from "axios";
+import api from "../../config/axios";
 
 const ViewCourseDetail = () => {
   const [courseDetail, setCourseDetail] = useState([]);
@@ -14,7 +15,7 @@ const ViewCourseDetail = () => {
   const fetchCourseDetail = async () => {
     console.log("maKhoaHoc:", params.maKhoaHoc);
     try {
-      const res = await axios.get(
+      const res = await api.get(
         `QuanLyKhoaHoc/LayThongTinKhoaHoc?maKhoaHoc=${params.maKhoaHoc}`,
         {
           headers: {
@@ -27,7 +28,7 @@ const ViewCourseDetail = () => {
       console.log("Data from API:", res.data);
 
       // Cập nhật lại state courseDetail với dữ liệu mới từ API
-      setCourseDetail(res.data.content); // Đảm bảo rằng res.data.content chứa dữ liệu bạn muốn cập nhật
+      setCourseDetail(res.data); // Đảm bảo rằng res.data.content chứa dữ liệu bạn muốn cập nhật
     } catch (error) {
       console.error("Error:", error);
     }
