@@ -130,7 +130,8 @@ const ProfileTab = ({ user }) => {
                                 <hr />
                                 <h6 className="mb-2 mt-3">
                                     Position:{' '}
-                                    <span>
+                                    <span>{user.maLoaiNguoiDung}</span>
+                                    {/* <span>
                                         <input
                                             type="text"
                                             name="maLoaiNguoiDung"
@@ -138,7 +139,7 @@ const ProfileTab = ({ user }) => {
                                             value={userData.maLoaiNguoiDung}
                                             onChange={handleChange}
                                         />
-                                    </span>
+                                    </span> */}
                                 </h6>
                                 <hr />
                             </div>
@@ -183,12 +184,12 @@ const ProfileTab = ({ user }) => {
                             Cancel
                         </button>
                         <button style={{ margin: 0, padding: '12px 0' }} onClick={handleSubmit}>
-                            Save
+                            Save your changes
                         </button>
                     </>
                 ) : (
                     <button style={{ margin: 0, padding: '12px 0' }} onClick={toggleEdit}>
-                        Edit
+                        Edit Info
                     </button>
                 )}
             </div>

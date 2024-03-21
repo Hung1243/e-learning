@@ -45,7 +45,7 @@ const MyProfile = () => {
         <div>
             <ProfileTabHeader />
 
-            <div className="main-body pt-lg-5">
+            <div className="main-body my-profile pt-lg-5">
                 <nav aria-label="breadcrumb" className="main-breadcrumb">
                     {/* <ol className="breadcrumb">
             <li className="breadcrumb-item">

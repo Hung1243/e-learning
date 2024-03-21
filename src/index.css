@@ -930,3 +930,13 @@ header li .btn-logout{
 .header-search input[type="text"]::placeholder {
     color: #fffffff0;
 }
+
+
+/*-------------------------------- Profile -------------------------------------*/
+.my-profile input[type="text"]:focus-visible {
+border-radius: 10px;
+width: 225px;
+height: 30px;
+outline-style: dashed;
+padding-left: 10px;
+}
