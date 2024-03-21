@@ -4,19 +4,18 @@ import HAbout from "./HAbout";
 // import Hblog from "./home/Hblog";
 
 import api from "../../../config/axios";
+import { TOKEN } from "../../../redux/token";
 
 const Home = () => {
   const [arrCourse, setArrCourse] = useState([]);
   const getListCourse = async () => {
-    try {
-      const token =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJCb290Y2FtcCA1NyIsIkhldEhhblN0cmluZyI6IjI5LzA2LzIwMjQiLCJIZXRIYW5UaW1lIjoiMTcxOTYxOTIwMDAwMCIsIm5iZiI6MTY4ODkyMjAwMCwiZXhwIjoxNzE5NzY2ODAwfQ.9MKEqdjyd8nN84l6J6hg-XfkLpmaY_aBPozV_TXxusM"; // Thay 'YOUR_CYBERSOFT_TOKEN' bằng token của bạn
+    try { // Thay 'YOUR_CYBERSOFT_TOKEN' bằng token của bạn
       const res = await api.get("/QuanLyKhoaHoc/LayDanhSachKhoaHoc", {
         params: {
           MaNhom: "GP01",
         },
         headers: {
-          TokenCybersoft: token,
+          TokenCybersoft: TOKEN,
         },
       });
       setArrCourse(res.data);

@@ -77,12 +77,7 @@ const Login = () => {
               <p>Your Right Choice</p>
             </div>
 
-            <div className="success-msg">
-              <p>Great! You are one of our members now</p>
-              <NavLink href="#" className="profile">
-                Your Profile
-              </NavLink>
-            </div>
+
           </div>
 
           {/* <!-- Form Box --> */}

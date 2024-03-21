@@ -43,6 +43,11 @@ const HAbout = ({ coursesData }) => {
                             height: "80px",
                             borderRadius: "50%",
                           }}
+                          onError={({ currentTarget }) => {
+                            currentTarget.onerror = null; // prevents looping
+                            currentTarget.src =
+                                'https://www.petbehaviourcompany.co.uk/images/default-course-thumbnail.png';
+                        }}
                         />
                       </div>
                       <div className="text">
@@ -82,7 +87,7 @@ const HAbout = ({ coursesData }) => {
 
                     <button className="outline-btn">
                       {" "}
-                      <NavLink to={"/login"}> ENROLL NOW ! </NavLink>
+                      <NavLink to={`/course/${val.maKhoaHoc}`}> ENROLL NOW ! </NavLink>
                     </button>
                   </div>
                 );

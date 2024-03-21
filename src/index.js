@@ -21,7 +21,7 @@ import DashBoard from "./components/DashBoard/DashBoard.jsx";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import About from "./components/AboutUs/About.jsx";
-// import About from "./components/AboutUs/About.jsx";
+import CategoryCourse from "./components/allcourses/CategoryCourse.jsx";
 
 export const history = createBrowserHistory();
 
@@ -43,6 +43,8 @@ root.render(
             <Route path="course">
               <Route path="" element={<ViewCourse />}></Route>
               <Route path=":maKhoaHoc" element={<ViewCourseDetail />}></Route>
+              
+              <Route path="category/:maDanhMuc" element={<CategoryCourse />}></Route>
             </Route>
             <Route path="my-profile" element={<MyProfile />}></Route>
             <Route path="about" element={<About />}></Route>

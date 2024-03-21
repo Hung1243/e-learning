@@ -88,7 +88,7 @@ const items = [
         ),
     },
 ];
-const CourseDetailsTab = () => {
+const CourseDetailsTab = ({ courseDetail }) => {
     return (
         <div>
             <ul className="nav nav-tabs" id="myTab" role="tablist">
@@ -103,7 +103,7 @@ const CourseDetailsTab = () => {
                         aria-controls="home-tab-pane"
                         aria-selected="true"
                     >
-                        DESCRIBLE
+                        DESCRIPTION
                     </button>
                 </li>
                 <li className="nav-item" role="presentation">
@@ -157,18 +157,7 @@ const CourseDetailsTab = () => {
                     aria-labelledby="home-tab"
                     tabindex="0"
                 >
-                    React.js is the most popular JavaScript library you can use and learn
-                    today to build modern, responsive user interfaces for the web. This
-                    course teaches you React in-depth, from the basics, Step by step dives
-                    into all the core basics, explores lots of examples, and also
-                    introduces you to advanced concepts. You'll get all the theory, tons
-                    of examples, and a primer. demonstrations, exercises and exercises as
-                    well as loads of important knowledge overlooked by most other sources
-                    - after all, there's a reason why this course is so great! And in case
-                    you don't even know why you want to learn React and you're just here
-                    for some ads or "algorithms" - don't worry: ReactJS is an important
-                    technology as a developer. web development and in this course I'll
-                    also explain WHY it's important!!
+                    {courseDetail.moTa}
                 </div>
                 <div
                     className="tab-pane fade fst-italic"

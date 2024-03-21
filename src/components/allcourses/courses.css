@@ -21,6 +21,7 @@
 .coursesCard .text {
   margin-left: 15px;
   text-align: left;
+  flex: 1;
 }
 .coursesCard .text h1 {
   font-size: 30px;
