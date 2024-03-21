@@ -9,12 +9,14 @@ import {
   Popconfirm,
   Row,
   Select,
+  Space,
   Table,
   Upload,
 } from "antd";
 import { useForm } from "antd/es/form/Form";
 import api from "../../config/axios";
 import { toast } from "react-toastify";
+import EnrollByUser from "../../components/enrollModal/enrollByUser/EnrollByUser";
 // import { PlusOutlined } from "@ant-design/icons";
 const onChange = (value) => {
   console.log(`selected ${value}`);
@@ -39,6 +41,7 @@ const UserManagement = () => {
       },
     });
     setListAccount(res.data);
+    console.log(res.data);
   };
   useEffect(() => {
     getAccount();
@@ -143,28 +146,39 @@ const UserManagement = () => {
       dataIndex: "tenLoaiNguoiDung",
     },
     {
-      title: " Edit",
+      title: " Ghi Danh",
       fixed: "right",
-      render: (_, record) => (
-        <Button type="primary" danger onClick={() => handleEdit(record)}>
-          Sửa
-        </Button>
+      render: (text, record) => (
+        <>
+          <EnrollByUser taiKhoan={record.taiKhoan} />
+        </>
       ),
     },
     {
-      title: "Delete",
-      render: () => (
-        // <Popconfirm
-        //   title="Are you sure you want to delete this account?"
-        //   onConfirm={() => handleDelete(record.id)}
-        //   onCancel={() => console.log("Cancel")}
-        // >
-        <Button type="primary" danger>
-          Xóa
-        </Button>
-        // </Popconfirm>
+      title: " Action",
+      fixed: "right",
+      render: (_, record) => (
+        <Space>
+          {" "}
+          <Button
+            type="primary"
+            style={{ background: "#0d6efd" }}
+            onClick={() => handleEdit(record)}
+          >
+            Sửa
+          </Button>
+          <Button type="primary" danger>
+            Xóa
+          </Button>
+        </Space>
       ),
     },
+    // {
+    //   title: "Delete",
+    //   render: () => (
+
+    //   ),
+    // },
   ];
   return (
     <div className="p-0">
@@ -183,9 +197,6 @@ const UserManagement = () => {
       <Table
         columns={columns}
         dataSource={data}
-        scroll={{
-          x: 1200,
-        }}
         pagination={{
           pageSize: 4,
         }}
@@ -202,6 +213,7 @@ const UserManagement = () => {
             Hủy
           </Button>,
           <Button
+            style={{ background: "#0d6efd" }}
             key="submit"
             type="primary"
             onClick={() => (isEditMode ? handleSave() : form.submit())}
