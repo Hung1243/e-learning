@@ -1,32 +1,83 @@
-import React from "react";
-
-const CourseTab = () => {
+import React from 'react';
+import api from '../../config/axios';
+import { TOKEN } from '../../redux/token';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+const CourseTab = ({ course, user }) => {
+    const navigate = useNavigate();
+    const handleCancelCourse = async (maKhoaHoc) => {
+        try {
+            const res = await api.post(
+                'QuanLyKhoaHoc/HuyGhiDanh',
+                {
+                    maKhoaHoc: maKhoaHoc,
+                    taiKhoan: user.taiKhoan,
+                },
+                {
+                    headers: {
+                        TokenCybersoft: TOKEN,
+                    },
+                }
+            );
+            if (res.status === 200) {
+                navigate('/');
+                toast.success('Cancel course success');
+            } else {
+                toast.error('Error: ', res.error);
+            }
+        } catch (error) {
+            toast.error('Error: ', error);
+        }
+    };
     return (
-        <div className="card mb-3 mx-3 w-50 ">
-            <div className="row g-0">
-                <div className="col-md-4">
-                    <img src="..." className="img-fluid rounded-start" alt="..." />
-                </div>
-                <div className="col-md-8">
-                    <div className="card-body">
-                        <h5 className="card-title">Card title</h5>
-                        <p className="card-text">
-                            This is a wider card with supporting text below as a natural
-                            lead-in to additional content. This content is a little bit
-                            longer.
-                        </p>
-                        <p className="card-text">
-                            <small className="text-body-secondary">
-                                Last updated 3 mins ago
-                            </small>
-                        </p>
-                        <button className="border-2 mt-2 p-1 text-bg-danger">
-                            Cancel Course
-                        </button>
+        <>
+            {course.map((e, index) => (
+                <div className="col-6 mb-3">
+                    <div className="card h-100" key={index}>
+                        <div className="row g-0">
+                            <div className="col-md-4">
+                                <img
+                                    src={e.hinhAnh}
+                                    className="img-fluid rounded-start"
+                                    alt={e.alt}
+                                    onError={({ currentTarget }) => {
+                                        currentTarget.onerror = null; // prevents looping
+                                        currentTarget.src =
+                                            'https://www.petbehaviourcompany.co.uk/images/default-course-thumbnail.png';
+                                    }}
+                                />
+                            </div>
+                            <div className="col-md-8">
+                                <div className="card-body">
+                                    <h5 className="card-title">{e.tenKhoaHoc}</h5>
+                                    <p
+                                        className="card-text"
+                                        style={{
+                                            display: '-webkit-box',
+                                            WebkitBoxOrient: 'vertical',
+                                            overflow: 'hidden',
+                                            textOverflow: 'ellipsis',
+                                            WebkitLineClamp: 3, // Giới hạn văn bản chỉ hiển thị ở 3 dòng
+                                        }}>
+                                        {e.moTa}
+                                    </p>
+                                    <p className="card-text">
+                                        <small className="text-body-secondary">{e.ngayTao}</small>
+                                    </p>
+                                    <button
+                                        onClick={() => {
+                                            handleCancelCourse(e.maKhoaHoc);
+                                        }}
+                                        className="border-2 mt-2 p-1 text-bg-danger">
+                                        Cancel Course
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
+            ))}
+        </>
     );
 };
 

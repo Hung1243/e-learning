@@ -29,7 +29,7 @@ const HAbout = ({ coursesData }) => {
           <div className="coursesCard">
             {/* copy code form  coursesCard */}
             <div className="grid2">
-              {coursesData.slice(60, 66).map((val) => {
+              {coursesData.slice(55, 66).map((val) => {
                 return (
                   <div className="items" key={val.id}>
                     <div className="content flex">
@@ -43,6 +43,11 @@ const HAbout = ({ coursesData }) => {
                             height: "80px",
                             borderRadius: "50%",
                           }}
+                          onError={({ currentTarget }) => {
+                            currentTarget.onerror = null; // prevents looping
+                            currentTarget.src =
+                                'https://www.petbehaviourcompany.co.uk/images/default-course-thumbnail.png';
+                        }}
                         />
                       </div>
                       <div className="text">
@@ -82,7 +87,7 @@ const HAbout = ({ coursesData }) => {
 
                     <button className="outline-btn">
                       {" "}
-                      <NavLink to={"/login"}> ENROLL NOW ! </NavLink>
+                      <NavLink to={`/course/${val.maKhoaHoc}`}> ENROLL NOW ! </NavLink>
                     </button>
                   </div>
                 );

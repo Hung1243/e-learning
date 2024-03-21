@@ -1,30 +1,30 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useSearchParams } from "react-router-dom";
 import { FaBook } from "react-icons/fa";
 import { AiFillStar } from "react-icons/ai";
 import { HiOutlineArrowNarrowRight } from "react-icons/hi";
 import { Pagination } from "antd";
-import CourseHome from "../../components/allcourses/CourseHome";
+import CourseHome from "../../components/allcourses/CourseHome"
+import { TOKEN } from "../../redux/token";
 
 const ViewCourse = () => {
   const [arrCourse, setArrCourse] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
   const itemsPerPage = 8;
-
+  const [searchParams, setSearchParams] = useSearchParams();
   const getCourseApi = async (page = 1) => {
     try {
-      const token =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJCb290Y2FtcCA1NyIsIkhldEhhblN0cmluZyI6IjE1LzA2LzIwMjQiLCJIZXRIYW5UaW1lIjoiMTcxODQwOTYwMDAwMCIsIm5iZiI6MTY4ODkyMjAwMCwiZXhwIjoxNzE4NTU3MjAwfQ.vY7VplGBpsG599RYLEeMeajQNALOV5QUJ2dGV6Ow_q4";
       const res = await axios.get(
-        "https://elearningnew.cybersoft.edu.vn/api/QuanLyKhoaHoc/LayDanhSachKhoaHoc",
+        `https://elearningnew.cybersoft.edu.vn/api/QuanLyKhoaHoc/LayDanhSachKhoaHoc`,
         {
-          // params: {
-          //   MaNhom: "GPO1",
-          // },
+          params: {
+            tenKhoaHoc: searchParams.get("key"),
+            // MaNhom: "GP02",
+          },
           headers: {
-            TokenCybersoft: token,
+            TokenCybersoft: TOKEN,
           },
         }
       );
@@ -43,7 +43,7 @@ const ViewCourse = () => {
 
   useEffect(() => {
     getCourseApi();
-  }, []);
+  }, [searchParams]);
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
@@ -58,7 +58,7 @@ const ViewCourse = () => {
           <div className="heading mb-16">
             <h1 className="text-3xl font-semibold text-black">
               Find The Right <br />
-              Online Course For You
+              Online Course For {searchParams.get("key") ? <>{searchParams.get("key")}</> : <>You</>}
             </h1>
             <span className="text-sm mt-2 block text-capitalize">
               you don't have to struggle alone, you've got our assistance and
@@ -73,6 +73,10 @@ const ViewCourse = () => {
                     src={item.hinhAnh}
                     alt=""
                     className="rounded-t-lg object-cover w-full h-full transition ease-in-out delay-150 cursor-pointer hover:scale-125 duration-300"
+                    onError={({ currentTarget }) => {
+                      currentTarget.onerror = null; // prevents looping
+                      currentTarget.src = "https://www.ntc.edu/sites/default/files/styles/full_width_16_9/public/2021-06/software-development-specialist.jpg?";
+                    }}
                   />
                   <div className="categ flex gap-4 absolute top-0 m-3">
                     {/* <span className="text-[14px] bg-blue-700 p-1 px-3 text-white rounded-[5px] shadow-md">
@@ -114,7 +118,7 @@ const ViewCourse = () => {
                   to="/"
                   className="flex items-center justify-between border-t border-gray-200 p-3"
                 >
-                  <span className="text-sm text-primary">400,000</span>
+                  <span className="text-sm text-primary">$180.00</span>
                   <NavLink to={`/course/${item.maKhoaHoc}`} className="text-[14px] ml-2 flex items-center">
                     Know Details <HiOutlineArrowNarrowRight />
                   </NavLink>

@@ -1,7 +1,6 @@
 import axios from "axios";
 
 export const USER_LOGIN = "userLogin";
-export const TOKEN = "accessToken";
 
 const baseUrl = "https://elearningnew.cybersoft.edu.vn/api/";
 
@@ -14,7 +13,7 @@ const http = axios.create(config);
 
 http.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem("token")?.replace(/"/g, "");
+    const token = localStorage.getItem("AccessToken")?.replace(/"/g, "");
     if (token) {
       config.headers["Authorization"] = `Bearer ${token}`;
     }

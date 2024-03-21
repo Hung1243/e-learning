@@ -18,7 +18,7 @@ const Login = () => {
     const formData = new FormData(e.target);
     const values = Object.fromEntries(formData.entries());
     try {
-      
+
       const response = await api.post("QuanLyNguoiDung/DangNhap", values, {
         headers: {
           TokenCybersoft: TOKEN,
@@ -75,12 +75,7 @@ const Login = () => {
               <p>Your Right Choice</p>
             </div>
 
-            <div className="success-msg">
-              <p>Great! You are one of our members now</p>
-              <NavLink href="#" className="profile">
-                Your Profile
-              </NavLink>
-            </div>
+
           </div>
 
           {/* <!-- Form Box --> */}
