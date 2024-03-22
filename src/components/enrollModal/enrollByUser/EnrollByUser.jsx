@@ -4,8 +4,8 @@ import Confirm from "./Confirm";
 import Enrolled from "./Enrolled";
 import api from "../../../config/axios";
 
-const EnrollByUser = ({ taiKhoan }) => {
-  const [open, setOpen] = useState(false);
+const EnrollByUser = ({ taiKhoan, open, setOpen }) => {
+  // const [open, setOpen] = useState(false);
   const [selectCourse, setSelectCourse] = useState([]);
 
   const onChange = (value) => {
@@ -22,16 +22,16 @@ const EnrollByUser = ({ taiKhoan }) => {
     const accessToken = localStorage.getItem("AccessToken");
 
     const headers = {
+      Authorization: "Bearer " + accessToken,
       TokenCybersoft:
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJCb290Y2FtcCA1NyIsIkhldEhhblN0cmluZyI6IjI5LzA2LzIwMjQiLCJIZXRIYW5UaW1lIjoiMTcxOTYxOTIwMDAwMCIsIm5iZiI6MTY4ODkyMjAwMCwiZXhwIjoxNzE5NzY2ODAwfQ.9MKEqdjyd8nN84l6J6hg-XfkLpmaY_aBPozV_TXxusM",
-      Authorization: "Bearer " + accessToken,
     };
     const res = await api.post(
-      `QuanLyNguoiDung/LayDanhSachKhoaHocChuaGhiDanh?TaiKhoan=${taiKhoan}`,
-      {
-        ...values,
-        taiKhoan: taiKhoan,
-      },
+      `QuanLyNguoiDung/LayDanhSachKhoaHocChuaGhiDanh?TaiKhoan=${taiKhoan.taiKhoan}`,
+      // {
+      //   ...values,
+      //   taiKhoan: taiKhoan,
+      // },
       {
         headers: headers,
       }
@@ -45,10 +45,10 @@ const EnrollByUser = ({ taiKhoan }) => {
   };
 
   useEffect(() => {
-    if (taiKhoan) {
+    if (open) {
       getCourseApi();
     }
-  }, [taiKhoan]);
+  }, [open, taiKhoan]);
   return (
     <>
       <Button
