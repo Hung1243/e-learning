@@ -244,7 +244,7 @@ header ul li a:hover {
   }
   .mobile-nav {
     position: absolute;
-    top: 7vh;
+    top: 12vh;
     left: 0;
     width: 100%;
     background-color: #1eb2a6;
@@ -821,7 +821,7 @@ section#formHolder {
   }
   .newletter .right,
   .newletter .left {
-	padding-right: 50px;
+	padding: 0 50px;
   }
   .newletter h1 {
 	color: #fff;
@@ -921,6 +921,7 @@ header li .btn-logout{
 	border: 1px solid #ffffff80;
     padding: 8px 16px;
     border-radius: 9999px;
+	margin-left: -31px;
 }
 
 .header-search input[type="text"]:focus-visible {
