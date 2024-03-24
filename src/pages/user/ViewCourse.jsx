@@ -5,7 +5,7 @@ import { FaBook } from "react-icons/fa";
 import { AiFillStar } from "react-icons/ai";
 import { HiOutlineArrowNarrowRight } from "react-icons/hi";
 import { Pagination } from "antd";
-import CourseHome from "../../components/allcourses/CourseHome"
+import CourseHome from "../../components/allcourses/CourseHome";
 import { TOKEN } from "../../redux/token";
 
 const ViewCourse = () => {
@@ -58,7 +58,12 @@ const ViewCourse = () => {
           <div className="heading mb-16">
             <h1 className="text-3xl font-semibold text-black">
               Find The Right <br />
-              Online Course For {searchParams.get("key") ? <>{searchParams.get("key")}</> : <>You</>}
+              Online Course For{" "}
+              {searchParams.get("key") ? (
+                <>{searchParams.get("key")}</>
+              ) : (
+                <>You</>
+              )}
             </h1>
             <span className="text-sm mt-2 block text-capitalize">
               you don't have to struggle alone, you've got our assistance and
@@ -75,7 +80,8 @@ const ViewCourse = () => {
                     className="rounded-t-lg object-cover w-full h-full transition ease-in-out delay-150 cursor-pointer hover:scale-125 duration-300"
                     onError={({ currentTarget }) => {
                       currentTarget.onerror = null; // prevents looping
-                      currentTarget.src = "https://www.ntc.edu/sites/default/files/styles/full_width_16_9/public/2021-06/software-development-specialist.jpg?";
+                      currentTarget.src =
+                        "https://www.ntc.edu/sites/default/files/styles/full_width_16_9/public/2021-06/software-development-specialist.jpg?";
                     }}
                   />
                   <div className="categ flex gap-4 absolute top-0 m-3">
@@ -119,7 +125,10 @@ const ViewCourse = () => {
                   className="flex items-center justify-between border-t border-gray-200 p-3"
                 >
                   <span className="text-sm text-primary">$180.00</span>
-                  <NavLink to={`/course/${item.maKhoaHoc}`} className="text-[14px] ml-2 flex items-center">
+                  <NavLink
+                    to={`/course/${item.maKhoaHoc}`}
+                    className="text-[14px] ml-2 flex items-center"
+                  >
                     Know Details <HiOutlineArrowNarrowRight />
                   </NavLink>
                 </div>
@@ -132,11 +141,9 @@ const ViewCourse = () => {
               pageSize={itemsPerPage}
               total={totalItems}
               onChange={handlePageChange}
-
             />
           </div>
         </div>
-
       </section>
     </>
   );

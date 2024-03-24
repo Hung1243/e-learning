@@ -6,7 +6,6 @@ import HAbout from "./HAbout";
 import api from "../../../config/axios";
 import { TOKEN } from "../../../redux/token";
 
-
 const Home = () => {
   const [arrCourse, setArrCourse] = useState([]);
   const getListCourse = async () => {

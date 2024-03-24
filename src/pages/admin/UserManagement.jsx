@@ -22,57 +22,13 @@ const onChange = (value) => {
 const onSearch = (value) => {
   console.log("search:", value);
 };
-const columns = [
-  {
-    title: "Tài khoản",
-    dataIndex: "taiKhoan",
-    fixed: "left",
-  },
-  {
-    title: "Email",
-    dataIndex: "email",
-  },
-  {
-    title: "Tên",
-    dataIndex: "hoTen",
-    fixed: "left",
-  },
-  {
-    title: "Số điện thoại",
-    dataIndex: "soDt",
-  },
-  {
-    title: "Vai trò",
-    dataIndex: "tenLoaiNguoiDung",
-  },
-  {
-    title: " Edit",
-    fixed: "right",
-    render: () => (
-      <Button type="primary" danger>
-        Sửa
-      </Button>
-    ),
-  },
-  {
-    title: "Delete",
-    render: () => (
-      // <Popconfirm
-      //   title="Are you sure you want to delete this account?"
-      //   onConfirm={() => handleDelete(record.id)}
-      //   onCancel={() => console.log("Cancel")}
-      // >
-      <Button type="primary" danger>
-        Xóa
-      </Button>
-      // </Popconfirm>
-    ),
-  },
-];
 
 const UserManagement = () => {
   const [open, setOpen] = useState(false);
   const [listAccount, setListAccount] = useState([]);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [isEditMode, setIsEditMode] = useState(false); // Thêm state để xác định chế độ chỉnh sửa
+
   const getAccount = async () => {
     const token =
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJCb290Y2FtcCA1NyIsIkhldEhhblN0cmluZyI6IjI5LzA2LzIwMjQiLCJIZXRIYW5UaW1lIjoiMTcxOTYxOTIwMDAwMCIsIm5iZiI6MTY4ODkyMjAwMCwiZXhwIjoxNzE5NzY2ODAwfQ.9MKEqdjyd8nN84l6J6hg-XfkLpmaY_aBPozV_TXxusM";
@@ -94,7 +50,9 @@ const UserManagement = () => {
       // avatar: item.avatar,
       taiKhoan: item.taiKhoan,
       hoTen: item.hoTen,
+      matKhau: item.matKhau,
       soDt: item.soDt,
+      // maNhom: item.maNhom,
       tenLoaiNguoiDung: item.tenLoaiNguoiDung,
     };
   });
@@ -118,12 +76,105 @@ const UserManagement = () => {
   const filterOption = (input, option) =>
     (option?.label ?? "").toLowerCase().includes(input.toLowerCase());
 
+  const handleEdit = (user) => {
+    setSelectedUser(user);
+    setOpen(true);
+    setIsEditMode(true);
+    form.setFieldsValue({
+      taiKhoan: user.taiKhoan,
+      matKhau: user.matKhau,
+      email: user.email,
+      hoTen: user.hoTen,
+      maNhom: user.maNhom,
+      soDT: user.soDT,
+      maLoaiNguoiDung: user.maLoaiNguoiDung,
+    });
+  };
+  const handleSave = async (values) => {
+    const accessToken = localStorage.getItem("AccessToken");
+
+    const headers = {
+      TokenCybersoft:
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJCb290Y2FtcCA1NyIsIkhldEhhblN0cmluZyI6IjI5LzA2LzIwMjQiLCJIZXRIYW5UaW1lIjoiMTcxOTYxOTIwMDAwMCIsIm5iZiI6MTY4ODkyMjAwMCwiZXhwIjoxNzE5NzY2ODAwfQ.9MKEqdjyd8nN84l6J6hg-XfkLpmaY_aBPozV_TXxusM",
+      Authorization: "Bearer " + accessToken,
+    };
+
+    try {
+      // Thực hiện cập nhật thông tin người dùng với tài khoản được truyền từ form values
+      await api.put(`QuanLyNguoiDung/CapNhatThongTinNguoiDung`, values, {
+        headers: headers,
+      });
+      toast.success("Đã cập nhật thông tin thành công");
+      setOpen(false);
+      getAccount(); // Cập nhật lại danh sách người dùng sau khi cập nhật thành công
+    } catch (error) {
+      console.error("Error updating user:", error);
+      toast.error("Có lỗi xảy ra khi cập nhật thông tin người dùng");
+    }
+  };
+
+  const columns = [
+    {
+      title: "Tài khoản",
+      dataIndex: "taiKhoan",
+      fixed: "left",
+    },
+    {
+      title: "Email",
+      dataIndex: "email",
+    },
+    {
+      title: "Tên",
+      dataIndex: "hoTen",
+      fixed: "left",
+    },
+    {
+      title: "Mật khẩu",
+      dataIndex: "matKhau",
+      fixed: "left",
+    },
+    {
+      title: "Số điện thoại",
+      dataIndex: "soDt",
+    },
+
+    {
+      title: "Vai trò",
+      dataIndex: "tenLoaiNguoiDung",
+    },
+    {
+      title: " Edit",
+      fixed: "right",
+      render: (_, record) => (
+        <Button type="primary" danger onClick={() => handleEdit(record)}>
+          Sửa
+        </Button>
+      ),
+    },
+    {
+      title: "Delete",
+      render: () => (
+        // <Popconfirm
+        //   title="Are you sure you want to delete this account?"
+        //   onConfirm={() => handleDelete(record.id)}
+        //   onCancel={() => console.log("Cancel")}
+        // >
+        <Button type="primary" danger>
+          Xóa
+        </Button>
+        // </Popconfirm>
+      ),
+    },
+  ];
   return (
     <div className="p-0">
       <Flex gap="small" wrap="wrap">
         <Button
           type="primary"
-          onClick={() => setOpen(true)}
+          onClick={() => {
+            setOpen(true);
+            setIsEditMode(false);
+          }}
           className="bg bg-primary mb-3"
         >
           + Thêm
@@ -141,14 +192,29 @@ const UserManagement = () => {
         bordered
       />
       <Modal
-        title="Thêm người dùng"
+        title={isEditMode ? "Cập nhật thông tin người dùng" : "Thêm người dùng"}
         centered
         open={open}
-        onOk={() => form.submit()}
         onCancel={() => setOpen(false)}
         width={1000}
+        footer={[
+          <Button key="back" onClick={() => setOpen(false)}>
+            Hủy
+          </Button>,
+          <Button
+            key="submit"
+            type="primary"
+            onClick={() => (isEditMode ? handleSave() : form.submit())}
+          >
+            {isEditMode ? "Lưu" : "OK"}
+          </Button>,
+        ]}
       >
-        <Form form={form} labelCol={{ span: 24 }} onFinish={createAccount}>
+        <Form
+          form={form}
+          labelCol={{ span: 24 }}
+          onFinish={isEditMode ? handleSave : createAccount}
+        >
           <Row gutter={24}>
             <Col span={12}>
               <Form.Item
