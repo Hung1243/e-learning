@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { Button, Space, Table, Tag } from "antd";
+import api from "../../../config/axios";
+
 const columns = [
   {
     title: "STT",
@@ -18,9 +20,6 @@ const columns = [
     key: "action",
     render: (_, record) => (
       <Space size="middle">
-        <Button type="primary" style={{ background: "#0d6efd" }}>
-          Ghi danh
-        </Button>
         <Button danger type="primary">
           Hủy
         </Button>
@@ -28,23 +27,44 @@ const columns = [
     ),
   },
 ];
-const data = [
-  {
-    key: "",
-    maKhoaHoc: "John Brown",
-  },
-];
 
-const Enrolled = () => {
+const Enrolled = ({ taiKhoan }) => {
+  const [courses, setCourses] = useState([]);
+
+  const fetchApprovedCourses = async () => {
+    try {
+      const accessToken = localStorage.getItem("AccessToken");
+      const response = await api.post(
+        "QuanLyNguoiDung/LayDanhSachKhoaHocDaXetDuyet",
+        { TaiKhoan: taiKhoan.taiKhoan }
+      );
+      setCourses(
+        response.data.map((course, index) => ({
+          key: index.toString(),
+          maKhoaHoc: course.maKhoaHoc,
+          tenKhoaHoc: course.tenKhoaHoc,
+        }))
+      );
+    } catch (error) {
+      console.error("Failed to fetch approved courses", error);
+    }
+  };
+
+  useEffect(() => {
+    if (taiKhoan) {
+      fetchApprovedCourses();
+    }
+  }, [taiKhoan]);
+
   return (
     <div>
-      <h3>Khóa học đã ghi danh </h3>
+      <h3 className="mb-2">Khóa học đã ghi danh </h3>
       <Table
         pagination={{
-          pageSize: 4,
+          pageSize: 2,
         }}
         columns={columns}
-        dataSource={data}
+        dataSource={courses}
         rowKey={(record) => record.key}
       />
     </div>

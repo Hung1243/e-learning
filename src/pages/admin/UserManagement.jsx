@@ -32,6 +32,7 @@ const UserManagement = () => {
   const [isEditMode, setIsEditMode] = useState(false); // Thêm state để xác định chế độ chỉnh sửa
   const [openModal, setOpenModal] = useState(false);
   const [taiKhoan, setTaiKhoan] = useState();
+  const [key, setKey] = useState(0);
   const getAccount = async () => {
     const token =
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJCb290Y2FtcCA1NyIsIkhldEhhblN0cmluZyI6IjI5LzA2LzIwMjQiLCJIZXRIYW5UaW1lIjoiMTcxOTYxOTIwMDAwMCIsIm5iZiI6MTY4ODkyMjAwMCwiZXhwIjoxNzE5NzY2ODAwfQ.9MKEqdjyd8nN84l6J6hg-XfkLpmaY_aBPozV_TXxusM";
@@ -121,6 +122,10 @@ const UserManagement = () => {
     console.log("Modal state changed:", openModal);
   }, [openModal]);
 
+  const refreshCourses = () => {
+    setKey((prevKey) => prevKey + 1); // Change key to re-render child components
+  };
+
   const columns = [
     {
       title: "Tài khoản",
@@ -155,7 +160,6 @@ const UserManagement = () => {
       fixed: "right",
       render: (text, record) => (
         <>
-          {/* <EnrollByUser taiKhoan={record.taiKhoan} /> */}
           <Button
             type="primary"
             style={{ background: "#0d6efd" }}
@@ -219,11 +223,16 @@ const UserManagement = () => {
         bordered
       />
       {openModal && (
-        <EnrollByUser
-          taiKhoan={taiKhoan}
-          open={openModal}
-          setOpen={setOpenModal}
-        />
+        <>
+          {" "}
+          <EnrollByUser
+            taiKhoan={taiKhoan}
+            open={openModal}
+            setOpen={setOpenModal}
+            refreshCourses={refreshCourses}
+          />
+          <Confirm taiKhoan={taiKhoan} key={key} />
+        </>
       )}
       <Modal
         title={isEditMode ? "Cập nhật thông tin người dùng" : "Thêm người dùng"}
