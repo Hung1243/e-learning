@@ -119,7 +119,7 @@ const EnrollByUser = ({ taiKhoan, open, setOpen }) => {
         </div>
         <hr />
         <div className="enrolled mt-2">
-          <Enrolled taiKhoan={taiKhoan} refreshCourses={refreshCourses} />
+          <Enrolled taiKhoan={taiKhoan} />
         </div>
       </Modal>
     </>
