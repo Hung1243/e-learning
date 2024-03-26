@@ -38,18 +38,25 @@ const CourseTab = ({ course, user }) => {
                             <div className="col-md-4">
                                 <img
                                     src={e.hinhAnh}
-                                    className="img-fluid rounded-start"
+                                    className="img-fluid"
                                     alt={e.alt}
                                     onError={({ currentTarget }) => {
                                         currentTarget.onerror = null; // prevents looping
                                         currentTarget.src =
-                                            'https://www.petbehaviourcompany.co.uk/images/default-course-thumbnail.png';
+                                            'https://www.ntc.edu/sites/default/files/styles/full_width_16_9/public/2021-06/software-development-specialist.jpg?';
                                     }}
+                                    style={{ borderTopLeftRadius: '4px', width: '100%', height: '100%', objectFit: 'cover', imageResolution: 'from-image', maxHeight: '160.8px' }}
                                 />
                             </div>
                             <div className="col-md-8">
                                 <div className="card-body">
-                                    <h5 className="card-title">{e.tenKhoaHoc}</h5>
+                                    <h5 className="card-title" style={{
+                                        display: '-webkit-box',
+                                        WebkitBoxOrient: 'vertical',
+                                        overflow: 'hidden',
+                                        textOverflow: 'ellipsis',
+                                        WebkitLineClamp: 1, // Giới hạn văn bản chỉ hiển thị ở 3 dòng
+                                    }}>{e.tenKhoaHoc}</h5>
                                     <p
                                         className="card-text"
                                         style={{
@@ -57,7 +64,7 @@ const CourseTab = ({ course, user }) => {
                                             WebkitBoxOrient: 'vertical',
                                             overflow: 'hidden',
                                             textOverflow: 'ellipsis',
-                                            WebkitLineClamp: 3, // Giới hạn văn bản chỉ hiển thị ở 3 dòng
+                                            WebkitLineClamp: 1, // Giới hạn văn bản chỉ hiển thị ở 3 dòng
                                         }}>
                                         {e.moTa}
                                     </p>

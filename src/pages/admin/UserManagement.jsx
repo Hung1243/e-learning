@@ -9,6 +9,7 @@ import {
   Popconfirm,
   Row,
   Select,
+  Skeleton,
   Space,
   Table,
   Upload,
@@ -30,11 +31,14 @@ const UserManagement = () => {
   const [open, setOpen] = useState(false);
   const [listAccount, setListAccount] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
-  const [isEditMode, setIsEditMode] = useState(false); // Thêm state để xác định chế độ chỉnh sửa
+  const [isEditMode, setIsEditMode] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [taiKhoan, setTaiKhoan] = useState();
-  const [key, setKey] = useState(0);
+  const [loading, setLoading] = useState(true);
+
   const getAccount = async () => {
+    setLoading(true);
+
     const token =
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJCb290Y2FtcCA1NyIsIkhldEhhblN0cmluZyI6IjI5LzA2LzIwMjQiLCJIZXRIYW5UaW1lIjoiMTcxOTYxOTIwMDAwMCIsIm5iZiI6MTY4ODkyMjAwMCwiZXhwIjoxNzE5NzY2ODAwfQ.9MKEqdjyd8nN84l6J6hg-XfkLpmaY_aBPozV_TXxusM";
 
@@ -45,6 +49,7 @@ const UserManagement = () => {
     });
     setListAccount(res.data);
     console.log(res.data);
+    setLoading(false);
   };
   useEffect(() => {
     getAccount();
@@ -96,20 +101,17 @@ const UserManagement = () => {
       maLoaiNguoiDung: user.maLoaiNguoiDung,
     });
   };
+
   const handleSave = async (values) => {
     const accessToken = localStorage.getItem("AccessToken");
-
-    const headers = {
-      TokenCybersoft:
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJCb290Y2FtcCA1NyIsIkhldEhhblN0cmluZyI6IjI5LzA2LzIwMjQiLCJIZXRIYW5UaW1lIjoiMTcxOTYxOTIwMDAwMCIsIm5iZiI6MTY4ODkyMjAwMCwiZXhwIjoxNzE5NzY2ODAwfQ.9MKEqdjyd8nN84l6J6hg-XfkLpmaY_aBPozV_TXxusM",
-      Authorization: "Bearer " + accessToken,
+    const dataToSend = {
+      ...values,
+      taiKhoan: selectedUser.taiKhoan, // Giữ giá trị taiKhoan không đổi
+      maLoaiNguoiDung: selectedUser.maLoaiNguoiDung, // Giữ giá trị maLoaiNguoiDung không đổi
     };
-
     try {
       // Thực hiện cập nhật thông tin người dùng với tài khoản được truyền từ form values
-      await api.put(`QuanLyNguoiDung/CapNhatThongTinNguoiDung`, values, {
-        headers: headers,
-      });
+      await api.put(`QuanLyNguoiDung/CapNhatThongTinNguoiDung`, dataToSend);
       toast.success("Đã cập nhật thông tin thành công");
       setOpen(false);
       getAccount(); // Cập nhật lại danh sách người dùng sau khi cập nhật thành công
@@ -122,10 +124,6 @@ const UserManagement = () => {
   useEffect(() => {
     console.log("Modal state changed:", openModal);
   }, [openModal]);
-
-  const refreshCourses = () => {
-    setKey((prevKey) => prevKey + 1); // Change key to re-render child components
-  };
 
   const columns = [
     {
@@ -215,14 +213,18 @@ const UserManagement = () => {
           + Thêm
         </Button>
       </Flex>
-      <Table
-        columns={columns}
-        dataSource={data}
-        pagination={{
-          pageSize: 4,
-        }}
-        bordered
-      />
+      {loading ? (
+        <Skeleton active />
+      ) : (
+        <Table
+          columns={columns}
+          dataSource={data}
+          pagination={{
+            pageSize: 4,
+          }}
+          bordered
+        />
+      )}
       {openModal && (
         <>
           {" "}
@@ -230,9 +232,8 @@ const UserManagement = () => {
             taiKhoan={taiKhoan}
             open={openModal}
             setOpen={setOpenModal}
-            refreshCourses={refreshCourses}
           />
-          <Confirm taiKhoan={taiKhoan} key={key} />
+          {/* <Confirm taiKhoan={taiKhoan} key={key} /> */}
         </>
       )}
       <Modal

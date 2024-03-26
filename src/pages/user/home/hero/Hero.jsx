@@ -8,7 +8,7 @@ const Hero = () => {
     <>
       <section className="hero">
         <div className="container">
-          <div className="row w-50">
+          <div className="row" style={{ maxWidth: '612px' }}>
             <Heading
               subtitle="WELCOME TO ACADEMIA"
               title="Best Online Education Expertise"

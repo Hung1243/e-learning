@@ -48,23 +48,13 @@ const EnrollByUser = ({ taiKhoan, open, setOpen }) => {
 
     const accessToken = localStorage.getItem("AccessToken");
     try {
-      await api.post(
-        `QuanLyKhoaHoc/GhiDanhKhoaHoc`,
-        {
-          maKhoaHoc: selectedCourse,
-          taiKhoan: taiKhoan.taiKhoan,
-        }
-        // {
-        //   headers: {
-        //     Authorization: `Bearer ${accessToken}`,
-        //     ...TOKEN.headers,
-        //   },
-        // }
-      );
+      await api.post(`QuanLyKhoaHoc/GhiDanhKhoaHoc`, {
+        maKhoaHoc: selectedCourse,
+        taiKhoan: taiKhoan.taiKhoan,
+      });
       toast.success("Successfully enrolled in the course!");
-      setSelectedCourse(null); // Reset selected course
-      // getCourseApi(); // Refresh the course list
-      this.props.refreshCourses();
+      setSelectedCourse(); // Reset selected course
+      getCourseApi(); // Refresh the course list
     } catch (error) {
       console.error("Enrollment failed", error);
       toast.error("Enrollment failed. Please try again.");
@@ -115,7 +105,7 @@ const EnrollByUser = ({ taiKhoan, open, setOpen }) => {
           <hr className="mt-2" />
         </div>
         <div className="confirm mt-2">
-          <Confirm taiKhoan={taiKhoan} />
+          <Confirm  taiKhoan={taiKhoan} />
         </div>
         <hr />
         <div className="enrolled mt-2">

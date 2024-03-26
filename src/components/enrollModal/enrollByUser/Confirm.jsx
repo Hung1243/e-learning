@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 
 import { Button, Space, Table, Tag } from "antd";
 import api from "../../../config/axios";
+import { toast } from "react-toastify";
 
-const Confirm = ({ taiKhoan }) => {
+const Confirm = ({ taiKhoan, handleEnroll }) => {
   const [courses, setCourses] = useState([]);
   const columns = [
     {
@@ -23,10 +24,18 @@ const Confirm = ({ taiKhoan }) => {
 
       render: (_, record) => (
         <Space size="middle" align="start">
-          <Button type="primary" style={{ background: "#0d6efd" }}>
+          <Button
+            type="primary"
+            style={{ background: "#0d6efd" }}
+            onClick={() => enrollCourse(record.maKhoaHoc)}
+          >
             Ghi danh
           </Button>
-          <Button danger type="primary">
+          <Button
+            danger
+            type="primary"
+            onClick={() => unenrollCourse(record.maKhoaHoc)}
+          >
             Hủy
           </Button>
         </Space>
@@ -53,12 +62,41 @@ const Confirm = ({ taiKhoan }) => {
     }
   };
 
+  const enrollCourse = async (maKhoaHoc) => {
+    try {
+      const response = await api.post("QuanLyKhoaHoc/GhiDanhKhoaHoc", {
+        taiKhoan: taiKhoan.taiKhoan,
+        maKhoaHoc: maKhoaHoc,
+      });
+      console.log("Enrollment successful", response.data);
+      toast.success("Ghi danh thành công!");
+      fetchCourses();
+    } catch (error) {
+      console.error("Enrollment failed", error);
+      toast.error("Ghi danh thất bại, vui lòng thử lại!");
+    }
+  };
+
+  const unenrollCourse = async (maKhoaHoc) => {
+    try {
+      const response = await api.post("QuanLyKhoaHoc/HuyGhiDanh", {
+        taiKhoan: taiKhoan.taiKhoan,
+        maKhoaHoc: maKhoaHoc,
+      });
+      console.log("Unenrollment successful", response.data);
+      toast.success("Hủy ghi danh thành công!");
+      fetchCourses();
+    } catch (error) {
+      console.error("Unenrollment failed", error);
+      toast.error("Hủy ghi danh thất bại, vui lòng thử lại!");
+    }
+  };
+
   useEffect(() => {
     if (taiKhoan) {
       fetchCourses();
     }
   }, [taiKhoan]);
-
 
   return (
     <div>
