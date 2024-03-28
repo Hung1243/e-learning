@@ -21,6 +21,7 @@ import { DatePicker, Space } from "antd";
 import { useSelector } from "react-redux";
 import moment from "moment";
 import { UploadOutlined } from "@ant-design/icons";
+import EnrollByCourse from "../../components/enrollModal/enrollByCourse/EnrollByCourse";
 
 const onChangeDate = (date, dateString) => {
   console.log(date, dateString);
@@ -56,30 +57,18 @@ const CourseManagement = () => {
   const [listCourse, setListCourse] = useState([]);
   const [listCategories, setListCategories] = useState([]);
   const [editingCourse, setEditingCourse] = useState(null);
+  const [course, setCourse] = useState();
+  const [openModal, setOpenModal] = useState(false);
 
   const getCourse = async () => {
-    const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJCb290Y2FtcCA1NyIsIkhldEhhblN0cmluZyI6IjI5LzA2LzIwMjQiLCJIZXRIYW5UaW1lIjoiMTcxOTYxOTIwMDAwMCIsIm5iZiI6MTY4ODkyMjAwMCwiZXhwIjoxNzE5NzY2ODAwfQ.9MKEqdjyd8nN84l6J6hg-XfkLpmaY_aBPozV_TXxusM";
-
-    const res = await api.get("QuanLyKhoaHoc/LayDanhSachKhoaHoc?MaNhom=GP01", {
-      headers: {
-        TokenCybersoft: token,
-      },
-    });
+    const res = await api.get("QuanLyKhoaHoc/LayDanhSachKhoaHoc?MaNhom=GP01");
     setListCourse(res.data);
   };
   useEffect(() => {
     getCourse();
   }, []);
   const getCategories = async () => {
-    const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJCb290Y2FtcCA1NyIsIkhldEhhblN0cmluZyI6IjI5LzA2LzIwMjQiLCJIZXRIYW5UaW1lIjoiMTcxOTYxOTIwMDAwMCIsIm5iZiI6MTY4ODkyMjAwMCwiZXhwIjoxNzE5NzY2ODAwfQ.9MKEqdjyd8nN84l6J6hg-XfkLpmaY_aBPozV_TXxusM";
-
-    const res = await api.get("QuanLyKhoaHoc/LayDanhMucKhoaHoc", {
-      headers: {
-        TokenCybersoft: token,
-      },
-    });
+    const res = await api.get("QuanLyKhoaHoc/LayDanhMucKhoaHoc", {});
     setListCategories(res.data);
   };
   useEffect(() => {
@@ -130,6 +119,25 @@ const CourseManagement = () => {
     {
       title: "Category",
       dataIndex: "danhMucKhoaHoc",
+    },
+    {
+      title: " Ghi Danh",
+      fixed: "right",
+      render: (text, record) => (
+        <>
+          <Button
+            type="primary"
+            style={{ background: "#0d6efd" }}
+            onClick={() => {
+              setOpenModal(true);
+              setCourse(record);
+              console.log("123");
+            }}
+          >
+            Ghi danh
+          </Button>
+        </>
+      ),
     },
     {
       title: "Edit",
@@ -200,7 +208,6 @@ const CourseManagement = () => {
     }
   };
 
-  // Điều chỉnh hàm createCourse thành universal function để handle cả tạo mới và cập nhật
   const handleSubmitCourse = async (values) => {
     const accessToken = localStorage.getItem("AccessToken");
 
@@ -417,6 +424,17 @@ const CourseManagement = () => {
           </Row>
         </Form>
       </Modal>
+      {openModal && (
+        <>
+          {" "}
+          <EnrollByCourse
+            course={course}
+            open={openModal}
+            setOpen={setOpenModal}
+          />
+          {/* <Confirm taiKhoan={taiKhoan} key={key} /> */}
+        </>
+      )}
     </div>
   );
 };

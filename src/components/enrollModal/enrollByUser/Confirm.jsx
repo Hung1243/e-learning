@@ -4,7 +4,7 @@ import { Button, Space, Table, Tag } from "antd";
 import api from "../../../config/axios";
 import { toast } from "react-toastify";
 
-const Confirm = ({ taiKhoan, handleEnroll }) => {
+const Confirm = ({ taiKhoan }) => {
   const [courses, setCourses] = useState([]);
   const columns = [
     {

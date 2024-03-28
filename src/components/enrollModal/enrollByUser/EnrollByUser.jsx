@@ -96,7 +96,7 @@ const EnrollByUser = ({ taiKhoan, open, setOpen }) => {
           </Select>
           <Button
             type="primary"
-            style={{ background: "#0d6efd", marginLeft: "10px" }}
+            style={{ marginLeft: "10px" }}
             onClick={handleEnroll}
             disabled={!selectedCourse}
           >
@@ -105,7 +105,7 @@ const EnrollByUser = ({ taiKhoan, open, setOpen }) => {
           <hr className="mt-2" />
         </div>
         <div className="confirm mt-2">
-          <Confirm  taiKhoan={taiKhoan} />
+          <Confirm taiKhoan={taiKhoan} />
         </div>
         <hr />
         <div className="enrolled mt-2">
