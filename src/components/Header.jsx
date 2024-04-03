@@ -25,7 +25,7 @@ const Header = () => {
             <section className="head">
                 <div className="container flexSB">
                     <div className="logo">
-                        <h1>ACADEMIA</h1>
+                        <h1>E-LEARNING</h1>
                         <span>ONLINE EDUCATION & LEARNING</span>
                     </div>
 
