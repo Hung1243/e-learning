@@ -17,7 +17,7 @@ http.interceptors.request.use(
     if (token) {
       config.headers["Authorization"] = `Bearer ${token}`;
       config.headers["TokenCybersoft"] =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJCb290Y2FtcCA1NyIsIkhldEhhblN0cmluZyI6IjI4LzA4LzIwMjQiLCJIZXRIYW5UaW1lIjoiMTcyNDgwMzIwMDAwMCIsIm5iZiI6MTY4ODkyMjAwMCwiZXhwIjoxNzI0OTUwODAwfQ.ZnHublN4VLfhkrSNPAsZB2-b6qd_rIknhX-JNmzGxjg";
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJCb290Y2FtcCA1NyIsIkhldEhhblN0cmluZyI6IjE1LzA2LzIwMjQiLCJIZXRIYW5UaW1lIjoiMTcxODQwOTYwMDAwMCIsIm5iZiI6MTY4ODkyMjAwMCwiZXhwIjoxNzE4NTU3MjAwfQ.vY7VplGBpsG599RYLEeMeajQNALOV5QUJ2dGV6Ow_q4";
     }
     return config;
   },

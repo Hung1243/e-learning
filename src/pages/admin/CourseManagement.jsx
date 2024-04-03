@@ -9,6 +9,7 @@ import {
   Popconfirm,
   Row,
   Select,
+  Skeleton,
   Table,
   Upload,
   message,
@@ -59,10 +60,14 @@ const CourseManagement = () => {
   const [editingCourse, setEditingCourse] = useState(null);
   const [course, setCourse] = useState();
   const [openModal, setOpenModal] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const userInfo = useSelector((store) => store.user);
 
   const getCourse = async () => {
+    setLoading(true);
     const res = await api.get("QuanLyKhoaHoc/LayDanhSachKhoaHoc?MaNhom=GP01");
     setListCourse(res.data);
+    setLoading(false);
   };
   useEffect(() => {
     getCourse();
@@ -103,6 +108,11 @@ const CourseManagement = () => {
           src={hinhAnh}
           alt="Hình ảnh"
           style={{ width: "70px", height: "70px", borderRadius: "50%" }}
+          onError={({ currentTarget }) => {
+            currentTarget.onerror = null; // prevents looping
+            currentTarget.src =
+              "https://www.ntc.edu/sites/default/files/styles/full_width_16_9/public/2021-06/software-development-specialist.jpg?";
+          }}
         />
       ),
     },
@@ -121,7 +131,7 @@ const CourseManagement = () => {
       dataIndex: "danhMucKhoaHoc",
     },
     {
-      title: " Ghi Danh",
+      title: " Enroll",
       fixed: "right",
       render: (text, record) => (
         <>
@@ -134,7 +144,7 @@ const CourseManagement = () => {
               console.log("123");
             }}
           >
-            Ghi danh
+            Enroll
           </Button>
         </>
       ),
@@ -142,28 +152,25 @@ const CourseManagement = () => {
     {
       title: "Edit",
       render: (_, record) => (
-        <Button
-          type="primary"
-          style={{ background: "#1677ff" }}
-          onClick={() => handleEdit(record)}
-        >
-          Sửa
-        </Button>
-      ),
-    },
-    {
-      title: "Delete",
-      render: (_, record) => (
-        <Popconfirm
-          title="Are you sure you want to delete this course?"
-          onConfirm={() => handleDelete(record.maKhoaHoc)}
-          okText="Yes"
-          cancelText="No"
-        >
-          <Button type="primary" danger>
-            Xóa
+        <>
+          <Button
+            type="primary"
+            style={{ background: "#1677ff" }}
+            onClick={() => handleEdit(record)}
+          >
+            Edit
           </Button>
-        </Popconfirm>
+          <Popconfirm
+            title="Are you sure you want to delete this course?"
+            onConfirm={() => handleDelete(record.maKhoaHoc)}
+            okText="Yes"
+            cancelText="No"
+          >
+            <Button type="primary" danger>
+              Delete
+            </Button>
+          </Popconfirm>
+        </>
       ),
     },
   ];
@@ -179,29 +186,17 @@ const CourseManagement = () => {
 
   // Function xử lý sự kiện delete
   const handleDelete = async (maKhoaHoc) => {
-    const accessToken = localStorage.getItem("AccessToken");
-
-    const headers = {
-      TokenCybersoft:
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJCb290Y2FtcCA1NyIsIkhldEhhblN0cmluZyI6IjI5LzA2LzIwMjQiLCJIZXRIYW5UaW1lIjoiMTcxOTYxOTIwMDAwMCIsIm5iZiI6MTY4ODkyMjAwMCwiZXhwIjoxNzE5NzY2ODAwfQ.9MKEqdjyd8nN84l6J6hg-XfkLpmaY_aBPozV_TXxusM",
-      Authorization: "Bearer " + accessToken,
-    };
     try {
       const res = await api.delete(
-        `QuanLyKhoaHoc/XoaKhoaHoc?MaKhoaHoc=${maKhoaHoc}`,
-        {
-          headers: headers,
-        }
+        `QuanLyKhoaHoc/XoaKhoaHoc?MaKhoaHoc=${maKhoaHoc}`
       );
       toast.success("Xóa khóa học thành công!");
-      getCourse(); // Gọi lại hàm lấy danh sách khóa học để cập nhật dữ liệu trên bảng
+      getCourse();
     } catch (error) {
       if (error.response && error.response.data) {
-        // Nếu có phản hồi từ máy chủ và dữ liệu phản hồi có chứa thông báo lỗi
         const errorMessage = error.response.data;
         toast.error(errorMessage);
       } else {
-        // Nếu không có phản hồi hoặc không có dữ liệu phản hồi, hiển thị thông báo lỗi mặc định
         toast.error("Có lỗi xảy ra khi xóa khóa học!");
       }
       console.error(error);
@@ -211,61 +206,52 @@ const CourseManagement = () => {
   const handleSubmitCourse = async (values) => {
     const accessToken = localStorage.getItem("AccessToken");
 
-    const headers = {
-      TokenCybersoft:
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJCb290Y2FtcCA1NyIsIkhldEhhblN0cmluZyI6IjI5LzA2LzIwMjQiLCJIZXRIYW5UaW1lIjoiMTcxOTYxOTIwMDAwMCIsIm5iZiI6MTY4ODkyMjAwMCwiZXhwIjoxNzE5NzY2ODAwfQ.9MKEqdjyd8nN84l6J6hg-XfkLpmaY_aBPozV_TXxusM",
-      Authorization: "Bearer " + accessToken,
-    };
     if (editingCourse) {
       // Logic cập nhật khóa học
       const updateValues = {
         ...values,
-        maKhoaHoc: editingCourse.maKhoaHoc, // Giữ nguyên mã khóa học
+        maKhoaHoc: editingCourse.maKhoaHoc,
       };
       try {
-        const res = await api.put(
-          `QuanLyKhoaHoc/CapNhatKhoaHoc`,
-          updateValues,
-          {
-            headers: headers,
-          }
-        );
+        const res = await api.put(`QuanLyKhoaHoc/CapNhatKhoaHoc`, updateValues);
         toast.success("Cập nhật khóa học thành công!");
-        getCourse(); // Cập nhật lại danh sách khóa học
+        getCourse();
         setOpen(false);
       } catch (error) {
         if (error.response && error.response.data) {
-          // Nếu có phản hồi từ máy chủ và dữ liệu phản hồi có chứa thông báo lỗi
           const errorMessage = error.response.data;
           toast.error(errorMessage);
         } else {
-          // Nếu không có phản hồi hoặc không có dữ liệu phản hồi, hiển thị thông báo lỗi mặc định
           toast.error("Có lỗi xảy ra khi xóa khóa học!");
         }
         console.error(error);
       }
     } else {
       try {
-        const res = await api.post("QuanLyKhoaHoc/ThemKhoaHoc", values, {
-          headers: headers,
-        });
+        const res = await api.post("QuanLyKhoaHoc/ThemKhoaHoc", values);
         form.resetFields();
         setOpen(false);
         toast.success("Đã thêm thành công");
         getCourse();
       } catch (error) {
         if (error.response && error.response.data) {
-          // Nếu có phản hồi từ máy chủ và dữ liệu phản hồi có chứa thông báo lỗi
           const errorMessage = error.response.data;
           toast.error(errorMessage);
         } else {
-          // Nếu không có phản hồi hoặc không có dữ liệu phản hồi, hiển thị thông báo lỗi mặc định
           toast.error("Có lỗi xảy ra khi xóa khóa học!");
         }
         console.error(error);
       }
     }
   };
+
+  const handleOpenModal = () => {
+    setOpen(true);
+    form.setFieldsValue({
+      taiKhoanNguoiTao: userInfo?.taiKhoan,
+    });
+  };
+
   const filterOption = (input, option) =>
     (option?.label ?? "").toLowerCase().includes(input.toLowerCase());
   return (
@@ -273,33 +259,35 @@ const CourseManagement = () => {
       <Flex gap="small" wrap="wrap">
         <Button
           type="primary"
-          onClick={() => {
-            setOpen(true);
-          }}
+          onClick={handleOpenModal}
           className="bg bg-primary mb-3"
         >
           + Thêm
         </Button>
       </Flex>
-      <Table
-        columns={columns}
-        dataSource={data}
-        pagination={{
-          pageSize: 4,
-        }}
-        bordered
-      />
+      {loading ? (
+        <Skeleton active />
+      ) : (
+        <Table
+          columns={columns}
+          dataSource={data}
+          pagination={{
+            pageSize: 4,
+          }}
+          bordered
+        />
+      )}
       <Modal
-        title={editingCourse ? "Cập nhật khóa học" : "Tạo khóa học mới"}
+        title={editingCourse ? "Update course" : "Create new course"}
         centered
         open={open}
         onOk={() => form.submit()}
         onCancel={() => {
           setOpen(false);
-          setEditingCourse(null); // Reset khi đóng Modal
-          form.resetFields(); // Reset form fields khi đóng Modal
+          setEditingCourse(null);
+          form.resetFields();
         }}
-        okText={editingCourse ? "Lưu" : "Tạo"}
+        okText={editingCourse ? "Save" : "Create"}
         cancelText="Hủy"
         width={1000}
       >
@@ -308,8 +296,8 @@ const CourseManagement = () => {
             <Col span={12}>
               <Form.Item
                 name="maKhoaHoc"
-                label="Mã khóa học"
-                rules={[{ required: true, message: "Không được để trống" }]}
+                label="Course CODE"
+                rules={[{ required: true, message: "Cannot be empty" }]}
               >
                 <Input disabled={editingCourse ? true : false} />
               </Form.Item>
@@ -318,25 +306,21 @@ const CourseManagement = () => {
               <Form.Item
                 name="tenKhoaHoc"
                 label="Course Name"
-                rules={[{ required: true, message: "Không được để trống" }]}
+                rules={[{ required: true, message: "Cannot be empty" }]}
               >
                 <Input />
               </Form.Item>
             </Col>{" "}
             <Col span={12}>
-              <Form.Item
-                name="maNhom"
-                label="CODE (default GP01)"
-                rules={[{ required: true, message: "Không được để trống" }]}
-              >
-                <Input />
+              <Form.Item name="maNhom" label="CODE (default GP01)">
+                <Input disabled value={"GP01"} />
               </Form.Item>
             </Col>
             <Col span={12}>
               <Form.Item
                 name="hinhAnh"
                 label="Image (Url)"
-                rules={[{ required: true, message: "Không được để trống" }]}
+                rules={[{ required: true, message: "Cannot be empty" }]}
               >
                 <Input />
               </Form.Item>
@@ -348,7 +332,7 @@ const CourseManagement = () => {
                 rules={[
                   {
                     required: true,
-                    message: "Không được để trống ",
+                    message: "Cannot be empty ",
                   },
                 ]}
               >
@@ -372,7 +356,7 @@ const CourseManagement = () => {
               <Form.Item
                 name="danhGia"
                 label="Feedback "
-                rules={[{ required: true, message: "Không được để trống" }]}
+                rules={[{ required: true, message: "Cannot be empty" }]}
               >
                 <Input />
               </Form.Item>
@@ -382,7 +366,7 @@ const CourseManagement = () => {
               <Form.Item
                 name="luotXem"
                 label="View"
-                rules={[{ required: true, message: "Không được để trống" }]}
+                rules={[{ required: true, message: "Cannot be empty" }]}
               >
                 <Input />
               </Form.Item>
@@ -392,9 +376,9 @@ const CourseManagement = () => {
               <Form.Item
                 name="taiKhoanNguoiTao"
                 label="Create By (your userName)"
-                rules={[{ required: true, message: "Không được để trống" }]}
+                // rules={[{ required: true, message: "Cannot be empty" }]}
               >
-                <Input />
+                <Input disabled value={userInfo?.taiKhoan} />
               </Form.Item>
             </Col>
             <Col span={12}>
@@ -402,7 +386,7 @@ const CourseManagement = () => {
               <Form.Item
                 name="ngayTao"
                 label="CreateDay"
-                rules={[{ required: true, message: "Không được để trống" }]}
+                rules={[{ required: true, message: "Cannot be empty" }]}
               >
                 <DatePicker onChange={onChangeDate} />
               </Form.Item>
@@ -414,7 +398,7 @@ const CourseManagement = () => {
                 rules={[
                   {
                     required: true,
-                    message: "Không được để trống ",
+                    message: "Cannot be empty ",
                   },
                 ]}
               >
