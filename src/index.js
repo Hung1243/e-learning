@@ -14,7 +14,6 @@ import ViewCourse from "./pages/user/ViewCourse";
 import ViewCourseDetail from "./pages/user/ViewCourseDetail";
 import MyProfile from "./pages/user/MyProfile";
 // import Blog from "./components/BlogPost/Blog.jsx";
-import EnrollManagement from "./pages/admin/EnrollManagement";
 import { persistor, store } from "./redux/store.jsx";
 import { createBrowserHistory } from "history";
 import DashBoard from "./components/DashBoard/DashBoard.jsx";
@@ -22,6 +21,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import About from "./components/AboutUs/About.jsx";
 import CategoryCourse from "./components/allcourses/CategoryCourse.jsx";
+import PrivateRoute from "./components/private-route/PrivateRoute.jsx";
 import Blog from "./components/BlogPost/Blog.jsx";
 
 export const history = createBrowserHistory();
@@ -34,18 +34,27 @@ root.render(
         <Routes>
           <Route path="login" element={<Login />}></Route>
           <Route path="register" element={<Register />}></Route>
-          <Route path="dashboard" element={<DashBoard />}>
+          <Route
+            path="dashboard"
+            element={
+              <PrivateRoute>
+                <DashBoard />
+              </PrivateRoute>
+            }
+          >
             <Route path="manage-user" element={<UserManagement />}></Route>
             <Route path="manage-course" element={<CourseManagement />}></Route>
-            <Route path="manage-enroll" element={<EnrollManagement />}></Route>
           </Route>
           <Route path="" element={<HomeTemplate />}>
             <Route index element={<Home />}></Route>
             <Route path="course">
               <Route path="" element={<ViewCourse />}></Route>
               <Route path=":maKhoaHoc" element={<ViewCourseDetail />}></Route>
-              
-              <Route path="category/:maDanhMuc" element={<CategoryCourse />}></Route>
+
+              <Route
+                path="category/:maDanhMuc"
+                element={<CategoryCourse />}
+              ></Route>
             </Route>
             <Route path="my-profile" element={<MyProfile />}></Route>
             <Route path="about" element={<About />}></Route>

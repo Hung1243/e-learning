@@ -9,12 +9,16 @@ import {
   Popconfirm,
   Row,
   Select,
+  Skeleton,
+  Space,
   Table,
   Upload,
 } from "antd";
 import { useForm } from "antd/es/form/Form";
 import api from "../../config/axios";
 import { toast } from "react-toastify";
+import EnrollByUser from "../../components/enrollModal/enrollByUser/EnrollByUser";
+import Confirm from "../../components/enrollModal/enrollByUser/Confirm";
 // import { PlusOutlined } from "@ant-design/icons";
 const onChange = (value) => {
   console.log(`selected ${value}`);
@@ -26,19 +30,19 @@ const onSearch = (value) => {
 const UserManagement = () => {
   const [open, setOpen] = useState(false);
   const [listAccount, setListAccount] = useState([]);
-  const [selectedUser, setSelectedUser] = useState(null);
-  const [isEditMode, setIsEditMode] = useState(false); // Thêm state để xác định chế độ chỉnh sửa
+  const [openModal, setOpenModal] = useState(false);
+  const [taiKhoan, setTaiKhoan] = useState();
+  const [loading, setLoading] = useState(true);
+  const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
+  const [currentUser, setCurrentUser] = useState({});
 
   const getAccount = async () => {
-    const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJCb290Y2FtcCA1NyIsIkhldEhhblN0cmluZyI6IjI5LzA2LzIwMjQiLCJIZXRIYW5UaW1lIjoiMTcxOTYxOTIwMDAwMCIsIm5iZiI6MTY4ODkyMjAwMCwiZXhwIjoxNzE5NzY2ODAwfQ.9MKEqdjyd8nN84l6J6hg-XfkLpmaY_aBPozV_TXxusM";
+    setLoading(true);
 
-    const res = await api.get("QuanLyNguoiDung/TimKiemNguoiDung?MaNhom=GP01", {
-      headers: {
-        TokenCybersoft: token,
-      },
-    });
+    const res = await api.get("QuanLyNguoiDung/TimKiemNguoiDung?MaNhom=GP01");
     setListAccount(res.data);
+    console.log(res.data);
+    setLoading(false);
   };
   useEffect(() => {
     getAccount();
@@ -58,16 +62,7 @@ const UserManagement = () => {
   });
   const [form] = useForm();
   const createAccount = async (values) => {
-    const accessToken = localStorage.getItem("AccessToken");
-
-    const headers = {
-      TokenCybersoft:
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJCb290Y2FtcCA1NyIsIkhldEhhblN0cmluZyI6IjI5LzA2LzIwMjQiLCJIZXRIYW5UaW1lIjoiMTcxOTYxOTIwMDAwMCIsIm5iZiI6MTY4ODkyMjAwMCwiZXhwIjoxNzE5NzY2ODAwfQ.9MKEqdjyd8nN84l6J6hg-XfkLpmaY_aBPozV_TXxusM",
-      Authorization: "Bearer " + accessToken,
-    };
-    const res = await api.post("QuanLyNguoiDung/ThemNguoiDung", values, {
-      headers: headers,
-    });
+    const res = await api.post("QuanLyNguoiDung/ThemNguoiDung", values);
     form.resetFields();
     setOpen(false);
     toast.success("Đã thêm thành công");
@@ -76,40 +71,60 @@ const UserManagement = () => {
   const filterOption = (input, option) =>
     (option?.label ?? "").toLowerCase().includes(input.toLowerCase());
 
-  const handleEdit = (user) => {
-    setSelectedUser(user);
+  const handleOpenModal = () => {
     setOpen(true);
-    setIsEditMode(true);
+    form.setFieldsValue({ maNhom: "GP01" }); // Set giá trị mặc định cho maNhom
+  };
+
+  const handleEditClick = (record) => {
+    setCurrentUser(record);
+    setIsUpdateModalOpen(true);
     form.setFieldsValue({
-      taiKhoan: user.taiKhoan,
-      matKhau: user.matKhau,
-      email: user.email,
-      hoTen: user.hoTen,
-      maNhom: user.maNhom,
-      soDT: user.soDT,
-      maLoaiNguoiDung: user.maLoaiNguoiDung,
+      taiKhoan: record.taiKhoan,
+      email: record.email,
+      hoTen: record.hoTen,
+      soDT: record.soDt,
+      maLoaiNguoiDung: record.maLoaiNguoiDung,
+      matKhau: record.matKhau,
+      maNhom: record.maNhom || "GP01",
     });
   };
-  const handleSave = async (values) => {
-    const accessToken = localStorage.getItem("AccessToken");
 
-    const headers = {
-      TokenCybersoft:
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJCb290Y2FtcCA1NyIsIkhldEhhblN0cmluZyI6IjI5LzA2LzIwMjQiLCJIZXRIYW5UaW1lIjoiMTcxOTYxOTIwMDAwMCIsIm5iZiI6MTY4ODkyMjAwMCwiZXhwIjoxNzE5NzY2ODAwfQ.9MKEqdjyd8nN84l6J6hg-XfkLpmaY_aBPozV_TXxusM",
-      Authorization: "Bearer " + accessToken,
-    };
-
+  const handleUpdate = async () => {
     try {
-      // Thực hiện cập nhật thông tin người dùng với tài khoản được truyền từ form values
-      await api.put(`QuanLyNguoiDung/CapNhatThongTinNguoiDung`, values, {
-        headers: headers,
-      });
-      toast.success("Đã cập nhật thông tin thành công");
-      setOpen(false);
-      getAccount(); // Cập nhật lại danh sách người dùng sau khi cập nhật thành công
+      const fieldsValue = form.getFieldsValue();
+
+      const updateData = {
+        ...currentUser,
+        ...fieldsValue,
+        // maNhom: currentUser.maNhom,
+      };
+      const { data } = await api.put(
+        "QuanLyNguoiDung/CapNhatThongTinNguoiDung",
+        updateData
+      );
+      toast.success("Cập nhật thành công!");
+      setIsUpdateModalOpen(false);
+      getAccount(); // Làm mới danh sách người dùng
     } catch (error) {
-      console.error("Error updating user:", error);
-      toast.error("Có lỗi xảy ra khi cập nhật thông tin người dùng");
+      toast.error("Có lỗi xảy ra khi cập nhật!");
+      console.error(error);
+    }
+  };
+
+  const handleDelete = async (taiKhoan) => {
+    try {
+      await api.delete(`QuanLyNguoiDung/XoaNguoiDung?TaiKhoan=${taiKhoan}`);
+      toast.success("Xóa người dùng thành công");
+      getAccount();
+    } catch (error) {
+      if (error.response && error.response.data) {
+        const errorMessage = error.response.data;
+        toast.error(errorMessage);
+      } else {
+        toast.error("Có lỗi xảy ra khi xóa khóa học!");
+      }
+      console.error(error);
     }
   };
 
@@ -143,26 +158,48 @@ const UserManagement = () => {
       dataIndex: "tenLoaiNguoiDung",
     },
     {
-      title: " Edit",
+      title: " Ghi Danh",
       fixed: "right",
-      render: (_, record) => (
-        <Button type="primary" danger onClick={() => handleEdit(record)}>
-          Sửa
-        </Button>
+      render: (text, record) => (
+        <>
+          <Button
+            type="primary"
+            style={{ background: "#0d6efd" }}
+            onClick={() => {
+              setOpenModal(true);
+              setTaiKhoan(record);
+              console.log("123");
+            }}
+          >
+            Ghi danh
+          </Button>
+        </>
       ),
     },
     {
-      title: "Delete",
-      render: () => (
-        // <Popconfirm
-        //   title="Are you sure you want to delete this account?"
-        //   onConfirm={() => handleDelete(record.id)}
-        //   onCancel={() => console.log("Cancel")}
-        // >
-        <Button type="primary" danger>
-          Xóa
-        </Button>
-        // </Popconfirm>
+      title: " Action",
+      fixed: "right",
+      render: (_, record) => (
+        <Space>
+          {" "}
+          <Button
+            type="primary"
+            style={{ background: "#0d6efd" }}
+            onClick={() => handleEditClick(record)}
+          >
+            Sửa
+          </Button>
+          <Popconfirm
+            title="Bạn có chắc chắn muốn xóa người dùng này?"
+            onConfirm={() => handleDelete(record.taiKhoan)}
+            okText="Có"
+            cancelText="Không"
+          >
+            <Button type="primary" danger>
+              Xóa
+            </Button>
+          </Popconfirm>
+        </Space>
       ),
     },
   ];
@@ -171,66 +208,63 @@ const UserManagement = () => {
       <Flex gap="small" wrap="wrap">
         <Button
           type="primary"
-          onClick={() => {
-            setOpen(true);
-            setIsEditMode(false);
-          }}
+          onClick={handleOpenModal}
           className="bg bg-primary mb-3"
         >
-          + Thêm
+          + Add new
         </Button>
       </Flex>
-      <Table
-        columns={columns}
-        dataSource={data}
-        scroll={{
-          x: 1200,
-        }}
-        pagination={{
-          pageSize: 4,
-        }}
-        bordered
-      />
+      {loading ? (
+        <Skeleton active />
+      ) : (
+        <Table
+          columns={columns}
+          dataSource={data}
+          pagination={{
+            pageSize: 4,
+          }}
+          bordered
+        />
+      )}
+      {openModal && (
+        <>
+          {" "}
+          <EnrollByUser
+            taiKhoan={taiKhoan}
+            open={openModal}
+            setOpen={setOpenModal}
+          />
+        </>
+      )}
       <Modal
-        title={isEditMode ? "Cập nhật thông tin người dùng" : "Thêm người dùng"}
-        centered
-        open={open}
-        onCancel={() => setOpen(false)}
-        width={1000}
-        footer={[
-          <Button key="back" onClick={() => setOpen(false)}>
-            Hủy
-          </Button>,
-          <Button
-            key="submit"
-            type="primary"
-            onClick={() => (isEditMode ? handleSave() : form.submit())}
-          >
-            {isEditMode ? "Lưu" : "OK"}
-          </Button>,
-        ]}
+        title={isUpdateModalOpen ? "Update user" : "Add new user"}
+        open={open || isUpdateModalOpen}
+        onCancel={() => {
+          setOpen(false);
+          setIsUpdateModalOpen(false);
+          form.resetFields(); // Đảm bảo form được reset khi đóng modal
+        }}
+        onOk={() => {
+          isUpdateModalOpen ? handleUpdate() : form.submit();
+        }}
       >
-        <Form
-          form={form}
-          labelCol={{ span: 24 }}
-          onFinish={isEditMode ? handleSave : createAccount}
-        >
+        <Form form={form} labelCol={{ span: 24 }} onFinish={createAccount}>
           <Row gutter={24}>
             <Col span={12}>
               <Form.Item
                 name="taiKhoan"
-                label="Tài khoản"
-                rules={[{ required: true, message: "Không được để trống" }]}
+                label="UserName"
+                rules={[{ required: true, message: "Cannot be empty" }]}
               >
-                <Input />
+                <Input disabled={isUpdateModalOpen} />
               </Form.Item>
             </Col>{" "}
             <Col span={12}>
               {" "}
               <Form.Item
                 name="matKhau"
-                label="Mật khẩu"
-                rules={[{ required: true, message: "Không được để trống" }]}
+                label="Password"
+                rules={[{ required: true, message: "Cannot be empty" }]}
               >
                 <Input />
               </Form.Item>
@@ -240,7 +274,7 @@ const UserManagement = () => {
               <Form.Item
                 name="email"
                 label="Email"
-                rules={[{ required: true, message: "Không được để trống" }]}
+                rules={[{ required: true, message: "Cannot be empty" }]}
               >
                 <Input />
               </Form.Item>
@@ -249,28 +283,24 @@ const UserManagement = () => {
               {" "}
               <Form.Item
                 name="hoTen"
-                label="Họ và tên"
-                rules={[{ required: true, message: "Không được để trống" }]}
+                label="Full name"
+                rules={[{ required: true, message: "Cannot be empty" }]}
               >
                 <Input />
               </Form.Item>
             </Col>
             <Col span={12}>
               {" "}
-              <Form.Item
-                name="maNhom"
-                label="Mã nhóm"
-                rules={[{ required: true, message: "Không được để trống" }]}
-              >
-                <Input />
+              <Form.Item name="maNhom" label="Group">
+                <Input disabled value={"GP01"} />
               </Form.Item>
             </Col>
             <Col span={12}>
               {" "}
               <Form.Item
                 name="soDT"
-                label="Số điện thoại"
-                rules={[{ required: true, message: "Không được để trống" }]}
+                label="Phone number"
+                rules={[{ required: true, message: "Cannot be empty" }]}
               >
                 <Input />
               </Form.Item>
@@ -279,8 +309,8 @@ const UserManagement = () => {
               {" "}
               <Form.Item
                 name="maLoaiNguoiDung"
-                label="Giáo vụ"
-                rules={[{ required: true, message: "Không được để trống" }]}
+                label="Role"
+                rules={[{ required: true, message: "Cannot be empty" }]}
               >
                 <Select
                   showSearch

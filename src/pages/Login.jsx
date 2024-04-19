@@ -17,18 +17,17 @@ const Login = () => {
     const formData = new FormData(e.target);
     const values = Object.fromEntries(formData.entries());
     try {
-      const token =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJCb290Y2FtcCA1NyIsIkhldEhhblN0cmluZyI6IjI5LzA2LzIwMjQiLCJIZXRIYW5UaW1lIjoiMTcxOTYxOTIwMDAwMCIsIm5iZiI6MTY4ODkyMjAwMCwiZXhwIjoxNzE5NzY2ODAwfQ.9MKEqdjyd8nN84l6J6hg-XfkLpmaY_aBPozV_TXxusM";
       const response = await api.post("QuanLyNguoiDung/DangNhap", values, {
         headers: {
-          TokenCybersoft: token,
+          TokenCybersoft:
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJCb290Y2FtcCA1NyIsIkhldEhhblN0cmluZyI6IjE1LzA2LzIwMjQiLCJIZXRIYW5UaW1lIjoiMTcxODQwOTYwMDAwMCIsIm5iZiI6MTY4ODkyMjAwMCwiZXhwIjoxNzE4NTU3MjAwfQ.vY7VplGBpsG599RYLEeMeajQNALOV5QUJ2dGV6Ow_q4",
         },
       });
       localStorage.setItem("AccessToken", response.data.accessToken);
       if (response.data.maLoaiNguoiDung === "HV") {
         navigate("/my-profile");
       } else {
-        navigate("/dashboard");
+        navigate("/dashboard/manage-user");
       }
       dispatch(login(response.data));
       toast.success(`Đăng nhập thành công`);
@@ -42,19 +41,18 @@ const Login = () => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const values = Object.fromEntries(formData.entries());
-    const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJCb290Y2FtcCA1NyIsIkhldEhhblN0cmluZyI6IjI5LzA2LzIwMjQiLCJIZXRIYW5UaW1lIjoiMTcxOTYxOTIwMDAwMCIsIm5iZiI6MTY4ODkyMjAwMCwiZXhwIjoxNzE5NzY2ODAwfQ.9MKEqdjyd8nN84l6J6hg-XfkLpmaY_aBPozV_TXxusM";
+    try {
+      const res = await api.post("QuanLyNguoiDung/DangKy", values, {
+        headers: {
+          TokenCybersoft:
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJCb290Y2FtcCA1NyIsIkhldEhhblN0cmluZyI6IjE1LzA2LzIwMjQiLCJIZXRIYW5UaW1lIjoiMTcxODQwOTYwMDAwMCIsIm5iZiI6MTY4ODkyMjAwMCwiZXhwIjoxNzE4NTU3MjAwfQ.vY7VplGBpsG599RYLEeMeajQNALOV5QUJ2dGV6Ow_q4",
+        },
+      });
 
-    const res = await api.post("QuanLyNguoiDung/DangKy", values, {
-      headers: {
-        TokenCybersoft: token,
-      },
-    });
-
-    if (res.status === 200) {
       toast.success("Tạo tài khoản thành công");
-    } else {
-      toast.error("Có lỗi xảy ra");
+    } catch (error) {
+      toast.error(error.response ? error.response.data : "Error occurred");
+      navigate("/login");
     }
   };
 
@@ -76,8 +74,6 @@ const Login = () => {
               <h2 className=" fs-1">E-LEARNING</h2>
               <p>Your Right Choice</p>
             </div>
-
-
           </div>
 
           {/* <!-- Form Box --> */}
