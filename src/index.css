@@ -249,6 +249,9 @@ header ul li a:hover {
     width: 100%;
     background-color: #1eb2a6;
   }
+  .hero-button{
+	display: none;
+  }
 }
 
 footer {

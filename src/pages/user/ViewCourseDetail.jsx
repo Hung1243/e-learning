@@ -94,7 +94,12 @@ const ViewCourseDetail = () => {
 
                                 {/* <!-- Course Image --> */}
                                 <div className="course_image">
-                                    <img src={courseDetail.hinhAnh} alt="" />
+                                    <img src={courseDetail.hinhAnh} alt=""
+                                        onError={({ currentTarget }) => {
+                                            currentTarget.onerror = null; // prevents looping
+                                            currentTarget.src =
+                                                "https://www.ntc.edu/sites/default/files/styles/full_width_16_9/public/2021-06/software-development-specialist.jpg?";
+                                        }} />
                                 </div>
 
                                 <CourseDetailsTab courseDetail={courseDetail} />

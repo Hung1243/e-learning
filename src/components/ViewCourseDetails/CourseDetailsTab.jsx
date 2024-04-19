@@ -145,11 +145,11 @@ const CourseDetailsTab = ({ courseDetail }) => {
                         aria-controls="review-tab-pane"
                         aria-selected="false"
                     >
-                        REVIEWS FROM STUDENTS
+                        REVIEWS
                     </button>
                 </li>
             </ul>
-            <div className="tab-content" id="myTabContent">
+            <div className="tab-content mt-4" id="myTabContent">
                 <div
                     className="tab-pane fade show active fst-italic"
                     id="home-tab-pane"
@@ -157,7 +157,19 @@ const CourseDetailsTab = ({ courseDetail }) => {
                     aria-labelledby="home-tab"
                     tabindex="0"
                 >
-                    {courseDetail.moTa}
+                    {/* {courseDetail.moTa} */}
+                    React.js is the most popular JavaScript library you can use and learn
+                    today to build modern, responsive user interfaces for the web. This
+                    course teaches you React in-depth, from the basics, Step by step dives
+                    into all the core basics, explores lots of examples, and also
+                    introduces you to advanced concepts. You'll get all the theory, tons
+                    of examples, and a primer. demonstrations, exercises and exercises as
+                    well as loads of important knowledge overlooked by most other sources
+                    - after all, there's a reason why this course is so great! And in case
+                    you don't even know why you want to learn React and you're just here
+                    for some ads or "algorithms" - don't worry: ReactJS is an important
+                    technology as a developer. web development and in this course I'll
+                    also explain WHY it's important!!
                 </div>
                 <div
                     className="tab-pane fade fst-italic"
@@ -210,57 +222,58 @@ const CourseDetailsTab = ({ courseDetail }) => {
                     <div>
                         <div className="review_rating_container row">
                             <div className="review_rating col-lg-4 col-md-12">
-                                <h3>COURSE REVIEWS</h3>
-                                <div className="review_rating_num">4.5</div>
+                                <h2>COURSE REVIEWS</h2>
+                                {/* <div className="review_rating_num">4.5</div> */}
                                 <div className="review_rating_stars">
-                                    <Rate />
+                                    <Rate disabled
+                                        defaultValue={4} />
                                 </div>
-                                <div className="review_rating_text">(28 Ratings)</div>
+                                <div className="review_rating_text">4.5 - (28 reviews)</div>
                             </div>
                             <div className="review_rating_bars col-lg-8 col-md-12">
                                 <ul>
                                     <li>
                                         <span>5 Star</span>
-                                        <div className=".bg-secondary-subtle review_rating_bar">
+                                        <div className="bg-secondary-subtle review_rating_bar">
                                             <div
                                                 style={{ width: "90%", height: "30px" }}
-                                                className="bg-success"
+                                                className=" bg-dark"
                                             ></div>
                                         </div>
                                     </li>
                                     <li>
                                         <span>4 Star</span>
-                                        <div className=".bg-secondary-subtle review_rating_bar">
+                                        <div className="bg-secondary-subtle review_rating_bar">
                                             <div
                                                 style={{ width: "75%", height: "30px" }}
-                                                className="bg-success"
+                                                className="bg-dark"
                                             ></div>
                                         </div>
                                     </li>
                                     <li>
                                         <span>3 Star</span>
-                                        <div className=".bg-secondary-subtle review_rating_bar">
+                                        <div className="bg-secondary-subtle review_rating_bar">
                                             <div
                                                 style={{ width: "32%", height: "30px" }}
-                                                className="bg-success"
+                                                className="bg-dark"
                                             ></div>
                                         </div>
                                     </li>
                                     <li>
                                         <span>2 Star</span>
-                                        <div className=".bg-secondary-subtle review_rating_bar">
+                                        <div className="bg-secondary-subtle review_rating_bar">
                                             <div
                                                 style={{ width: "10%", height: "30px" }}
-                                                className="bg-success"
+                                                className="bg-dark"
                                             ></div>
                                         </div>
                                     </li>
                                     <li>
                                         <span>1 Star</span>
-                                        <div className=".bg-secondary-subtle review_rating_bar">
+                                        <div className="bg-secondary-subtle review_rating_bar">
                                             <div
                                                 style={{ width: "3%", height: "30px" }}
-                                                className="bg-success"
+                                                className="bg-dark"
                                             ></div>
                                         </div>
                                     </li>
@@ -276,7 +289,7 @@ const CourseDetailsTab = ({ courseDetail }) => {
                                 cols="10"
                                 rows="10"
                             ></textarea>
-                            <div className="mt-10 text-right">
+                            <div className="mt-2 text-right">
                                 <button
                                     href="#"
                                     className=" btn btn-dark text-right rounded text-white"
@@ -288,13 +301,14 @@ const CourseDetailsTab = ({ courseDetail }) => {
                         <div className="comments-area mb-30">
                             <div className="comment-list ">
                                 <div className="single-comment single-reviews justify-content-between d-flex ">
-                                    <div className="user justify-content-between d-flex shadow  mt-5 mb-2 bg-body-gray rounded p-4">
-                                        <div className="thumb">
+                                    <div className="user justify-content-between d-flex shadow  mt-2 mb-2 bg-body-gray rounded p-4">
+                                        <div className="thumb" style={{ margin: 'auto 11px auto 0' }}>
                                             <img
                                                 className="me-2"
-                                                src="https://i.pravatar.cc/50"
+                                                src="https://i.pinimg.com/236x/cd/cb/0c/cdcb0cb30bc700c53f12eff840156b29.jpg"
                                                 alt=""
                                                 srcset=""
+                                                width={'70px'}
                                             />
                                         </div>
                                         <div className="desc ">
@@ -318,13 +332,13 @@ const CourseDetailsTab = ({ courseDetail }) => {
                             <div className="comment-list ">
                                 <div className="single-comment single-reviews justify-content-between d-flex">
                                     <div className="user justify-content-between d-flex shadow  mt-5 mb-2 bg-body-gray rounded p-4">
-                                        <div className="thumb">
-                                            <img
-                                                className="me-2"
-                                                src="https://i.pravatar.cc/50"
-                                                alt=""
-                                                srcset=""
-                                            />
+                                        <div className="thumb" style={{ margin: 'auto 11px auto 0' }}>                                            <img
+                                            className="me-2"
+                                            src="https://i.pinimg.com/236x/cd/cb/0c/cdcb0cb30bc700c53f12eff840156b29.jpg"
+                                            alt=""
+                                            srcset=""
+                                            width={'70px'}
+                                        />
                                         </div>
                                         <div className="desc">
                                             <h5>
@@ -347,13 +361,13 @@ const CourseDetailsTab = ({ courseDetail }) => {
                             <div className="comment-list ">
                                 <div className="single-comment single-reviews justify-content-between d-flex shadow  mt-5 mb-3 bg-body-gray rounded p-4">
                                     <div className="user justify-content-between d-flex">
-                                        <div className="thumb">
-                                            <img
-                                                className="me-2"
-                                                src="https://i.pravatar.cc/50"
-                                                alt=""
-                                                srcset=""
-                                            />
+                                        <div className="thumb" style={{ margin: 'auto 11px auto 0' }}>                                            <img
+                                            className="me-2"
+                                            src="https://i.pinimg.com/236x/cd/cb/0c/cdcb0cb30bc700c53f12eff840156b29.jpg"
+                                            alt=""
+                                            srcset=""
+                                            width={'70px'}
+                                        />
                                         </div>
                                         <div className="desc">
                                             <h5>

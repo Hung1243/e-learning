@@ -21,7 +21,7 @@ const CourseTab = ({ course, user }) => {
             );
             if (res.status === 200) {
                 navigate('/');
-                toast.success('Cancel course success');
+                toast.success('Cancel course successfully');
             } else {
                 toast.error('Error: ', res.error);
             }

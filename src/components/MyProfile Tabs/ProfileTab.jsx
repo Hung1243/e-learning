@@ -2,6 +2,11 @@ import React, { useEffect, useState } from 'react';
 import api from '../../config/axios';
 import { TOKEN } from '../../redux/token';
 import { toast } from 'react-toastify';
+import { Flex, Progress } from 'antd';
+import { Button, Popconfirm } from 'antd';
+
+
+
 const ProfileTab = ({ user }) => {
     const [isEdit, setIsEdit] = useState(false);
     const toggleEdit = () => {
@@ -24,6 +29,10 @@ const ProfileTab = ({ user }) => {
             [name]: value,
         }));
     };
+
+
+
+
 
     const handleSubmit = async () => {
         try {
@@ -87,7 +96,7 @@ const ProfileTab = ({ user }) => {
                                     </span>
                                 </h6>
                                 <hr />
-                                <h6 className="mb-2 mt-3">
+                                {/* <h6 className="mb-2 mt-3">
                                     Password:{' '}
                                     <span>
                                         <input
@@ -98,7 +107,7 @@ const ProfileTab = ({ user }) => {
                                             onChange={handleChange}
                                         />
                                     </span>
-                                </h6>
+                                </h6> */}
 
                             </div>
                             <div className="col-lg-6 col-sm-12">
@@ -183,14 +192,26 @@ const ProfileTab = ({ user }) => {
                         <button style={{ margin: 0, padding: '12px 0' }} onClick={toggleEdit}>
                             Cancel
                         </button>
+
+
                         <button style={{ margin: 0, padding: '12px 0' }} onClick={handleSubmit}>
                             Save your changes
                         </button>
+
+
                     </>
                 ) : (
-                    <button style={{ margin: 0, padding: '12px 0' }} onClick={toggleEdit}>
-                        Edit Info
-                    </button>
+                    <>
+                        <button style={{ margin: 0, padding: '12px 0' }} onClick={toggleEdit}>
+                            Edit Info
+                        </button>
+                        {/* <Button type="primary" onClick={toggleEdit}>
+                    Edit Info
+                        </Button> */}
+
+                    </>
+
+
                 )}
             </div>
 
@@ -201,56 +222,20 @@ const ProfileTab = ({ user }) => {
                             <h6 className="d-flex align-items-center mb-3">
                                 <i className="material-icons text-info mr-2 text-uppercase fw-bold">ACHIEVED SKILLS</i>
                             </h6>
-                            <small>HTML</small>
-                            <div className="progress mb-3" style={{ height: '5px' }}>
-                                <div
-                                    className="progress-bar"
-                                    role="progressbar"
-                                    style={{ width: '90%', background: '#1eb2a6' }}
-                                    aria-valuenow="90"
-                                    aria-valuemin="0"
-                                    aria-valuemax="100"></div>
-                            </div>
-                            <small>CSS</small>
-                            <div className="progress mb-3" style={{ height: '5px' }}>
-                                <div
-                                    className="progress-bar"
-                                    role="progressbar"
-                                    style={{ width: '85%', background: '#1eb2a6' }}
-                                    aria-valuenow="85"
-                                    aria-valuemin="0"
-                                    aria-valuemax="100"></div>
-                            </div>
-                            <small>JavaScript</small>
-                            <div className="progress mb-3" style={{ height: '5px' }}>
-                                <div
-                                    className="progress-bar "
-                                    role="progressbar"
-                                    style={{ width: '89%', background: '#1eb2a6' }}
-                                    aria-valuenow="89"
-                                    aria-valuemin="0"
-                                    aria-valuemax="100"></div>
-                            </div>
-                            <small>ReactJS</small>
-                            <div className="progress mb-3" style={{ height: '5px' }}>
-                                <div
-                                    className="progress-bar "
-                                    role="progressbar"
-                                    style={{ width: '55%', background: '#1eb2a6' }}
-                                    aria-valuenow="55"
-                                    aria-valuemin="0"
-                                    aria-valuemax="100"></div>
-                            </div>
-                            <small>MongoDB</small>
-                            <div className="progress mb-3" style={{ height: '5px' }}>
-                                <div
-                                    className="progress-bar "
-                                    role="progressbar"
-                                    style={{ width: '49%', background: '#1eb2a6' }}
-                                    aria-valuenow="49"
-                                    aria-valuemin="0"
-                                    aria-valuemax="100"></div>
-                            </div>
+
+                            <Flex gap="small" vertical>
+                                <small>HTML</small>
+                                <Progress percent={30} />
+                                <small>CSS</small>
+                                <Progress percent={50} status="active" />
+                                <small>JavaScript</small>
+                                <Progress percent={70} status="exception" />
+                                <small>ReactJS</small>
+                                <Progress percent={100} />
+                                <small>PHP</small>
+                                <Progress percent={50} showInfo={false} />
+                            </Flex>
+
                         </div>
                     </div>
                 </div>

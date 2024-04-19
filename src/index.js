@@ -22,6 +22,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import About from "./components/AboutUs/About.jsx";
 import CategoryCourse from "./components/allcourses/CategoryCourse.jsx";
+import Blog from "./components/BlogPost/Blog.jsx";
 
 export const history = createBrowserHistory();
 
@@ -48,7 +49,7 @@ root.render(
             </Route>
             <Route path="my-profile" element={<MyProfile />}></Route>
             <Route path="about" element={<About />}></Route>
-            {/* <Route path="journal" element={<Blog />}></Route> */}
+            <Route path="journal" element={<Blog/>}></Route>
           </Route>
         </Routes>
         <ToastContainer />
